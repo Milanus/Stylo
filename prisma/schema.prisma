@@ -1,0 +1,78 @@
+// LLM Text Editor Application - Database Schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User profiles (extends Supabase auth.users)
+model UserProfile {
+  id                String         @id @default(uuid())
+  email             String         @unique
+  subscriptionTier  String         @default("free") @map("subscription_tier")
+  usageCount        Int            @default(0) @map("usage_count")
+  usageResetDate    DateTime?      @map("usage_reset_date")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+
+  transformations   Transformation[]
+  usageLogs         UsageLog[]
+  subscription      Subscription?
+
+  @@map("user_profiles")
+}
+
+// Text transformations history
+model Transformation {
+  id                String    @id @default(uuid())
+  userId            String?   @map("user_id")
+  user              UserProfile? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  originalText      String    @map("original_text") @db.Text
+  transformedText   String?   @map("transformed_text") @db.Text
+  transformationType String   @map("transformation_type")
+  modelUsed         String    @map("model_used")
+  tokensUsed        Int?      @map("tokens_used")
+  costUsd           Decimal?  @map("cost_usd") @db.Decimal(10, 6)
+  processingTimeMs  Int?      @map("processing_time_ms")
+
+  createdAt         DateTime  @default(now()) @map("created_at")
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@map("transformations")
+}
+
+// Usage tracking for rate limiting
+model UsageLog {
+  id         BigInt      @id @default(autoincrement())
+  userId     String?     @map("user_id")
+  user       UserProfile? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress  String?     @map("ip_address")
+  endpoint   String      @db.VarChar(100)
+  createdAt  DateTime    @default(now()) @map("created_at")
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([ipAddress, createdAt(sort: Desc)])
+  @@map("usage_logs")
+}
+
+// Subscriptions (Stripe integration)
+model Subscription {
+  id                    String    @id @default(uuid())
+  userId                String    @unique @map("user_id")
+  user                  UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  stripeCustomerId      String?   @unique @map("stripe_customer_id") @db.VarChar(100)
+  stripeSubscriptionId  String?   @unique @map("stripe_subscription_id") @db.VarChar(100)
+  status                String    // 'active', 'canceled', 'past_due', 'trialing'
+  currentPeriodEnd      DateTime? @map("current_period_end")
+
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@map("subscriptions")
+}
