@@ -5,6 +5,7 @@ import { transformTextSchema, sanitizeText, detectPromptInjection } from '@/lib/
 import { checkRateLimit } from '@/lib/utils/rate-limit'
 import { prisma } from '@/lib/db/prisma'
 import { createClient } from '@/lib/auth/supabase-server'
+import { getAllTransformationTypes } from '@/lib/constants/transformations'
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
@@ -193,13 +194,6 @@ export async function POST(request: NextRequest) {
 // GET endpoint to retrieve transformation types
 export async function GET() {
   return NextResponse.json({
-    transformationTypes: [
-      { id: 'grammar', label: 'Grammar & Spelling', description: 'Fix grammatical errors and spelling mistakes' },
-      { id: 'formal', label: 'Formal Style', description: 'Convert to professional, formal writing' },
-      { id: 'informal', label: 'Informal Style', description: 'Convert to casual, conversational writing' },
-      { id: 'legal', label: 'Legal Style', description: 'Transform into formal legal writing' },
-      { id: 'summary', label: 'Summarize', description: 'Create a concise summary (30-50% of original)' },
-      { id: 'expand', label: 'Expand', description: 'Elaborate and expand the text (150-200%)' },
-    ],
+    transformationTypes: getAllTransformationTypes(),
   })
 }

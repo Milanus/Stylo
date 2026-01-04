@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import HeroSection from '@/components/landing/HeroSection'
 import FeaturesSection from '@/components/landing/FeaturesSection'
-import HowItWorksSection from '@/components/landing/HowItWorksSection'
-import PricingSection from '@/components/landing/PricingSection'
-import BenefitsSection from '@/components/landing/BenefitsSection'
 import CTASection from '@/components/landing/CTASection'
 
 export const metadata: Metadata = {
@@ -29,9 +26,6 @@ export default function Home() {
     <main className="min-h-screen">
       <HeroSection />
       <FeaturesSection />
-      <HowItWorksSection />
-      <PricingSection />
-      <BenefitsSection />
       <CTASection />
     </main>
   )

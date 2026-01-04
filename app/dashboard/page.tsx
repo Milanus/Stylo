@@ -7,15 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader2, LogOut, Copy, Check, AlertCircle, Zap } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
-
-const TRANSFORMATION_TYPES = [
-  { id: 'grammar', label: 'Grammar', icon: '✓' },
-  { id: 'formal', label: 'Formal', icon: '💼' },
-  { id: 'informal', label: 'Casual', icon: '💬' },
-  { id: 'legal', label: 'Legal', icon: '⚖' },
-  { id: 'summary', label: 'Summary', icon: '📄' },
-  { id: 'expand', label: 'Expand', icon: '📖' },
-]
+import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
 
 export default function DashboardPage() {
   const router = useRouter()
