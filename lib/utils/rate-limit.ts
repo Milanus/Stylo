@@ -39,11 +39,12 @@ export async function checkRateLimit(
     }
   } catch (error) {
     console.error('Rate limit check failed:', error)
-    // Fail open - allow the request if Redis is down
+    // Fail closed for security - deny requests if Redis is unavailable
+    // This prevents abuse when rate limiting infrastructure is down
     return {
-      success: true,
+      success: false,
       limit,
-      remaining: limit,
+      remaining: 0,
       reset: Math.floor(Date.now() / 1000) + window,
     }
   }

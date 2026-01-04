@@ -10,10 +10,19 @@ export async function POST(request: NextRequest) {
   const startTime = Date.now()
 
   try {
-    // 1. Get authenticated user (if any)
+    // 1. Get authenticated user - REQUIRED for API access
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    const userId = user?.id || null
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+
+    // Reject unauthenticated requests
+    if (!user || authError) {
+      return NextResponse.json(
+        { error: 'Authentication required. Please sign in to use this feature.' },
+        { status: 401 }
+      )
+    }
+
+    const userId = user.id
 
     // 2. Parse and validate request body
     const body = await request.json()
@@ -39,12 +48,21 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 5. Get client IP for rate limiting
-    const clientIp = request.headers.get('x-forwarded-for') ||
-                     request.headers.get('x-real-ip') ||
-                     'unknown'
+    // 5. Get client IP for rate limiting (parse x-forwarded-for correctly)
+    const getClientIp = (req: NextRequest): string => {
+      // Vercel sets x-forwarded-for with original client IP first
+      const forwarded = req.headers.get('x-forwarded-for')
+      if (forwarded) {
+        // First IP in comma-separated list is the original client
+        const ips = forwarded.split(',').map(ip => ip.trim())
+        return ips[0] || 'unknown'
+      }
+      return req.headers.get('x-real-ip') || 'unknown'
+    }
 
-    // 5. Check rate limiting (10 requests per hour for free tier)
+    const clientIp = getClientIp(request)
+
+    // 6. Check rate limiting (10 requests per hour for free tier)
     const rateLimitResult = await checkRateLimit(clientIp, 10, 3600)
 
     if (!rateLimitResult.success) {
@@ -161,9 +179,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Generic error response
+    // Generic error response - hide details in production
     return NextResponse.json(
-      { error: 'Internal server error', message: error.message },
+      {
+        error: 'Internal server error',
+        ...(process.env.NODE_ENV === 'development' && { message: error.message })
+      },
       { status: 500 }
     )
   }
