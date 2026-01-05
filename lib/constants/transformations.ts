@@ -93,12 +93,36 @@ Return ONLY the expanded text without any explanations.`,
 export type TransformationType = typeof TRANSFORMATION_TYPES[number]['id']
 
 // Helper function to get prompt by type
-export function getTransformationPrompt(type: TransformationType): string {
+export function getTransformationPrompt(type: TransformationType, targetLanguage?: string): string {
   const transformation = TRANSFORMATION_TYPES.find(t => t.id === type)
   if (!transformation) {
     throw new Error(`Unknown transformation type: ${type}`)
   }
-  return transformation.prompt
+
+  let prompt: string = transformation.prompt
+
+  // If target language is specified and not 'auto', modify the prompt
+  if (targetLanguage && targetLanguage !== 'auto') {
+    const languageNames: Record<string, string> = {
+      'cs': 'Czech',
+      'sk': 'Slovak',
+      'en': 'English',
+      'es': 'Spanish',
+    }
+
+    const langName = languageNames[targetLanguage] || targetLanguage
+
+    // Replace "Keep the same language as the input" or "Keeping the same language as the input"
+    prompt = prompt.replace(
+      /Keep(ing)? the same language as the input/g,
+      `Respond in ${langName} language`
+    )
+
+    // Add language requirement at the beginning
+    prompt = `IMPORTANT: The output must be in ${langName} language.\n\n${prompt}`
+  }
+
+  return prompt
 }
 
 // Helper function to get transformation metadata

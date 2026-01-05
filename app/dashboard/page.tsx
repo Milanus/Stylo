@@ -5,9 +5,17 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/auth/supabase-client'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Loader2, LogOut, Copy, Check, AlertCircle, Zap } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
 import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
+import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -17,6 +25,7 @@ export default function DashboardPage() {
   const [inputText, setInputText] = useState('')
   const [outputText, setOutputText] = useState('')
   const [selectedType, setSelectedType] = useState('grammar')
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('auto')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [usageRemaining, setUsageRemaining] = useState(10)
@@ -53,6 +62,7 @@ export default function DashboardPage() {
         body: JSON.stringify({
           text: inputText,
           transformationType: selectedType,
+          targetLanguage: selectedLanguage !== 'auto' ? selectedLanguage : undefined,
         }),
       })
 
@@ -152,21 +162,44 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Language Selector */}
+        <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
+              Output language:
+            </span>
+            <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+              <SelectTrigger className="w-[200px] h-8 text-xs">
+                <SelectValue placeholder="Auto" />
+              </SelectTrigger>
+              <SelectContent>
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <SelectItem key={lang.code} value={lang.code} className="text-xs">
+                    {lang.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         {/* Text Areas - Split View */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 min-h-0">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
           {/* Input */}
           <div className="flex flex-col border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800">
             <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Input</span>
               <span className="text-xs text-slate-500 dark:text-slate-500">{inputText.length} chars</span>
             </div>
-            <Textarea
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="Paste your text here..."
-              className="flex-1 border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
-              maxLength={10000}
-            />
+            <div className="flex-1" style={{ minHeight: '500px' }}>
+              <Textarea
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Paste your text here..."
+                className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
+                maxLength={10000}
+              />
+            </div>
           </div>
 
           {/* Output */}
@@ -194,12 +227,14 @@ export default function DashboardPage() {
                 </Button>
               )}
             </div>
-            <Textarea
-              value={outputText}
-              readOnly
-              placeholder="Transformed text appears here..."
-              className="flex-1 border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono bg-slate-50 dark:bg-slate-900/30"
-            />
+            <div className="flex-1" style={{ minHeight: '500px' }}>
+              <Textarea
+                value={outputText}
+                onChange={(e) => setOutputText(e.target.value)}
+                placeholder="Transformed text appears here..."
+                className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
+              />
+            </div>
           </div>
         </div>
 

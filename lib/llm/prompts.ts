@@ -3,8 +3,8 @@ import { TransformationType, getTransformationPrompt } from '@/lib/constants/tra
 
 export type { TransformationType }
 
-export function getSystemPrompt(type: TransformationType): string {
-  return getTransformationPrompt(type)
+export function getSystemPrompt(type: TransformationType, targetLanguage?: string): string {
+  return getTransformationPrompt(type, targetLanguage)
 }
 
 export function getUserPrompt(text: string): string {

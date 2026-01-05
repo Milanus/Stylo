@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { text, transformationType } = validationResult.data
+    const { text, transformationType, targetLanguage } = validationResult.data
 
     // 3. Sanitize input text
     const sanitizedText = sanitizeText(text)
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 6. Call OpenAI API
-    const systemPrompt = getSystemPrompt(transformationType)
+    const systemPrompt = getSystemPrompt(transformationType, targetLanguage)
     const userPrompt = getUserPrompt(sanitizedText)
 
     const completion = await openai.chat.completions.create({
