@@ -6,7 +6,7 @@ export const transformTextSchema = z.object({
     .string()
     .min(1, 'Text cannot be empty')
     .max(10000, 'Text is too long (max 10,000 characters)'),
-  transformationType: z.enum(['grammar', 'formal', 'informal', 'legal', 'summary', 'expand']),
+  transformationType: z.enum(['grammar', 'formal', 'informal', 'legal', 'summary', 'expand', 'funny', 'teen', 'wholesome', 'response']),
   targetLanguage: z.string().optional(),
 })
 
