@@ -211,7 +211,7 @@ export default function DashboardPage() {
               <Textarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="Paste your text here..."
+                placeholder={selectedType === 'response' ? 'Paste the message you want to reply to...' : 'Paste your text here...'}
                 className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
                 maxLength={10000}
               />
@@ -247,7 +247,7 @@ export default function DashboardPage() {
               <Textarea
                 value={outputText}
                 onChange={(e) => setOutputText(e.target.value)}
-                placeholder="Transformed text appears here..."
+                placeholder={selectedType === 'response' ? 'Generated response appears here...' : 'Transformed text appears here...'}
                 className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
               />
             </div>
