@@ -17,6 +17,7 @@ import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
 import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
+import HistoryDrawer from '@/components/HistoryDrawer'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -31,8 +32,11 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null)
   const [usageRemaining, setUsageRemaining] = useState(10)
   const [copied, setCopied] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
+
     supabase.auth.getUser().then(({ data }: { data: { user: User | null } }) => {
       setUser(data.user)
     })
@@ -45,6 +49,7 @@ export default function DashboardPage() {
 
     return () => subscription.unsubscribe()
   }, [supabase.auth])
+
 
   const handleTransform = async () => {
     if (!inputText.trim()) {
@@ -101,6 +106,12 @@ export default function DashboardPage() {
 
   const usagePercent = ((10 - usageRemaining) / 10) * 100
 
+  const handleLoadTransformation = (input: string, output: string, type: string) => {
+    setInputText(input)
+    setOutputText(output)
+    setSelectedType(type)
+  }
+
   return (
     <div className="h-screen flex flex-col bg-white dark:bg-slate-950">
       {/* Compact Header */}
@@ -116,7 +127,8 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <DeleteAccountButton />
+            <HistoryDrawer onLoadTransformation={handleLoadTransformation} />
+            {isMounted && <DeleteAccountButton />}
             <Button
               variant="ghost"
               size="sm"

@@ -1,0 +1,164 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
+import { History, FileText, Loader2 } from 'lucide-react'
+import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
+
+interface HistoryItem {
+  id: string
+  originalText: string
+  transformedText: string | null
+  transformationType: string
+  createdAt: string
+}
+
+interface HistoryDrawerProps {
+  onLoadTransformation: (inputText: string, outputText: string, type: string) => void
+}
+
+export default function HistoryDrawer({ onLoadTransformation }: HistoryDrawerProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [history, setHistory] = useState<HistoryItem[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchHistory()
+    }
+  }, [isOpen])
+
+  const fetchHistory = async () => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch('/api/history')
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || 'Failed to load history')
+        return
+      }
+
+      setHistory(data.data)
+    } catch (err) {
+      setError('Network error')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleItemClick = (item: HistoryItem) => {
+    onLoadTransformation(
+      item.originalText,
+      item.transformedText || '',
+      item.transformationType
+    )
+    setIsOpen(false)
+  }
+
+  const getTransformationLabel = (type: string) => {
+    const transformation = TRANSFORMATION_TYPES.find(t => t.id === type)
+    return transformation ? `${transformation.icon} ${transformation.label}` : type
+  }
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    const now = new Date()
+    const diffMs = now.getTime() - date.getTime()
+    const diffMins = Math.floor(diffMs / 60000)
+    const diffHours = Math.floor(diffMs / 3600000)
+    const diffDays = Math.floor(diffMs / 86400000)
+
+    if (diffMins < 1) return 'Just now'
+    if (diffMins < 60) return `${diffMins}m ago`
+    if (diffHours < 24) return `${diffHours}h ago`
+    if (diffDays < 7) return `${diffDays}d ago`
+
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+    })
+  }
+
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) return text
+    return text.substring(0, maxLength).trim() + '...'
+  }
+
+  return (
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <SheetTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="gap-1 text-xs"
+        >
+          <History className="h-3 w-3" />
+          <span className="hidden sm:inline">History</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-full sm:w-[400px] p-0">
+        <SheetHeader className="px-4 py-4 border-b border-slate-200 dark:border-slate-800">
+          <SheetTitle className="text-lg font-bold">History</SheetTitle>
+          <SheetDescription className="text-xs text-slate-500 dark:text-slate-400">
+            {history.length} transformations
+          </SheetDescription>
+        </SheetHeader>
+
+        <div className="h-[calc(100vh-100px)] overflow-y-auto">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+            </div>
+          ) : error ? (
+            <div className="py-12 text-center px-4">
+              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            </div>
+          ) : history.length === 0 ? (
+            <div className="py-12 text-center px-4">
+              <FileText className="h-12 w-12 mx-auto mb-3 text-slate-300 dark:text-slate-700" />
+              <p className="text-sm text-slate-500 dark:text-slate-400">No transformations yet</p>
+            </div>
+          ) : (
+            <div className="py-2">
+              {history.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleItemClick(item)}
+                  className="w-full text-left px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors active:bg-slate-200 dark:active:bg-slate-800"
+                >
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-sm font-medium text-slate-900 dark:text-white">
+                      {getTransformationLabel(item.transformationType)}
+                    </span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                      {formatDate(item.createdAt)}
+                    </span>
+                  </div>
+
+                  {/* Text Preview */}
+                  <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
+                    {truncateText(item.originalText, 120)}
+                  </p>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}
