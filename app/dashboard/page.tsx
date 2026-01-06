@@ -16,6 +16,7 @@ import { Loader2, LogOut, Copy, Check, AlertCircle, Zap } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
 import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
+import DeleteAccountButton from '@/components/DeleteAccountButton'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -114,15 +115,18 @@ export default function DashboardPage() {
               <span>{usageRemaining}/10</span>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleLogout}
-            className="gap-1 text-xs"
-          >
-            <LogOut className="h-3 w-3" />
-            <span className="hidden sm:inline">Logout</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <DeleteAccountButton />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+              className="gap-1 text-xs"
+            >
+              <LogOut className="h-3 w-3" />
+              <span className="hidden sm:inline">Logout</span>
+            </Button>
+          </div>
         </div>
 
         {/* Mobile usage indicator */}
