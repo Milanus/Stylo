@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import InstallPrompt from "@/components/pwa/InstallPrompt";
+import CookieConsent from "@/components/CookieConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +51,7 @@ export default function RootLayout({
       >
         {children}
         <InstallPrompt />
+        <CookieConsent />
         <script
           dangerouslySetInnerHTML={{
             __html: `

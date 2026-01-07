@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import HeroSection from '@/components/landing/HeroSection'
 import FeaturesSection from '@/components/landing/FeaturesSection'
 import CTASection from '@/components/landing/CTASection'
+import Footer from '@/components/landing/Footer'
 
 export const metadata: Metadata = {
   title: 'Stylo - AI Text Transformation | Grammar, Style, and More',
@@ -23,10 +24,13 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <HeroSection />
-      <FeaturesSection />
-      <CTASection />
+    <main className="min-h-screen flex flex-col">
+      <div className="flex-1">
+        <HeroSection />
+        <FeaturesSection />
+        <CTASection />
+      </div>
+      <Footer />
     </main>
   )
 }

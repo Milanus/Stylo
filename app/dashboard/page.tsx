@@ -204,14 +204,14 @@ export default function DashboardPage() {
         </div>
 
         {/* Text Areas - Split View */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+        <div className="flex-1 flex flex-col md:grid md:grid-cols-2 overflow-hidden">
           {/* Input */}
-          <div className="flex flex-col h-full md:border-r border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col flex-1 md:h-full md:border-r border-slate-200 dark:border-slate-800">
             <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Input</span>
               <span className="text-xs text-slate-500 dark:text-slate-500">{inputText.length} chars</span>
             </div>
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 min-h-0 overflow-auto">
               <Textarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
@@ -223,7 +223,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Output */}
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col flex-1 md:h-full border-t md:border-t-0 border-slate-200 dark:border-slate-800">
             <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Output</span>
               {outputText && (
@@ -247,7 +247,7 @@ export default function DashboardPage() {
                 </Button>
               )}
             </div>
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 min-h-0 overflow-auto">
               <Textarea
                 value={outputText}
                 onChange={(e) => setOutputText(e.target.value)}
