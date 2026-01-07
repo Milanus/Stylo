@@ -109,15 +109,15 @@ export default function HistoryDrawer({ onLoadTransformation }: HistoryDrawerPro
           <span className="hidden sm:inline">History</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-full sm:w-[400px] p-0">
-        <SheetHeader className="px-4 py-4 border-b border-slate-200 dark:border-slate-800">
-          <SheetTitle className="text-lg font-bold">History</SheetTitle>
+      <SheetContent side="left" className="w-[85vw] sm:w-[400px] p-0">
+        <SheetHeader className="px-4 py-3 border-b border-slate-200 dark:border-slate-800">
+          <SheetTitle className="text-base font-bold">History</SheetTitle>
           <SheetDescription className="text-xs text-slate-500 dark:text-slate-400">
             {history.length} transformations
           </SheetDescription>
         </SheetHeader>
 
-        <div className="h-[calc(100vh-100px)] overflow-y-auto">
+        <div className="h-[calc(100vh-80px)] overflow-y-auto">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <Loader2 className="h-5 w-5 animate-spin text-slate-400" />

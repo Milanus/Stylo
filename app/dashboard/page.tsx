@@ -159,23 +159,27 @@ export default function DashboardPage() {
       {/* Main Content - Single Screen */}
       <main className="flex-1 overflow-hidden flex flex-col">
         {/* Type Selector - Horizontal Pills */}
-        <div className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 px-3 py-2 overflow-x-auto">
-          <div className="flex gap-1.5 min-w-max">
-            {TRANSFORMATION_TYPES.map((type) => (
-              <button
-                key={type.id}
-                onClick={() => setSelectedType(type.id)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
-                  selectedType === type.id
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'
-                }`}
-              >
-                <span className="mr-1">{type.icon}</span>
-                {type.label}
-              </button>
-            ))}
+        <div className="relative border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+          <div className="overflow-x-auto px-3 py-2 scrollbar-hide">
+            <div className="flex gap-1.5 min-w-max pb-0.5">
+              {TRANSFORMATION_TYPES.map((type) => (
+                <button
+                  key={type.id}
+                  onClick={() => setSelectedType(type.id)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
+                    selectedType === type.id
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'
+                  }`}
+                >
+                  <span className="mr-1">{type.icon}</span>
+                  {type.label}
+                </button>
+              ))}
+            </div>
           </div>
+          {/* Scroll indicator gradient on mobile */}
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 dark:from-slate-900/50 to-transparent pointer-events-none md:hidden"></div>
         </div>
 
         {/* Language Selector */}
@@ -200,14 +204,14 @@ export default function DashboardPage() {
         </div>
 
         {/* Text Areas - Split View */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 overflow-hidden">
           {/* Input */}
-          <div className="flex flex-col border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800">
-            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
+          <div className="flex flex-col h-full md:border-r border-slate-200 dark:border-slate-800">
+            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Input</span>
               <span className="text-xs text-slate-500 dark:text-slate-500">{inputText.length} chars</span>
             </div>
-            <div className="flex-1" style={{ minHeight: '500px' }}>
+            <div className="flex-1 overflow-hidden">
               <Textarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
@@ -219,8 +223,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Output */}
-          <div className="flex flex-col">
-            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
+          <div className="flex flex-col h-full">
+            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Output</span>
               {outputText && (
                 <Button
@@ -243,7 +247,7 @@ export default function DashboardPage() {
                 </Button>
               )}
             </div>
-            <div className="flex-1" style={{ minHeight: '500px' }}>
+            <div className="flex-1 overflow-hidden">
               <Textarea
                 value={outputText}
                 onChange={(e) => setOutputText(e.target.value)}
