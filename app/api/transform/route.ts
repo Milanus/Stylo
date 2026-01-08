@@ -6,6 +6,8 @@ import { checkRateLimit } from '@/lib/utils/rate-limit'
 import { prisma } from '@/lib/db/prisma'
 import { createClient } from '@/lib/auth/supabase-server'
 import { getAllTransformationTypes } from '@/lib/constants/transformations'
+import { getUserRateLimit } from '@/lib/constants/rate-limits'
+import { getUserSubscriptionTier } from '@/lib/utils/user-profile'
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
@@ -73,13 +75,22 @@ export async function POST(request: NextRequest) {
 
     const clientIp = getClientIp(request)
 
-    // 7. Check rate limiting - Dual tier: 3/hour for anonymous, 10/hour for authenticated
+    // 7. Check rate limiting - Subscription-tier based: 6/hour for free, 100/hour for paid
+    // Fetch user's subscription tier if authenticated
+    let subscriptionTier: string | null = null
+    if (isAuthenticated && userId) {
+      subscriptionTier = await getUserSubscriptionTier(userId)
+    }
+
+    // Determine rate limit based on authentication and subscription
+    const { limit, window, tier } = getUserRateLimit(isAuthenticated, subscriptionTier)
+
     // Use fingerprint for anonymous to prevent simple IP rotation attacks
     const rateLimitIdentifier = isAuthenticated
       ? userId!
       : getAnonymousFingerprint(request, clientIp)
-    const rateLimitMax = isAuthenticated ? 10 : 3
-    const rateLimitWindow = 3600 // 1 hour
+    const rateLimitMax = limit
+    const rateLimitWindow = window
 
     const rateLimitResult = await checkRateLimit(rateLimitIdentifier, rateLimitMax, rateLimitWindow)
 
@@ -179,6 +190,7 @@ export async function POST(request: NextRequest) {
           resetAt: rateLimitResult.reset,
           limit: rateLimitMax,
           isAnonymous: !isAuthenticated,
+          tier,
         },
       },
     })

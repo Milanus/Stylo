@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/auth/supabase-server'
 import { Redis } from '@upstash/redis'
+import { getUserRateLimit } from '@/lib/constants/rate-limits'
+import { getUserSubscriptionTier } from '@/lib/utils/user-profile'
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -42,11 +44,20 @@ export async function GET(request: NextRequest) {
     }
 
     const clientIp = getClientIp(request)
+
+    // Fetch user's subscription tier if authenticated
+    let subscriptionTier: string | null = null
+    if (isAuthenticated && userId) {
+      subscriptionTier = await getUserSubscriptionTier(userId)
+    }
+
+    // Determine rate limit based on authentication and subscription
+    const { limit, tier } = getUserRateLimit(isAuthenticated, subscriptionTier)
+
     const rateLimitIdentifier = isAuthenticated
       ? userId!
       : getAnonymousFingerprint(request, clientIp)
-    
-    const limit = isAuthenticated ? 10 : 3
+
     const key = `rate_limit:${rateLimitIdentifier}`
 
     // Get current usage from Redis
@@ -61,6 +72,7 @@ export async function GET(request: NextRequest) {
       used: current,
       resetAt: resetTime,
       isAuthenticated,
+      tier,
     })
   } catch (error) {
     console.error('Failed to get rate limit status:', error)

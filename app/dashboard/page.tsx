@@ -32,7 +32,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [usageRemaining, setUsageRemaining] = useState(0)
-  const [usageLimit, setUsageLimit] = useState(10)
+  const [usageLimit, setUsageLimit] = useState(20)
   const [copied, setCopied] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const [showRateLimitModal, setShowRateLimitModal] = useState(false)
@@ -73,10 +73,7 @@ export default function DashboardPage() {
     const initAuth = async () => {
       const { data } = await supabase.auth.getUser()
       setUser(data.user)
-      // Set initial usage limit based on auth status
-      const limit = data.user ? 10 : 3
-      setUsageLimit(limit)
-      // Fetch actual remaining from server
+      // Let fetchRateLimitStatus set the correct limit from server
       await fetchRateLimitStatus()
     }
 
@@ -86,10 +83,7 @@ export default function DashboardPage() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event: AuthChangeEvent, session: Session | null) => {
       setUser(session?.user ?? null)
-      // Update usage limit on auth change
-      const limit = session?.user ? 10 : 3
-      setUsageLimit(limit)
-      // Fetch actual remaining from server on auth change
+      // Let fetchRateLimitStatus set the correct limit from server
       await fetchRateLimitStatus()
     })
 

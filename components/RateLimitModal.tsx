@@ -96,7 +96,7 @@ export default function RateLimitModal({
                   <ul className="space-y-1.5 text-indigo-800 dark:text-indigo-200">
                     <li className="flex items-center gap-2">
                       <span className="text-indigo-600 dark:text-indigo-400">✓</span>
-                      <strong>10 transformations/hour</strong> (instead of 3)
+                      <strong>More transformations/hour</strong>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-indigo-600 dark:text-indigo-400">✓</span>
