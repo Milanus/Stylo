@@ -1,35 +1,35 @@
 import type { Metadata } from 'next'
 import HeroSection from '@/components/landing/HeroSection'
 import FeaturesSection from '@/components/landing/FeaturesSection'
+import PricingSection from '@/components/landing/PricingSection'
 import CTASection from '@/components/landing/CTASection'
 import Footer from '@/components/landing/Footer'
 
 export const metadata: Metadata = {
-  title: 'Stylo - AI Text Transformation | Grammar, Style, and More',
-  description: 'Transform your text with AI. Grammar correction, formal/informal conversion, legal style, summarization, and text expansion. Free to start, 10 transformations per hour.',
-  keywords: ['AI text transformation', 'grammar correction', 'text style', 'AI writing assistant', 'text editor', 'OpenAI'],
+  title: 'Stylo - AI Text Transformation | Try Free or Sign Up',
+  description: 'Transform your text with AI. Try instantly with 3 transformations/hour, or sign up for 10/hour with history and multi-language support. Grammar correction, formal/informal conversion, legal style, and more.',
+  keywords: ['AI text transformation', 'grammar correction', 'text style', 'AI writing assistant', 'free trial', 'no signup'],
   openGraph: {
-    title: 'Stylo - Transform Your Text with AI',
-    description: 'Grammar correction, style adjustments, and intelligent text transformation - all powered by AI',
+    title: 'Stylo - Try AI Text Transformation Free',
+    description: 'Try instantly or sign up for enhanced features. Grammar correction, style adjustments, and intelligent text transformation.',
     images: ['/icon-512.png'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Stylo - AI Text Transformation',
-    description: 'Transform your text with AI-powered grammar correction and style adjustments',
+    description: 'Try free: 3/hr or sign up: 10/hr with history. AI-powered text transformation.',
     images: ['/icon-512.png'],
   },
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col">
-      <div className="flex-1">
-        <HeroSection />
-        <FeaturesSection />
-        <CTASection />
-      </div>
+    <main className="flex flex-col">
+      <HeroSection />
+      <FeaturesSection />
+      <PricingSection />
+      <CTASection />
       <Footer />
     </main>
   )

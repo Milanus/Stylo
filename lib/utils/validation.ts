@@ -43,10 +43,33 @@ export function sanitizeText(text: string): string {
 
 // Detect potential prompt injection attempts
 export function detectPromptInjection(text: string): boolean {
+  // Check for invisible/zero-width characters (common obfuscation)
+  const invisibleChars = /[\u200B-\u200D\uFEFF\u202A-\u202E\u2060\u180E]/g
+  if (invisibleChars.test(text)) {
+    return true
+  }
+
+  // Check for Unicode normalization attacks
+  const nfc = text.normalize('NFC')
+  const nfd = text.normalize('NFD')
+  // If they differ significantly, might be homoglyph attack
+  if (Math.abs(nfc.length - nfd.length) > nfc.length * 0.1) {
+    return true
+  }
+
+  // Check for null bytes (can break parsers)
+  if (text.includes('\x00') || text.includes('\u0000')) {
+    return true
+  }
+
   // Normalize text to catch obfuscation attempts
   const normalized = text
     .toLowerCase()
-    .replace(/[0-9]/g, (d) => ({ '0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '8': 'b' }[d] || d))
+    .replace(/[0-9]/g, (d) => ({
+      '0': 'o', '1': 'i', '2': 'z', '3': 'e',
+      '4': 'a', '5': 's', '6': 'b', '7': 't',
+      '8': 'b', '9': 'g'
+    }[d] || d))
     .replace(/[\s\-_.,!?;:'"]+/g, ' ') // Normalize whitespace and punctuation
     .trim()
 

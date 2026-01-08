@@ -21,14 +21,25 @@ export default function CTASection() {
             Start using Stylo for free today
           </p>
 
-          {/* CTA Button */}
-          <div className="flex justify-center">
+          {/* Dual CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/dashboard">
+              <Button
+                size="lg"
+                className="group bg-white text-indigo-600 hover:bg-white/90 text-lg px-12 py-8 shadow-2xl hover:shadow-white/25 transition-all w-full sm:w-auto"
+              >
+                Try for Free
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+
             <Link href="/signup">
               <Button
                 size="lg"
-                className="group bg-white text-indigo-600 hover:bg-white/90 text-lg px-12 py-8 shadow-2xl hover:shadow-white/25 transition-all"
+                variant="outline"
+                className="group bg-transparent text-white border-2 border-white hover:bg-white/10 text-lg px-12 py-8 shadow-2xl transition-all w-full sm:w-auto"
               >
-                Get Started Free
+                Sign Up (10/hr)
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -54,7 +65,7 @@ export default function CTASection() {
                   clipRule="evenodd"
                 />
               </svg>
-              <span>10 transformations per hour free</span>
+              <span>Try free: 3/hr • Sign up: 10/hr</span>
             </div>
           </div>
         </div>

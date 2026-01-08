@@ -11,19 +11,12 @@ export async function POST(request: NextRequest) {
   const startTime = Date.now()
 
   try {
-    // 1. Get authenticated user - REQUIRED for API access
+    // 1. Get authenticated user - OPTIONAL (anonymous access allowed)
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    // Reject unauthenticated requests
-    if (!user || authError) {
-      return NextResponse.json(
-        { error: 'Authentication required. Please sign in to use this feature.' },
-        { status: 401 }
-      )
-    }
-
-    const userId = user.id
+    const isAuthenticated = !!(user && !authError)
+    const userId = user?.id || null
 
     // 2. Parse and validate request body
     const body = await request.json()
@@ -51,6 +44,10 @@ export async function POST(request: NextRequest) {
 
     // 5. Get client IP for rate limiting (parse x-forwarded-for correctly)
     const getClientIp = (req: NextRequest): string => {
+      // Cloudflare/Vercel trusted header first
+      const cfConnectingIp = req.headers.get('cf-connecting-ip')
+      if (cfConnectingIp) return cfConnectingIp
+
       // Vercel sets x-forwarded-for with original client IP first
       const forwarded = req.headers.get('x-forwarded-for')
       if (forwarded) {
@@ -58,13 +55,33 @@ export async function POST(request: NextRequest) {
         const ips = forwarded.split(',').map(ip => ip.trim())
         return ips[0] || 'unknown'
       }
+
       return req.headers.get('x-real-ip') || 'unknown'
+    }
+
+    // 6. Create anonymous fingerprint (harder to spoof than just IP)
+    const getAnonymousFingerprint = (req: NextRequest, ip: string): string => {
+      const components = [
+        ip,
+        req.headers.get('user-agent') || '',
+        req.headers.get('accept-language') || '',
+        req.headers.get('accept-encoding') || '',
+      ]
+      // Simple hash - in production use crypto.createHash('sha256')
+      return `anon:${components.join(':').substring(0, 64)}`
     }
 
     const clientIp = getClientIp(request)
 
-    // 6. Check rate limiting (10 requests per hour for free tier)
-    const rateLimitResult = await checkRateLimit(clientIp, 10, 3600)
+    // 7. Check rate limiting - Dual tier: 3/hour for anonymous, 10/hour for authenticated
+    // Use fingerprint for anonymous to prevent simple IP rotation attacks
+    const rateLimitIdentifier = isAuthenticated
+      ? userId!
+      : getAnonymousFingerprint(request, clientIp)
+    const rateLimitMax = isAuthenticated ? 10 : 3
+    const rateLimitWindow = 3600 // 1 hour
+
+    const rateLimitResult = await checkRateLimit(rateLimitIdentifier, rateLimitMax, rateLimitWindow)
 
     if (!rateLimitResult.success) {
       return NextResponse.json(
@@ -73,6 +90,7 @@ export async function POST(request: NextRequest) {
           limit: rateLimitResult.limit,
           remaining: rateLimitResult.remaining,
           resetAt: rateLimitResult.reset,
+          isAnonymous: !isAuthenticated,
         },
         {
           status: 429,
@@ -129,12 +147,13 @@ export async function POST(request: NextRequest) {
         },
       })
 
-      // Save usage log
+      // Save usage log with enhanced tracking for anonymous users
       await prisma.usageLog.create({
         data: {
           userId,
           ipAddress: clientIp,
           endpoint: '/api/transform',
+          userAgent: request.headers.get('user-agent')?.substring(0, 255), // Store user agent (truncated)
         },
       })
     } catch (dbError) {
@@ -158,6 +177,8 @@ export async function POST(request: NextRequest) {
         rateLimit: {
           remaining: rateLimitResult.remaining - 1,
           resetAt: rateLimitResult.reset,
+          limit: rateLimitMax,
+          isAnonymous: !isAuthenticated,
         },
       },
     })

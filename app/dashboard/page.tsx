@@ -12,12 +12,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Loader2, LogOut, Copy, Check, AlertCircle, Zap } from 'lucide-react'
+import { Loader2, LogOut, Copy, Check, AlertCircle, Zap, UserPlus } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
 import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
 import HistoryDrawer from '@/components/HistoryDrawer'
+import RateLimitModal from '@/components/RateLimitModal'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -31,20 +32,33 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [usageRemaining, setUsageRemaining] = useState(10)
+  const [usageLimit, setUsageLimit] = useState(10)
   const [copied, setCopied] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const [showRateLimitModal, setShowRateLimitModal] = useState(false)
+  const [rateLimitResetTime, setRateLimitResetTime] = useState<number | null>(null)
+
+  // Derived state
+  const isAnonymous = !user
 
   useEffect(() => {
     setIsMounted(true)
 
     supabase.auth.getUser().then(({ data }: { data: { user: User | null } }) => {
       setUser(data.user)
+      // Set initial usage limit based on auth status
+      const limit = data.user ? 10 : 3
+      setUsageLimit(limit)
+      setUsageRemaining(limit)
     })
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
       setUser(session?.user ?? null)
+      // Update usage limit on auth change
+      const limit = session?.user ? 10 : 3
+      setUsageLimit(limit)
     })
 
     return () => subscription.unsubscribe()
@@ -76,7 +90,10 @@ export default function DashboardPage() {
 
       if (!response.ok) {
         if (response.status === 429) {
-          setError(`Rate limit reached. ${data.remaining || 0} left. Wait ${Math.ceil((data.resetTime - Date.now()) / 1000 / 60)} min.`)
+          // Rate limit exceeded - show modal
+          setRateLimitResetTime(data.resetAt)
+          setShowRateLimitModal(true)
+          setError(`Rate limit reached. ${data.remaining || 0} left.`)
         } else {
           setError(data.error || 'Failed')
         }
@@ -85,6 +102,7 @@ export default function DashboardPage() {
 
       setOutputText(data.data.transformedText)
       setUsageRemaining(data.data.rateLimit.remaining)
+      setUsageLimit(data.data.rateLimit.limit)
     } catch (err: any) {
       setError('Network error')
     } finally {
@@ -104,7 +122,11 @@ export default function DashboardPage() {
     router.refresh()
   }
 
-  const usagePercent = ((10 - usageRemaining) / 10) * 100
+  const handleSignUp = () => {
+    router.push('/signup')
+  }
+
+  const usagePercent = ((usageLimit - usageRemaining) / usageLimit) * 100
 
   const handleLoadTransformation = (input: string, output: string, type: string) => {
     setInputText(input)
@@ -118,38 +140,82 @@ export default function DashboardPage() {
       <header className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
         <div className="px-3 sm:px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+            <h1 
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              onClick={() => router.push('/')}
+            >
               Stylo
             </h1>
+            {/* Anonymous badge */}
+            {isAnonymous && (
+              <div className="hidden sm:flex items-center gap-2 px-2 py-1 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-md">
+                <span className="text-xs text-amber-700 dark:text-amber-300">Guest Mode</span>
+              </div>
+            )}
             <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <Zap className="w-3 h-3" />
-              <span>{usageRemaining}/10</span>
+              <span>{usageRemaining}/{usageLimit}</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <HistoryDrawer onLoadTransformation={handleLoadTransformation} />
-            {isMounted && <DeleteAccountButton />}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLogout}
-              className="gap-1 text-xs"
-            >
-              <LogOut className="h-3 w-3" />
-              <span className="hidden sm:inline">Logout</span>
-            </Button>
+            {/* Show history only for authenticated users */}
+            {!isAnonymous && (
+              <HistoryDrawer onLoadTransformation={handleLoadTransformation} />
+            )}
+
+            {isAnonymous ? (
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => router.push('/login')}
+                  className="gap-1 text-xs"
+                >
+                  <span>Login</span>
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleSignUp}
+                  className="gap-1 text-xs bg-indigo-600 hover:bg-indigo-700"
+                >
+                  <UserPlus className="h-3 w-3" />
+                  <span className="hidden sm:inline">Sign Up</span>
+                </Button>
+              </>
+            ) : (
+              <>
+                {isMounted && <DeleteAccountButton />}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="gap-1 text-xs"
+                >
+                  <LogOut className="h-3 w-3" />
+                  <span className="hidden sm:inline">Logout</span>
+                </Button>
+              </>
+            )}
           </div>
         </div>
 
         {/* Mobile usage indicator */}
         <div className="sm:hidden px-3 pb-2">
           <div className="flex items-center justify-between text-xs mb-1">
-            <span className="text-slate-600 dark:text-slate-400">Usage</span>
-            <span className="font-medium text-slate-900 dark:text-white">{usageRemaining}/10 left</span>
+            <span className="text-slate-600 dark:text-slate-400">
+              {isAnonymous ? 'Guest Usage' : 'Usage'}
+            </span>
+            <span className="font-medium text-slate-900 dark:text-white">
+              {usageRemaining}/{usageLimit} left
+            </span>
           </div>
           <div className="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
             <div
-              className={`h-full transition-all ${usagePercent >= 90 ? 'bg-red-500' : usagePercent >= 70 ? 'bg-yellow-500' : 'bg-indigo-600'}`}
+              className={`h-full transition-all ${
+                usagePercent >= 90 ? 'bg-red-500' :
+                usagePercent >= 70 ? 'bg-yellow-500' :
+                'bg-indigo-600'
+              }`}
               style={{ width: `${usagePercent}%` }}
             />
           </div>
@@ -182,26 +248,28 @@ export default function DashboardPage() {
           <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 dark:from-slate-900/50 to-transparent pointer-events-none md:hidden"></div>
         </div>
 
-        {/* Language Selector */}
-        <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
-              Output language:
-            </span>
-            <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-              <SelectTrigger className="w-[200px] h-8 text-xs">
-                <SelectValue placeholder="Auto" />
-              </SelectTrigger>
-              <SelectContent>
-                {SUPPORTED_LANGUAGES.map((lang) => (
-                  <SelectItem key={lang.code} value={lang.code} className="text-xs">
-                    {lang.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        {/* Language Selector - ONLY for authenticated users */}
+        {!isAnonymous && (
+          <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                Output language:
+              </span>
+              <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                <SelectTrigger className="w-[200px] h-8 text-xs">
+                  <SelectValue placeholder="Auto" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SUPPORTED_LANGUAGES.map((lang) => (
+                    <SelectItem key={lang.code} value={lang.code} className="text-xs">
+                      {lang.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Text Areas - Split View */}
         <div className="flex-1 flex flex-col md:grid md:grid-cols-2 overflow-hidden">
@@ -300,6 +368,17 @@ export default function DashboardPage() {
           </div>
         </div>
       </main>
+
+      {/* Rate Limit Modal */}
+      {showRateLimitModal && (
+        <RateLimitModal
+          isOpen={showRateLimitModal}
+          onClose={() => setShowRateLimitModal(false)}
+          resetTime={rateLimitResetTime}
+          isAnonymous={isAnonymous}
+          currentLimit={usageLimit}
+        />
+      )}
     </div>
   )
 }

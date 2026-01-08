@@ -28,7 +28,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-slate-50 dark:bg-slate-950">
       {/* Decorative background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-[10%] w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl" />
@@ -59,16 +59,46 @@ export default function HeroSection() {
               </h1>
 
               <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl">
-                AI-powered grammar correction, style adjustments, and intelligent text transformation
+                Try instantly with 3 transformations per hour, or sign up for 10/hour with history and more features
               </p>
             </div>
 
-            {/* CTA Button */}
-            <div className="flex justify-center lg:justify-start">
+            {/* Dual CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              {/* Primary CTA - Try for Free */}
+              <Link href="/dashboard">
+                <Button
+                  size="lg"
+                  className="group text-lg px-10 py-8 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 shadow-xl w-full sm:w-auto"
+                >
+                  <div className="flex flex-col items-start gap-1">
+                    <span className="flex items-center gap-2">
+                      Try for Free
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <span className="text-xs text-indigo-100 dark:text-indigo-200 font-normal">
+                      3 transformations/hour
+                    </span>
+                  </div>
+                </Button>
+              </Link>
+
+              {/* Secondary CTA - Sign Up */}
               <Link href="/signup">
-                <Button size="lg" className="group text-lg px-12 py-8 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 shadow-xl hover:shadow-2xl transition-all">
-                  Get Started Free
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="group text-lg px-10 py-8 border-2 border-indigo-600 dark:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 w-full sm:w-auto"
+                >
+                  <div className="flex flex-col items-start gap-1">
+                    <span className="flex items-center gap-2">
+                      Sign Up
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <span className="text-xs text-indigo-600 dark:text-indigo-400 font-normal">
+                      10 transformations/hour
+                    </span>
+                  </div>
                 </Button>
               </Link>
             </div>
@@ -76,12 +106,12 @@ export default function HeroSection() {
             {/* Stats */}
             <div className="flex gap-12 justify-center lg:justify-start pt-4">
               <div>
-                <div className="text-3xl font-bold text-slate-900 dark:text-white">6</div>
+                <div className="text-3xl font-bold text-slate-900 dark:text-white">10</div>
                 <div className="text-sm text-slate-600 dark:text-slate-400">Transformations</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-slate-900 dark:text-white">10/hr</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Free</div>
+                <div className="text-3xl font-bold text-slate-900 dark:text-white">3-10/hr</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Rate Limits</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">AI</div>

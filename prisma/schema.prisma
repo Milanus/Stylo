@@ -52,6 +52,7 @@ model UsageLog {
   user       UserProfile? @relation(fields: [userId], references: [id], onDelete: Cascade)
   ipAddress  String?     @map("ip_address")
   endpoint   String      @db.VarChar(100)
+  userAgent  String?     @map("user_agent") @db.VarChar(255)
   createdAt  DateTime    @default(now()) @map("created_at")
 
   @@index([userId, createdAt(sort: Desc)])
