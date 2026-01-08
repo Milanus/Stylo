@@ -31,34 +31,66 @@ export default function DashboardPage() {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('auto')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [usageRemaining, setUsageRemaining] = useState(10)
+  const [usageRemaining, setUsageRemaining] = useState(0)
   const [usageLimit, setUsageLimit] = useState(10)
   const [copied, setCopied] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const [showRateLimitModal, setShowRateLimitModal] = useState(false)
   const [rateLimitResetTime, setRateLimitResetTime] = useState<number | null>(null)
+  const [isLoadingRateLimit, setIsLoadingRateLimit] = useState(true)
 
   // Derived state
   const isAnonymous = !user
 
+  // Fetch actual rate limit status from server
+  const fetchRateLimitStatus = async () => {
+    try {
+      setIsLoadingRateLimit(true)
+      const response = await fetch('/api/rate-limit')
+      if (response.ok) {
+        const data = await response.json()
+        setUsageRemaining(data.remaining)
+        setUsageLimit(data.limit)
+        if (data.resetAt) {
+          setRateLimitResetTime(data.resetAt)
+        }
+        
+        // Show modal if user has no remaining usage
+        if (data.remaining === 0 && !showRateLimitModal) {
+          setShowRateLimitModal(true)
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch rate limit status:', error)
+    } finally {
+      setIsLoadingRateLimit(false)
+    }
+  }
+
   useEffect(() => {
     setIsMounted(true)
 
-    supabase.auth.getUser().then(({ data }: { data: { user: User | null } }) => {
+    const initAuth = async () => {
+      const { data } = await supabase.auth.getUser()
       setUser(data.user)
       // Set initial usage limit based on auth status
       const limit = data.user ? 10 : 3
       setUsageLimit(limit)
-      setUsageRemaining(limit)
-    })
+      // Fetch actual remaining from server
+      await fetchRateLimitStatus()
+    }
+
+    initAuth()
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
+    } = supabase.auth.onAuthStateChange(async (_event: AuthChangeEvent, session: Session | null) => {
       setUser(session?.user ?? null)
       // Update usage limit on auth change
       const limit = session?.user ? 10 : 3
       setUsageLimit(limit)
+      // Fetch actual remaining from server on auth change
+      await fetchRateLimitStatus()
     })
 
     return () => subscription.unsubscribe()

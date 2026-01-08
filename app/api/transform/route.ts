@@ -175,7 +175,7 @@ export async function POST(request: NextRequest) {
           model: DEFAULT_MODEL,
         },
         rateLimit: {
-          remaining: rateLimitResult.remaining - 1,
+          remaining: rateLimitResult.remaining,
           resetAt: rateLimitResult.reset,
           limit: rateLimitMax,
           isAnonymous: !isAuthenticated,

@@ -1,0 +1,72 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/lib/auth/supabase-server'
+import { Redis } from '@upstash/redis'
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
+
+export async function GET(request: NextRequest) {
+  try {
+    // Get authenticated user
+    const supabase = await createClient()
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+
+    const isAuthenticated = !!(user && !authError)
+    const userId = user?.id || null
+
+    // Get client IP for anonymous users
+    const getClientIp = (req: NextRequest): string => {
+      const cfConnectingIp = req.headers.get('cf-connecting-ip')
+      if (cfConnectingIp) return cfConnectingIp
+
+      const forwarded = req.headers.get('x-forwarded-for')
+      if (forwarded) {
+        const ips = forwarded.split(',').map(ip => ip.trim())
+        return ips[0] || 'unknown'
+      }
+
+      return req.headers.get('x-real-ip') || 'unknown'
+    }
+
+    // Create anonymous fingerprint
+    const getAnonymousFingerprint = (req: NextRequest, ip: string): string => {
+      const components = [
+        ip,
+        req.headers.get('user-agent') || '',
+        req.headers.get('accept-language') || '',
+        req.headers.get('accept-encoding') || '',
+      ]
+      return `anon:${components.join(':').substring(0, 64)}`
+    }
+
+    const clientIp = getClientIp(request)
+    const rateLimitIdentifier = isAuthenticated
+      ? userId!
+      : getAnonymousFingerprint(request, clientIp)
+    
+    const limit = isAuthenticated ? 10 : 3
+    const key = `rate_limit:${rateLimitIdentifier}`
+
+    // Get current usage from Redis
+    const currentValue = await redis.get(key)
+    const current = currentValue ? parseInt(String(currentValue), 10) : 0
+    const ttl = await redis.ttl(key)
+    const resetTime = ttl > 0 ? Math.floor(Date.now() / 1000) + ttl : null
+
+    return NextResponse.json({
+      limit,
+      remaining: Math.max(0, limit - current),
+      used: current,
+      resetAt: resetTime,
+      isAuthenticated,
+    })
+  } catch (error) {
+    console.error('Failed to get rate limit status:', error)
+    return NextResponse.json(
+      { error: 'Failed to get rate limit status' },
+      { status: 500 }
+    )
+  }
+}
