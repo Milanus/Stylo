@@ -58,7 +58,7 @@ A modern web application for transforming text using LLM (Large Language Models)
    - Redis rate limiting is active
 
 3. **Setup Database Trigger (Important!):**
-   - Go to [Supabase SQL Editor](https://supabase.com/dashboard/project/ebblnqirzhmyncpkscux/sql)
+   - Go to your Supabase SQL Editor (Dashboard → SQL Editor)
    - Run SQL from `prisma/migrations/create_user_profile_trigger.sql`
    - This auto-creates user profiles on signup
 

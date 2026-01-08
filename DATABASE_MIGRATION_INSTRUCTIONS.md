@@ -41,11 +41,11 @@ WHERE table_name = 'usage_logs' AND column_name = 'user_agent';
 ### Možnosť 2: Prisma db push (Terminal)
 
 ```bash
-cd /Users/milanschon/Desktop/helper_projekt/text-editor-app
+cd /path/to/your/project
 
 # Použiť direct connection namiesto pooled connection
 # Nahraď port 6543 (pooler) za 5432 (direct)
-DATABASE_URL="postgresql://postgres.ebblnqirzhmyncpkscux:cogwe0-jurpec-zaxxEf@aws-1-eu-west-1.pooler.supabase.com:5432/postgres" npx prisma db push
+DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[PASSWORD]@[HOST]:5432/postgres" npx prisma db push
 ```
 
 **Poznámka:** Direct connection používa port `5432` namiesto pooled `6543`
@@ -56,7 +56,7 @@ DATABASE_URL="postgresql://postgres.ebblnqirzhmyncpkscux:cogwe0-jurpec-zaxxEf@aw
 
 ```bash
 # Pripojiť sa k databáze
-psql "postgresql://postgres.ebblnqirzhmyncpkscux:cogwe0-jurpec-zaxxEf@aws-1-eu-west-1.pooler.supabase.com:5432/postgres"
+psql "postgresql://postgres.[PROJECT-REF]:[PASSWORD]@[HOST]:5432/postgres"
 
 # Spustiť SQL príkazy
 \i prisma/migrations/add_user_agent_to_usage_logs.sql
@@ -80,7 +80,7 @@ brew install supabase/tap/supabase
 supabase login
 
 # Link projekt
-supabase link --project-ref ebblnqirzhmyncpkscux
+supabase link --project-ref YOUR_PROJECT_REF
 
 # Spustiť migráciu
 supabase db execute --file prisma/migrations/add_user_agent_to_usage_logs.sql
