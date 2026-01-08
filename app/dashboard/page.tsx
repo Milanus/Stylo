@@ -71,6 +71,13 @@ export default function DashboardPage() {
       return
     }
 
+    // Check rate limit BEFORE making API call
+    if (usageRemaining <= 0) {
+      setShowRateLimitModal(true)
+      setError('Rate limit reached. Please wait for reset.')
+      return
+    }
+
     setIsLoading(true)
     setError(null)
     setOutputText('')

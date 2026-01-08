@@ -28,7 +28,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <section className="relative min-h-screen py-16 sm:py-0 flex items-center overflow-hidden bg-slate-50 dark:bg-slate-950">
       {/* Decorative background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-[10%] w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl" />
@@ -36,7 +36,7 @@ export default function HeroSection() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Column - Content */}
           <div className="space-y-8 text-center lg:text-left">
             {/* Badge */}
@@ -49,7 +49,7 @@ export default function HeroSection() {
 
             {/* Main Heading */}
             <div className="space-y-6">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="block text-slate-900 dark:text-white">
                   Transform
                 </span>
@@ -64,17 +64,17 @@ export default function HeroSection() {
             </div>
 
             {/* Dual CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
               {/* Primary CTA - Try for Free */}
               <Link href="/dashboard">
                 <Button
                   size="lg"
-                  className="group text-lg px-10 py-8 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 shadow-xl w-full sm:w-auto"
+                  className="group text-base sm:text-lg px-6 sm:px-10 py-6 sm:py-8 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 shadow-xl w-full sm:w-auto"
                 >
                   <div className="flex flex-col items-start gap-1">
                     <span className="flex items-center gap-2">
                       Try for Free
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <span className="text-xs text-indigo-100 dark:text-indigo-200 font-normal">
                       3 transformations/hour
@@ -88,12 +88,12 @@ export default function HeroSection() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="group text-lg px-10 py-8 border-2 border-indigo-600 dark:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 w-full sm:w-auto"
+                  className="group text-base sm:text-lg px-6 sm:px-10 py-6 sm:py-8 border-2 border-indigo-600 dark:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 w-full sm:w-auto"
                 >
                   <div className="flex flex-col items-start gap-1">
                     <span className="flex items-center gap-2">
                       Sign Up
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <span className="text-xs text-indigo-600 dark:text-indigo-400 font-normal">
                       10 transformations/hour
@@ -104,7 +104,7 @@ export default function HeroSection() {
             </div>
 
             {/* Stats */}
-            <div className="flex gap-12 justify-center lg:justify-start pt-4">
+            <div className="hidden sm:flex gap-8 lg:gap-12 justify-center lg:justify-start pt-4">
               <div>
                 <div className="text-3xl font-bold text-slate-900 dark:text-white">10</div>
                 <div className="text-sm text-slate-600 dark:text-slate-400">Transformations</div>

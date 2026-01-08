@@ -73,7 +73,7 @@ export default function RateLimitModal({
 
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent className="sm:max-w-[425px]">
+      <AlertDialogContent className="max-w-[calc(100vw-2rem)] sm:max-w-[425px] mx-4 overflow-hidden">
         <AlertDialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-full">
