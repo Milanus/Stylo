@@ -111,9 +111,14 @@ export default function SignupPage() {
         <div className="bg-white dark:bg-slate-900 rounded-lg shadow-lg border p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+            <Link href="/" className="inline-block mb-4">
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                Stylo
+              </h1>
+            </Link>
+            <h2 className="text-2xl font-semibold text-slate-900 dark:text-white mb-2">
               Create Account
-            </h1>
+            </h2>
             <p className="text-slate-600 dark:text-slate-400">
               Get started with your free account
             </p>

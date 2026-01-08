@@ -200,7 +200,7 @@ ALTER TABLE usage_logs DROP COLUMN IF EXISTS user_agent;
 **Riešenie:** Používaš pooled connection. Použi direct connection (port 5432):
 
 ```bash
-DATABASE_URL="postgresql://postgres.ebblnqirzhmyncpkscux:cogwe0-jurpec-zaxxEf@aws-1-eu-west-1.pooler.supabase.com:5432/postgres" npx prisma db push
+
 ```
 
 ### Problém: "permission denied"
