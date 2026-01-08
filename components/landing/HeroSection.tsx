@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { ANONYMOUS_LIMIT, FREE_LIMIT } from '@/lib/constants/rate-limits'
 
 const transformExamples = [
   { before: 'hey can u help me with this', after: 'Hello, could you please assist me with this matter?' },
@@ -59,7 +60,7 @@ export default function HeroSection() {
               </h1>
 
               <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl">
-                Try instantly with 3 transformations per hour, or sign up for 10/hour with history and more features
+                Try instantly with {ANONYMOUS_LIMIT} transformations per hour, or sign up for {FREE_LIMIT}/hour with history and more features
               </p>
             </div>
 
@@ -77,7 +78,7 @@ export default function HeroSection() {
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <span className="text-xs text-indigo-100 dark:text-indigo-200 font-normal">
-                      3 transformations/hour
+                      {ANONYMOUS_LIMIT} transformations/hour
                     </span>
                   </div>
                 </Button>
@@ -96,7 +97,7 @@ export default function HeroSection() {
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <span className="text-xs text-indigo-600 dark:text-indigo-400 font-normal">
-                      10 transformations/hour
+                      {FREE_LIMIT} transformations/hour
                     </span>
                   </div>
                 </Button>
@@ -110,7 +111,7 @@ export default function HeroSection() {
                 <div className="text-sm text-slate-600 dark:text-slate-400">Transformations</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-slate-900 dark:text-white">3-10/hr</div>
+                <div className="text-3xl font-bold text-slate-900 dark:text-white">{ANONYMOUS_LIMIT}-{FREE_LIMIT}/hr</div>
                 <div className="text-sm text-slate-600 dark:text-slate-400">Rate Limits</div>
               </div>
               <div>

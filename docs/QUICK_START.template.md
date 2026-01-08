@@ -169,7 +169,7 @@ RATE_LIMIT_PREMIUM_TIER=100
 - [ ] Output displays correctly
 - [ ] Metadata shows (tokens, cost, time)
 - [ ] Usage counter updates
-- [ ] Rate limiting works (10 requests/hour)
+- [ ] Rate limiting works (6 requests/hour anonymous, 20 requests/hour registered)
 - [ ] Copy button works
 - [ ] Clear button resets form
 

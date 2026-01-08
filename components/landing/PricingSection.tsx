@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Check, X, ArrowRight, Zap, Clock, History, Languages, Save } from 'lucide-react'
-import { RATE_LIMIT_TIERS } from '@/lib/constants/rate-limits'
+import { ANONYMOUS_LIMIT, FREE_LIMIT, PAID_LIMIT } from '@/lib/constants/rate-limits'
 
 const tiers = [
   {
@@ -17,7 +17,7 @@ const tiers = [
     ctaVariant: 'outline' as const,
     recommended: false,
     features: [
-      { icon: Zap, text: `${RATE_LIMIT_TIERS.ANONYMOUS.limit} transformations/hour`, included: true },
+      { icon: Zap, text: `${ANONYMOUS_LIMIT} transformations/hour`, included: true },
       { icon: Clock, text: 'No history saved', included: false },
       { icon: Languages, text: 'English only', included: false },
       { icon: Save, text: 'Cannot save work', included: false },
@@ -32,7 +32,7 @@ const tiers = [
     ctaVariant: 'default' as const,
     recommended: true,
     features: [
-      { icon: Zap, text: `${RATE_LIMIT_TIERS.FREE.limit} transformations/hour`, included: true },
+      { icon: Zap, text: `${FREE_LIMIT} transformations/hour`, included: true },
       { icon: History, text: 'Full transformation history', included: true },
       { icon: Languages, text: 'Multi-language output', included: true },
       { icon: Save, text: 'Save your work', included: true },

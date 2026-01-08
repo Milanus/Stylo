@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 
     const clientIp = getClientIp(request)
 
-    // 7. Check rate limiting - Subscription-tier based: 6/hour for free, 100/hour for paid
+    // 7. Check rate limiting - Subscription-tier based: 6/hour anonymous, 20/hour free, 100/hour paid
     // Fetch user's subscription tier if authenticated
     let subscriptionTier: string | null = null
     if (isAuthenticated && userId) {

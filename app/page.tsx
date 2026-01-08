@@ -7,7 +7,7 @@ import Footer from '@/components/landing/Footer'
 
 export const metadata: Metadata = {
   title: 'Stylo - AI Text Transformation | Try Free or Sign Up',
-  description: 'Transform your text with AI. Try instantly with 3 transformations/hour, or sign up for 10/hour with history and multi-language support. Grammar correction, formal/informal conversion, legal style, and more.',
+  description: 'Transform your text with AI. Try instantly with 6 transformations/hour, or sign up for 20/hour with history and multi-language support. Grammar correction, formal/informal conversion, legal style, and more.',
   keywords: ['AI text transformation', 'grammar correction', 'text style', 'AI writing assistant', 'free trial', 'no signup'],
   openGraph: {
     title: 'Stylo - Try AI Text Transformation Free',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Stylo - AI Text Transformation',
-    description: 'Try free: 3/hr or sign up: 10/hr with history. AI-powered text transformation.',
+    description: 'Try free: 6/hr or sign up: 20/hr with history. AI-powered text transformation.',
     images: ['/icon-512.png'],
   },
 }
