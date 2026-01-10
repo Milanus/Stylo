@@ -42,7 +42,9 @@ export default function HistoryDrawer({ onLoadTransformation }: HistoryDrawerPro
     setError(null)
 
     try {
-      const response = await fetch('/api/history')
+      const response = await fetch('/api/history', {
+        headers: { 'X-API-Key': process.env.NEXT_PUBLIC_STYLO_API_KEY || '' }
+      })
       const data = await response.json()
 
       if (!response.ok) {

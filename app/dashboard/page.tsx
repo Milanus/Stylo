@@ -46,7 +46,9 @@ export default function DashboardPage() {
   const fetchRateLimitStatus = async () => {
     try {
       setIsLoadingRateLimit(true)
-      const response = await fetch('/api/rate-limit')
+      const response = await fetch('/api/rate-limit', {
+        headers: { 'X-API-Key': process.env.NEXT_PUBLIC_STYLO_API_KEY || '' }
+      })
       if (response.ok) {
         const data = await response.json()
         setUsageRemaining(data.remaining)
@@ -111,7 +113,10 @@ export default function DashboardPage() {
     try {
       const response = await fetch('/api/transform', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': process.env.NEXT_PUBLIC_STYLO_API_KEY || ''
+        },
         body: JSON.stringify({
           text: inputText,
           transformationType: selectedType,

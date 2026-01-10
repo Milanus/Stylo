@@ -28,6 +28,7 @@ export default function DeleteAccountButton() {
     try {
       const response = await fetch('/api/user/delete', {
         method: 'DELETE',
+        headers: { 'X-API-Key': process.env.NEXT_PUBLIC_STYLO_API_KEY || '' }
       })
 
       const data = await response.json()

@@ -3,6 +3,14 @@ import { createClient } from '@/lib/auth/supabase-server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import { prisma } from '@/lib/db/prisma'
 
+// API Key validation
+const API_KEY = process.env.STYLO_API_KEY
+
+function validateApiKey(request: NextRequest): boolean {
+  const apiKey = request.headers.get('x-api-key')
+  return apiKey === API_KEY && API_KEY !== undefined && API_KEY !== ''
+}
+
 /**
  * DELETE /api/user/delete
  * Deletes the authenticated user's account and all associated data
@@ -20,6 +28,14 @@ import { prisma } from '@/lib/db/prisma'
  */
 export async function DELETE(request: NextRequest) {
   try {
+    // 0. Validate API Key
+    if (!validateApiKey(request)) {
+      return NextResponse.json(
+        { error: 'Invalid or missing API key' },
+        { status: 401 }
+      )
+    }
+
     // 1. Get authenticated user
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()

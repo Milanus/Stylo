@@ -2,22 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/auth/supabase-server'
 import { prisma } from '@/lib/db/prisma'
 
-// API Key validation - required for external clients (Android), optional for same-origin (web)
+// API Key validation
 const API_KEY = process.env.STYLO_API_KEY
 
 function validateApiKey(request: NextRequest): boolean {
-  // Check if request is from same origin (web app) - skip API key check
-  const origin = request.headers.get('origin')
-  const referer = request.headers.get('referer')
-  const host = request.headers.get('host')
-
-  // If request comes from same origin (no origin header or matching host), allow it
-  const isSameOrigin = !origin || (host && (origin.includes(host) || referer?.includes(host)))
-  if (isSameOrigin) {
-    return true
-  }
-
-  // For external clients (Android app), require API key
   const apiKey = request.headers.get('x-api-key')
   return apiKey === API_KEY && API_KEY !== undefined && API_KEY !== ''
 }
