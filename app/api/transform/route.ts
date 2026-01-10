@@ -9,10 +9,26 @@ import { getAllTransformationTypes } from '@/lib/constants/transformations'
 import { getUserRateLimit } from '@/lib/constants/rate-limits'
 import { getUserSubscriptionTier } from '@/lib/utils/user-profile'
 
+// API Key validation
+const API_KEY = process.env.STYLO_API_KEY
+
+function validateApiKey(request: NextRequest): boolean {
+  const apiKey = request.headers.get('x-api-key')
+  return apiKey === API_KEY && API_KEY !== undefined && API_KEY !== ''
+}
+
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
 
   try {
+    // 0. Validate API Key
+    if (!validateApiKey(request)) {
+      return NextResponse.json(
+        { error: 'Invalid or missing API key' },
+        { status: 401 }
+      )
+    }
+
     // 1. Get authenticated user - OPTIONAL (anonymous access allowed)
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()

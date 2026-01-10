@@ -9,8 +9,24 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN!,
 })
 
+// API Key validation
+const API_KEY = process.env.STYLO_API_KEY
+
+function validateApiKey(request: NextRequest): boolean {
+  const apiKey = request.headers.get('x-api-key')
+  return apiKey === API_KEY && API_KEY !== undefined && API_KEY !== ''
+}
+
 export async function GET(request: NextRequest) {
   try {
+    // Validate API Key
+    if (!validateApiKey(request)) {
+      return NextResponse.json(
+        { error: 'Invalid or missing API key' },
+        { status: 401 }
+      )
+    }
+
     // Get authenticated user
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
