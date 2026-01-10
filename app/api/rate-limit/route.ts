@@ -27,9 +27,29 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get authenticated user
-    const supabase = await createClient()
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    // Get authenticated user - check both Authorization header (mobile) and cookies (web)
+    const authHeader = request.headers.get('authorization')
+    let user = null
+    let authError = null
+
+    if (authHeader?.startsWith('Bearer ')) {
+      // Mobile app with Authorization header
+      const token = authHeader.substring(7)
+      const { createClient: createServiceClient } = await import('@supabase/supabase-js')
+      const supabaseAdmin = createServiceClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      )
+      const result = await supabaseAdmin.auth.getUser(token)
+      user = result.data.user
+      authError = result.error
+    } else {
+      // Web app with cookies
+      const supabase = await createClient()
+      const result = await supabase.auth.getUser()
+      user = result.data.user
+      authError = result.error
+    }
 
     const isAuthenticated = !!(user && !authError)
     const userId = user?.id || null

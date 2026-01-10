@@ -36,9 +36,28 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // 1. Get authenticated user
-    const supabase = await createClient()
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    // 1. Get authenticated user - check both Authorization header (mobile) and cookies (web)
+    const authHeader = request.headers.get('authorization')
+    let user = null
+    let authError = null
+
+    if (authHeader?.startsWith('Bearer ')) {
+      // Mobile app with Authorization header
+      const token = authHeader.substring(7)
+      const supabaseAdmin = createServiceClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      )
+      const result = await supabaseAdmin.auth.getUser(token)
+      user = result.data.user
+      authError = result.error
+    } else {
+      // Web app with cookies
+      const supabase = await createClient()
+      const result = await supabase.auth.getUser()
+      user = result.data.user
+      authError = result.error
+    }
 
     if (!user || authError) {
       return NextResponse.json(
@@ -90,9 +109,7 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // 4. Sign out the user
-    await supabase.auth.signOut()
-
+    // 4. Return success (user is already deleted from auth)
     return NextResponse.json({
       success: true,
       message: 'Account deleted successfully',
