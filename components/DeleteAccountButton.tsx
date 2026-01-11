@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import {
   AlertDialog,
@@ -15,11 +15,14 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Loader2, Trash2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function DeleteAccountButton() {
   const router = useRouter()
   const [isDeleting, setIsDeleting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const t = useTranslations('deleteAccount')
+  const tCommon = useTranslations('common')
 
   const handleDelete = async () => {
     setIsDeleting(true)
@@ -53,14 +56,14 @@ export default function DeleteAccountButton() {
       <AlertDialogTrigger asChild>
         <Button variant="destructive" size="sm" className="gap-2">
           <Trash2 className="h-4 w-4" />
-          Delete Account
+          {t('button')}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Account</AlertDialogTitle>
+          <AlertDialogTitle>{t('title')}</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently delete your account including: your profile, all transformations, usage logs, and subscription. This action cannot be undone.
+            {t('description')}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -71,7 +74,7 @@ export default function DeleteAccountButton() {
         )}
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isDeleting}>{tCommon('cancel')}</AlertDialogCancel>
           <AlertDialogAction
             onClick={(e) => {
               e.preventDefault()
@@ -83,10 +86,10 @@ export default function DeleteAccountButton() {
             {isDeleting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Deleting...
+                {t('deleting')}
               </>
             ) : (
-              'Delete Account'
+              t('button')
             )}
           </AlertDialogAction>
         </AlertDialogFooter>

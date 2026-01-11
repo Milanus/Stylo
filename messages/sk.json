@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "title": "Stylo - AI Transformácia Textu",
+    "description": "Transformujte svoj text pomocou AI - oprava gramatiky, úprava štýlu a ďalšie"
+  },
+  "common": {
+    "stylo": "Stylo",
+    "loading": "Načítava sa...",
+    "error": "Chyba",
+    "success": "Úspech",
+    "cancel": "Zrušiť",
+    "save": "Uložiť",
+    "delete": "Zmazať",
+    "back": "Späť",
+    "next": "Ďalej",
+    "copy": "Kopírovať",
+    "copied": "Skopírované",
+    "clear": "Vymazať",
+    "ok": "OK",
+    "wait": "Počkať",
+    "login": "Prihlásiť",
+    "logout": "Odhlásiť",
+    "signUp": "Registrácia",
+    "signIn": "Prihlásenie"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Transformácia Textu Poháňaná AI",
+      "title1": "Transformujte",
+      "title2": "Svoj Text",
+      "description": "Vyskúšajte ihneď s {anonymousLimit} transformáciami za hodinu, alebo sa zaregistrujte pre {freeLimit}/hod s históriou a ďalšími funkciami",
+      "tryForFree": "Vyskúšať Zadarmo",
+      "transformationsPerHour": "{count} transformácií/hodinu",
+      "liveDemo": "Živá Ukážka",
+      "before": "Pred",
+      "after": "Po"
+    },
+    "stats": {
+      "transformations": "Transformácií",
+      "rateLimits": "Limity",
+      "powered": "Poháňané"
+    },
+    "features": {
+      "title": "Šesť Výkonných",
+      "titleHighlight": "Transformácií",
+      "subtitle": "Vyberte transformáciu, ktorá vyhovuje vašim potrebám"
+    },
+    "pricing": {
+      "title": "Vyberte Si",
+      "titleHighlight": "Svoj Tarif",
+      "subtitle": "Začnite ihneď alebo si vytvorte bezplatný účet pre rozšírené funkcie",
+      "freeTrial": {
+        "name": "Skúšobná Verzia",
+        "description": "Vyskúšajte bez registrácie",
+        "priceLabel": "Bez účtu",
+        "ctaText": "Vyskúšať"
+      },
+      "registered": {
+        "name": "Registrovaný",
+        "description": "Zaregistrujte sa pre viac funkcií",
+        "priceLabel": "Navždy Zadarmo",
+        "ctaText": "Registrovať Zadarmo"
+      },
+      "features": {
+        "transformationsPerHour": "{count} transformácií/hodinu",
+        "noHistory": "Bez uloženej histórie",
+        "fullHistory": "Kompletná história transformácií",
+        "englishOnly": "Iba angličtina",
+        "multiLanguage": "Viacjazyčný výstup",
+        "cannotSave": "Nemožno ukladať prácu",
+        "saveWork": "Ukladajte svoju prácu"
+      },
+      "recommended": "Odporúčané",
+      "footer": "Bez platobnej karty | GDPR kompatibilné | Upgrade kedykoľvek"
+    },
+    "cta": {
+      "title1": "Pripravení Transformovať",
+      "title2": "Svoj Text?",
+      "subtitle": "Začnite používať Stylo zadarmo ešte dnes",
+      "signUpRate": "Registrácia ({rate}/hod)",
+      "trustNoCreditCard": "Bez platobnej karty",
+      "trustRateLimits": "Zadarmo: {anonymous}/hod | S registráciou: {free}/hod"
+    }
+  },
+  "footer": {
+    "description": "Transformácia textu poháňaná AI. Transformujte svoje písanie s opravou gramatiky, úpravou štýlu a inteligentným spracovaním textu.",
+    "legal": "Právne informácie",
+    "privacyPolicy": "Zásady ochrany súkromia",
+    "cookiePolicy": "Zásady cookies",
+    "termsOfService": "Podmienky služby",
+    "product": "Produkt",
+    "dashboard": "Prehľad",
+    "copyright": "© {year} Stylo. Všetky práva vyhradené.",
+    "madeWith": "Vytvorené s láskou pre lepšie písanie",
+    "gdprCompliant": "GDPR kompatibilné"
+  },
+  "auth": {
+    "login": {
+      "title": "Vitajte Späť",
+      "subtitle": "Prihláste sa do svojho účtu a pokračujte",
+      "email": "E-mail",
+      "emailPlaceholder": "vas@email.sk",
+      "password": "Heslo",
+      "passwordPlaceholder": "Zadajte svoje heslo",
+      "signingIn": "Prihlasovanie...",
+      "orContinueWith": "Alebo pokračujte s",
+      "signInWithGoogle": "Prihlásiť sa cez Google",
+      "noAccount": "Nemáte účet?",
+      "failedToLogin": "Prihlásenie zlyhalo",
+      "failedGoogleLogin": "Prihlásenie cez Google zlyhalo"
+    },
+    "signup": {
+      "title": "Vytvoriť Účet",
+      "subtitle": "Začnite so svojím bezplatným účtom",
+      "email": "E-mail",
+      "emailPlaceholder": "vas@email.sk",
+      "password": "Heslo",
+      "passwordPlaceholder": "Min. 8 znakov",
+      "confirmPassword": "Potvrdiť Heslo",
+      "confirmPasswordPlaceholder": "Zadajte heslo znovu",
+      "createAccount": "Vytvoriť Účet",
+      "creatingAccount": "Vytváranie účtu...",
+      "orContinueWith": "Alebo pokračujte s",
+      "signUpWithGoogle": "Registrovať sa cez Google",
+      "hasAccount": "Už máte účet?",
+      "checkEmail": "Skontrolujte svoj e-mail",
+      "emailSent": "Poslali sme vám potvrdzovací odkaz na {email}. Kliknite na odkaz pre overenie účtu.",
+      "backToLogin": "Späť na prihlásenie",
+      "failedToCreate": "Vytvorenie účtu zlyhalo",
+      "failedGoogleSignup": "Registrácia cez Google zlyhala",
+      "errors": {
+        "passwordLength": "Heslo musí mať aspoň 8 znakov",
+        "passwordMismatch": "Heslá sa nezhodujú"
+      }
+    }
+  },
+  "dashboard": {
+    "guestMode": "Režim Hosť",
+    "guestUsage": "Využitie Hosťa",
+    "usage": "Využitie",
+    "usageLeft": "{remaining}/{limit} zostáva",
+    "input": "Vstup",
+    "output": "Výstup",
+    "outputLanguage": "Výstupný jazyk:",
+    "chars": "znakov",
+    "transform": "Transformovať",
+    "transforming": "Transformujem...",
+    "placeholders": {
+      "input": "Vložte svoj text sem...",
+      "inputResponse": "Vložte správu, na ktorú chcete odpovedať...",
+      "output": "Transformovaný text sa objaví tu...",
+      "outputResponse": "Vygenerovaná odpoveď sa objaví tu..."
+    },
+    "errors": {
+      "enterText": "Zadajte text na transformáciu",
+      "rateLimitReached": "Dosiahnutý limit. Počkajte na reset.",
+      "networkError": "Chyba siete",
+      "failed": "Zlyhalo"
+    }
+  },
+  "transformations": {
+    "grammar": {
+      "label": "Gramatika",
+      "description": "Opraviť gramatické chyby a preklepy"
+    },
+    "formal": {
+      "label": "Formálny",
+      "description": "Previesť na profesionálny, formálny štýl"
+    },
+    "informal": {
+      "label": "Neformálny",
+      "description": "Previesť na neformálny, konverzačný štýl"
+    },
+    "legal": {
+      "label": "Právny",
+      "description": "Transformovať do formálneho právneho jazyka"
+    },
+    "summary": {
+      "label": "Zhrnutie",
+      "description": "Vytvoriť stručné zhrnutie (30-50% originálu)"
+    },
+    "expand": {
+      "label": "Rozšíriť",
+      "description": "Rozvinúť a rozšíriť text (150-200%)"
+    },
+    "funny": {
+      "label": "Vtipné",
+      "description": "Pridať humor a pobaviť"
+    },
+    "teen": {
+      "label": "Teenagerský Slang",
+      "description": "Transformovať do teenagerského/Gen-Z slangu"
+    },
+    "wholesome": {
+      "label": "Srdečné",
+      "description": "Transformovať do vrelého, srdečného štýlu"
+    },
+    "response": {
+      "label": "Odpoveď",
+      "description": "Vygenerovať kontextovú odpoveď na správu"
+    }
+  },
+  "rateLimitModal": {
+    "guestTitle": "Limit Hosťa Dosiahnutý",
+    "registeredTitle": "Limit Dosiahnutý",
+    "guestUsedAll": "Vyčerpali ste všetkých {limit} bezplatných transformácií ako hosť.",
+    "registeredUsedAll": "Vyčerpali ste všetkých {limit} transformácií pre túto hodinu.",
+    "signUpBenefits": "Zaregistrujte sa a získajte:",
+    "moreTransformations": "Viac transformácií/hodinu",
+    "transformationHistory": "História transformácií",
+    "multiLanguageOutput": "Viacjazyčný výstup",
+    "saveYourWork": "Ukladajte svoju prácu",
+    "orWait": "Alebo počkajte {time} na reset limitu",
+    "resetIn": "Váš limit sa resetuje za {time}",
+    "signUpFree": "Registrovať Zadarmo"
+  },
+  "historyDrawer": {
+    "title": "História",
+    "transformationsCount": "{count} transformácií",
+    "noTransformations": "Zatiaľ žiadne transformácie",
+    "failedToLoad": "Nepodarilo sa načítať históriu",
+    "timeAgo": {
+      "justNow": "Práve teraz",
+      "minutes": "pred {count}m",
+      "hours": "pred {count}h",
+      "days": "pred {count}d"
+    }
+  },
+  "deleteAccount": {
+    "title": "Zmazať Účet",
+    "button": "Zmazať Účet",
+    "description": "Toto trvalo zmaže váš účet vrátane: profilu, všetkých transformácií, záznamov využitia a predplatného. Túto akciu nemožno vrátiť.",
+    "deleting": "Mazanie..."
+  },
+  "cookieConsent": {
+    "title": "Vážime si vášho súkromia",
+    "description": "Používame cookies na zlepšenie vášho zážitku, analýzu využitia webu a zapamätanie vašich preferencií. Kliknutím na \"Prijať všetko\" súhlasíte s používaním cookies.",
+    "learnMore": "Viac informácií",
+    "customize": "Prispôsobiť",
+    "rejectAll": "Odmietnuť všetko",
+    "acceptAll": "Prijať všetko",
+    "preferences": {
+      "title": "Nastavenia Cookies",
+      "necessary": {
+        "title": "Nevyhnutne Nutné",
+        "alwaysActive": "Vždy Aktívne",
+        "description": "Tieto cookies sú nevyhnutné pre fungovanie webu. Umožňujú základné funkcie ako autentizáciu a bezpečný prístup. Nemožno ich deaktivovať."
+      },
+      "functional": {
+        "title": "Funkčné Cookies",
+        "description": "Tieto cookies umožňujú rozšírenú funkcionalitu ako zapamätanie vašich preferencií (jazyk, téma) a poskytovanie personalizovaných funkcií."
+      },
+      "analytics": {
+        "title": "Analytické Cookies",
+        "description": "Tieto cookies nám pomáhajú porozumieť, ako návštevníci interagujú s naším webom, zberom anonymných informácií. To nám pomáha zlepšovať naše služby."
+      }
+    },
+    "savePreferences": "Uložiť Nastavenia",
+    "changeAnytime": "Svoje preferencie môžete kedykoľvek zmeniť. Pozrite si naše",
+    "cookiePolicy": "Zásady Cookies",
+    "forDetails": "pre viac informácií."
+  },
+  "languages": {
+    "auto": "Auto (detekcia zo vstupu)",
+    "cs": "Čeština",
+    "sk": "Slovenčina",
+    "en": "Angličtina",
+    "es": "Španielčina",
+    "de": "Nemčina"
+  },
+  "languageSwitcher": {
+    "label": "Jazyk",
+    "changeLanguage": "Zmeniť jazyk"
+  }
+}

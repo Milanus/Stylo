@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "title": "Stylo - AI Text Transformation",
+    "description": "Transform your text with AI - grammar correction, style adjustments, and more"
+  },
+  "common": {
+    "stylo": "Stylo",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "copy": "Copy",
+    "copied": "Copied",
+    "clear": "Clear",
+    "ok": "OK",
+    "wait": "Wait",
+    "login": "Login",
+    "logout": "Logout",
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
+  },
+  "landing": {
+    "hero": {
+      "badge": "AI-Powered Text Transformation",
+      "title1": "Transform",
+      "title2": "Your Text",
+      "description": "Try instantly with {anonymousLimit} transformations per hour, or sign up for {freeLimit}/hour with history and more features",
+      "tryForFree": "Try for Free",
+      "transformationsPerHour": "{count} transformations/hour",
+      "liveDemo": "Live Demo",
+      "before": "Before",
+      "after": "After"
+    },
+    "stats": {
+      "transformations": "Transformations",
+      "rateLimits": "Rate Limits",
+      "powered": "Powered"
+    },
+    "features": {
+      "title": "Six Powerful",
+      "titleHighlight": "Transformations",
+      "subtitle": "Choose the transformation that fits your needs"
+    },
+    "pricing": {
+      "title": "Choose Your",
+      "titleHighlight": "Experience",
+      "subtitle": "Start instantly or create a free account for enhanced features",
+      "freeTrial": {
+        "name": "Free Trial",
+        "description": "Try without signing up",
+        "priceLabel": "No account needed",
+        "ctaText": "Try Now"
+      },
+      "registered": {
+        "name": "Registered",
+        "description": "Sign up for more features",
+        "priceLabel": "Free Forever",
+        "ctaText": "Sign Up Free"
+      },
+      "features": {
+        "transformationsPerHour": "{count} transformations/hour",
+        "noHistory": "No history saved",
+        "fullHistory": "Full transformation history",
+        "englishOnly": "English only",
+        "multiLanguage": "Multi-language output",
+        "cannotSave": "Cannot save work",
+        "saveWork": "Save your work"
+      },
+      "recommended": "Recommended",
+      "footer": "No credit card required | GDPR compliant | Upgrade anytime"
+    },
+    "cta": {
+      "title1": "Ready to Transform",
+      "title2": "Your Text?",
+      "subtitle": "Start using Stylo for free today",
+      "signUpRate": "Sign Up ({rate}/hr)",
+      "trustNoCreditCard": "No credit card required",
+      "trustRateLimits": "Try free: {anonymous}/hr | Sign up: {free}/hr"
+    }
+  },
+  "footer": {
+    "description": "AI-powered text transformation. Transform your writing with grammar correction, style adjustments, and intelligent text processing.",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "cookiePolicy": "Cookie Policy",
+    "termsOfService": "Terms of Service",
+    "product": "Product",
+    "dashboard": "Dashboard",
+    "copyright": "© {year} Stylo. All rights reserved.",
+    "madeWith": "Made with love for better writing",
+    "gdprCompliant": "GDPR Compliant"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to continue",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "signingIn": "Signing in...",
+      "orContinueWith": "Or continue with",
+      "signInWithGoogle": "Sign in with Google",
+      "noAccount": "Don't have an account?",
+      "failedToLogin": "Failed to login",
+      "failedGoogleLogin": "Failed to login with Google"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Get started with your free account",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Min. 8 characters",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter password",
+      "createAccount": "Create Account",
+      "creatingAccount": "Creating account...",
+      "orContinueWith": "Or continue with",
+      "signUpWithGoogle": "Sign up with Google",
+      "hasAccount": "Already have an account?",
+      "checkEmail": "Check your email",
+      "emailSent": "We've sent you a confirmation link to {email}. Click the link to verify your account.",
+      "backToLogin": "Back to Login",
+      "failedToCreate": "Failed to create account",
+      "failedGoogleSignup": "Failed to sign up with Google",
+      "errors": {
+        "passwordLength": "Password must be at least 8 characters long",
+        "passwordMismatch": "Passwords do not match"
+      }
+    }
+  },
+  "dashboard": {
+    "guestMode": "Guest Mode",
+    "guestUsage": "Guest Usage",
+    "usage": "Usage",
+    "usageLeft": "{remaining}/{limit} left",
+    "input": "Input",
+    "output": "Output",
+    "outputLanguage": "Output language:",
+    "chars": "chars",
+    "transform": "Transform",
+    "transforming": "Transforming...",
+    "placeholders": {
+      "input": "Paste your text here...",
+      "inputResponse": "Paste the message you want to reply to...",
+      "output": "Transformed text appears here...",
+      "outputResponse": "Generated response appears here..."
+    },
+    "errors": {
+      "enterText": "Enter text to transform",
+      "rateLimitReached": "Rate limit reached. Please wait for reset.",
+      "networkError": "Network error",
+      "failed": "Failed"
+    }
+  },
+  "transformations": {
+    "grammar": {
+      "label": "Grammar",
+      "description": "Fix grammatical errors and spelling mistakes"
+    },
+    "formal": {
+      "label": "Formal",
+      "description": "Convert to professional, formal writing"
+    },
+    "informal": {
+      "label": "Casual",
+      "description": "Convert to casual, conversational writing"
+    },
+    "legal": {
+      "label": "Legal",
+      "description": "Transform into formal legal writing"
+    },
+    "summary": {
+      "label": "Summary",
+      "description": "Create a concise summary (30-50% of original)"
+    },
+    "expand": {
+      "label": "Expand",
+      "description": "Elaborate and expand the text (150-200%)"
+    },
+    "funny": {
+      "label": "Funny",
+      "description": "Add humor and make the text entertaining"
+    },
+    "teen": {
+      "label": "Teen Slang",
+      "description": "Transform to teen/Gen-Z slang style"
+    },
+    "wholesome": {
+      "label": "Wholesome",
+      "description": "Transform to warm, heartfelt, and uplifting style"
+    },
+    "response": {
+      "label": "Response",
+      "description": "Generate a contextual reply to a message or email"
+    }
+  },
+  "rateLimitModal": {
+    "guestTitle": "Guest Limit Reached",
+    "registeredTitle": "Rate Limit Reached",
+    "guestUsedAll": "You've used all {limit} free transformations as a guest.",
+    "registeredUsedAll": "You've used all {limit} transformations for this hour.",
+    "signUpBenefits": "Sign up now and get:",
+    "moreTransformations": "More transformations/hour",
+    "transformationHistory": "Transformation history",
+    "multiLanguageOutput": "Multi-language output",
+    "saveYourWork": "Save your work",
+    "orWait": "Or wait {time} for your limit to reset",
+    "resetIn": "Your limit will reset in {time}",
+    "signUpFree": "Sign Up Free"
+  },
+  "historyDrawer": {
+    "title": "History",
+    "transformationsCount": "{count} transformations",
+    "noTransformations": "No transformations yet",
+    "failedToLoad": "Failed to load history",
+    "timeAgo": {
+      "justNow": "Just now",
+      "minutes": "{count}m ago",
+      "hours": "{count}h ago",
+      "days": "{count}d ago"
+    }
+  },
+  "deleteAccount": {
+    "title": "Delete Account",
+    "button": "Delete Account",
+    "description": "This will permanently delete your account including: your profile, all transformations, usage logs, and subscription. This action cannot be undone.",
+    "deleting": "Deleting..."
+  },
+  "cookieConsent": {
+    "title": "We value your privacy",
+    "description": "We use cookies to enhance your experience, analyze site usage, and remember your preferences. By clicking \"Accept All\", you consent to our use of cookies.",
+    "learnMore": "Learn more",
+    "customize": "Customize",
+    "rejectAll": "Reject All",
+    "acceptAll": "Accept All",
+    "preferences": {
+      "title": "Cookie Preferences",
+      "necessary": {
+        "title": "Strictly Necessary",
+        "alwaysActive": "Always Active",
+        "description": "These cookies are essential for the website to function. They enable basic features like authentication and secure access. These cannot be disabled."
+      },
+      "functional": {
+        "title": "Functional Cookies",
+        "description": "These cookies enable enhanced functionality such as remembering your preferences (language, theme) and providing personalized features."
+      },
+      "analytics": {
+        "title": "Analytics Cookies",
+        "description": "These cookies help us understand how visitors interact with our website by collecting anonymous information. This helps us improve our service."
+      }
+    },
+    "savePreferences": "Save Preferences",
+    "changeAnytime": "You can change your preferences anytime. See our",
+    "cookiePolicy": "Cookie Policy",
+    "forDetails": "for more details."
+  },
+  "languages": {
+    "auto": "Auto (detect from input)",
+    "cs": "Czech",
+    "sk": "Slovak",
+    "en": "English",
+    "es": "Spanish",
+    "de": "German"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "changeLanguage": "Change language"
+  }
+}

@@ -1,6 +1,12 @@
-import Link from 'next/link'
+'use client'
+
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function Footer() {
+  const t = useTranslations('footer')
+  const tCommon = useTranslations('common')
   const currentYear = new Date().getFullYear()
 
   return (
@@ -13,15 +19,18 @@ export default function Footer() {
               Stylo
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-md">
-              AI-powered text transformation. Transform your writing with grammar correction,
-              style adjustments, and intelligent text processing.
+              {t('description')}
             </p>
+            {/* Language Switcher */}
+            <div className="mt-4">
+              <LanguageSwitcher />
+            </div>
           </div>
 
           {/* Legal */}
           <div>
             <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">
-              Legal
+              {t('legal')}
             </h4>
             <ul className="space-y-2">
               <li>
@@ -29,7 +38,7 @@ export default function Footer() {
                   href="/privacy"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
-                  Privacy Policy
+                  {t('privacyPolicy')}
                 </Link>
               </li>
               <li>
@@ -37,7 +46,7 @@ export default function Footer() {
                   href="/cookies"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
-                  Cookie Policy
+                  {t('cookiePolicy')}
                 </Link>
               </li>
               <li>
@@ -45,7 +54,7 @@ export default function Footer() {
                   href="/terms"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
-                  Terms of Service
+                  {t('termsOfService')}
                 </Link>
               </li>
             </ul>
@@ -54,7 +63,7 @@ export default function Footer() {
           {/* Product */}
           <div>
             <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">
-              Product
+              {t('product')}
             </h4>
             <ul className="space-y-2">
               <li>
@@ -62,7 +71,7 @@ export default function Footer() {
                   href="/login"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
-                  Sign In
+                  {tCommon('signIn')}
                 </Link>
               </li>
               <li>
@@ -70,7 +79,7 @@ export default function Footer() {
                   href="/signup"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
-                  Sign Up
+                  {tCommon('signUp')}
                 </Link>
               </li>
               <li>
@@ -78,7 +87,7 @@ export default function Footer() {
                   href="/dashboard"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >
-                  Dashboard
+                  {t('dashboard')}
                 </Link>
               </li>
             </ul>
@@ -89,12 +98,12 @@ export default function Footer() {
         <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              © {currentYear} Stylo. All rights reserved.
+              {t('copyright', { year: currentYear })}
             </p>
             <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
-              <span>Made with ❤️ for better writing</span>
+              <span>{t('madeWith')}</span>
               <span className="hidden sm:inline">|</span>
-              <span>GDPR Compliant</span>
+              <span>{t('gdprCompliant')}</span>
             </div>
           </div>
         </div>

@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "title": "Stylo - AI Transformace Textu",
+    "description": "Transformujte svůj text pomocí AI - oprava gramatiky, úprava stylu a další"
+  },
+  "common": {
+    "stylo": "Stylo",
+    "loading": "Načítání...",
+    "error": "Chyba",
+    "success": "Úspěch",
+    "cancel": "Zrušit",
+    "save": "Uložit",
+    "delete": "Smazat",
+    "back": "Zpět",
+    "next": "Další",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "clear": "Vymazat",
+    "ok": "OK",
+    "wait": "Počkat",
+    "login": "Přihlásit",
+    "logout": "Odhlásit",
+    "signUp": "Registrace",
+    "signIn": "Přihlášení"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Transformace Textu Poháněná AI",
+      "title1": "Transformujte",
+      "title2": "Svůj Text",
+      "description": "Vyzkoušejte ihned s {anonymousLimit} transformacemi za hodinu, nebo se zaregistrujte pro {freeLimit}/hod s historií a dalšími funkcemi",
+      "tryForFree": "Vyzkoušet Zdarma",
+      "transformationsPerHour": "{count} transformací/hodinu",
+      "liveDemo": "Živá Ukázka",
+      "before": "Před",
+      "after": "Po"
+    },
+    "stats": {
+      "transformations": "Transformací",
+      "rateLimits": "Limity",
+      "powered": "Poháněno"
+    },
+    "features": {
+      "title": "Šest Výkonných",
+      "titleHighlight": "Transformací",
+      "subtitle": "Vyberte transformaci, která vyhovuje vašim potřebám"
+    },
+    "pricing": {
+      "title": "Vyberte Si",
+      "titleHighlight": "Svůj Tarif",
+      "subtitle": "Začněte ihned nebo si vytvořte bezplatný účet pro rozšířené funkce",
+      "freeTrial": {
+        "name": "Zkušební Verze",
+        "description": "Vyzkoušejte bez registrace",
+        "priceLabel": "Bez účtu",
+        "ctaText": "Vyzkoušet"
+      },
+      "registered": {
+        "name": "Registrovaný",
+        "description": "Zaregistrujte se pro více funkcí",
+        "priceLabel": "Navždy Zdarma",
+        "ctaText": "Registrovat Zdarma"
+      },
+      "features": {
+        "transformationsPerHour": "{count} transformací/hodinu",
+        "noHistory": "Bez uložené historie",
+        "fullHistory": "Kompletní historie transformací",
+        "englishOnly": "Pouze angličtina",
+        "multiLanguage": "Vícejazyčný výstup",
+        "cannotSave": "Nelze ukládat práci",
+        "saveWork": "Ukládejte svou práci"
+      },
+      "recommended": "Doporučeno",
+      "footer": "Bez platební karty | GDPR kompatibilní | Upgrade kdykoliv"
+    },
+    "cta": {
+      "title1": "Připraveni Transformovat",
+      "title2": "Svůj Text?",
+      "subtitle": "Začněte používat Stylo zdarma ještě dnes",
+      "signUpRate": "Registrace ({rate}/hod)",
+      "trustNoCreditCard": "Bez platební karty",
+      "trustRateLimits": "Zdarma: {anonymous}/hod | S registrací: {free}/hod"
+    }
+  },
+  "footer": {
+    "description": "Transformace textu poháněná AI. Transformujte své psaní s opravou gramatiky, úpravou stylu a inteligentním zpracováním textu.",
+    "legal": "Právní informace",
+    "privacyPolicy": "Zásady ochrany soukromí",
+    "cookiePolicy": "Zásady cookies",
+    "termsOfService": "Podmínky služby",
+    "product": "Produkt",
+    "dashboard": "Přehled",
+    "copyright": "© {year} Stylo. Všechna práva vyhrazena.",
+    "madeWith": "Vytvořeno s láskou pro lepší psaní",
+    "gdprCompliant": "GDPR kompatibilní"
+  },
+  "auth": {
+    "login": {
+      "title": "Vítejte Zpět",
+      "subtitle": "Přihlaste se ke svému účtu a pokračujte",
+      "email": "E-mail",
+      "emailPlaceholder": "vas@email.cz",
+      "password": "Heslo",
+      "passwordPlaceholder": "Zadejte své heslo",
+      "signingIn": "Přihlašování...",
+      "orContinueWith": "Nebo pokračujte s",
+      "signInWithGoogle": "Přihlásit se přes Google",
+      "noAccount": "Nemáte účet?",
+      "failedToLogin": "Přihlášení se nezdařilo",
+      "failedGoogleLogin": "Přihlášení přes Google se nezdařilo"
+    },
+    "signup": {
+      "title": "Vytvořit Účet",
+      "subtitle": "Začněte se svým bezplatným účtem",
+      "email": "E-mail",
+      "emailPlaceholder": "vas@email.cz",
+      "password": "Heslo",
+      "passwordPlaceholder": "Min. 8 znaků",
+      "confirmPassword": "Potvrdit Heslo",
+      "confirmPasswordPlaceholder": "Zadejte heslo znovu",
+      "createAccount": "Vytvořit Účet",
+      "creatingAccount": "Vytváření účtu...",
+      "orContinueWith": "Nebo pokračujte s",
+      "signUpWithGoogle": "Registrovat se přes Google",
+      "hasAccount": "Již máte účet?",
+      "checkEmail": "Zkontrolujte svůj e-mail",
+      "emailSent": "Poslali jsme vám potvrzovací odkaz na {email}. Klikněte na odkaz pro ověření účtu.",
+      "backToLogin": "Zpět na přihlášení",
+      "failedToCreate": "Vytvoření účtu se nezdařilo",
+      "failedGoogleSignup": "Registrace přes Google se nezdařila",
+      "errors": {
+        "passwordLength": "Heslo musí mít alespoň 8 znaků",
+        "passwordMismatch": "Hesla se neshodují"
+      }
+    }
+  },
+  "dashboard": {
+    "guestMode": "Režim Host",
+    "guestUsage": "Využití Hosta",
+    "usage": "Využití",
+    "usageLeft": "{remaining}/{limit} zbývá",
+    "input": "Vstup",
+    "output": "Výstup",
+    "outputLanguage": "Výstupní jazyk:",
+    "chars": "znaků",
+    "transform": "Transformovat",
+    "transforming": "Transformuji...",
+    "placeholders": {
+      "input": "Vložte svůj text sem...",
+      "inputResponse": "Vložte zprávu, na kterou chcete odpovědět...",
+      "output": "Transformovaný text se objeví zde...",
+      "outputResponse": "Vygenerovaná odpověď se objeví zde..."
+    },
+    "errors": {
+      "enterText": "Zadejte text k transformaci",
+      "rateLimitReached": "Dosažen limit. Počkejte na reset.",
+      "networkError": "Chyba sítě",
+      "failed": "Selhalo"
+    }
+  },
+  "transformations": {
+    "grammar": {
+      "label": "Gramatika",
+      "description": "Opravit gramatické chyby a překlepy"
+    },
+    "formal": {
+      "label": "Formální",
+      "description": "Převést na profesionální, formální styl"
+    },
+    "informal": {
+      "label": "Neformální",
+      "description": "Převést na neformální, konverzační styl"
+    },
+    "legal": {
+      "label": "Právní",
+      "description": "Transformovat do formálního právního jazyka"
+    },
+    "summary": {
+      "label": "Shrnutí",
+      "description": "Vytvořit stručné shrnutí (30-50% originálu)"
+    },
+    "expand": {
+      "label": "Rozšířit",
+      "description": "Rozvinout a rozšířit text (150-200%)"
+    },
+    "funny": {
+      "label": "Vtipné",
+      "description": "Přidat humor a pobavit"
+    },
+    "teen": {
+      "label": "Teenagerský Slang",
+      "description": "Transformovat do teenagerského/Gen-Z slangu"
+    },
+    "wholesome": {
+      "label": "Srdečné",
+      "description": "Transformovat do vřelého, srdečného stylu"
+    },
+    "response": {
+      "label": "Odpověď",
+      "description": "Vygenerovat kontextovou odpověď na zprávu"
+    }
+  },
+  "rateLimitModal": {
+    "guestTitle": "Limit Hosta Dosažen",
+    "registeredTitle": "Limit Dosažen",
+    "guestUsedAll": "Vyčerpali jste všech {limit} bezplatných transformací jako host.",
+    "registeredUsedAll": "Vyčerpali jste všech {limit} transformací pro tuto hodinu.",
+    "signUpBenefits": "Zaregistrujte se a získejte:",
+    "moreTransformations": "Více transformací/hodinu",
+    "transformationHistory": "Historie transformací",
+    "multiLanguageOutput": "Vícejazyčný výstup",
+    "saveYourWork": "Ukládejte svou práci",
+    "orWait": "Nebo počkejte {time} na reset limitu",
+    "resetIn": "Váš limit se resetuje za {time}",
+    "signUpFree": "Registrovat Zdarma"
+  },
+  "historyDrawer": {
+    "title": "Historie",
+    "transformationsCount": "{count} transformací",
+    "noTransformations": "Zatím žádné transformace",
+    "failedToLoad": "Nepodařilo se načíst historii",
+    "timeAgo": {
+      "justNow": "Právě teď",
+      "minutes": "před {count}m",
+      "hours": "před {count}h",
+      "days": "před {count}d"
+    }
+  },
+  "deleteAccount": {
+    "title": "Smazat Účet",
+    "button": "Smazat Účet",
+    "description": "Toto trvale smaže váš účet včetně: profilu, všech transformací, záznamů využití a předplatného. Tuto akci nelze vrátit.",
+    "deleting": "Mazání..."
+  },
+  "cookieConsent": {
+    "title": "Vážíme si vašeho soukromí",
+    "description": "Používáme cookies pro zlepšení vašeho zážitku, analýzu využití webu a zapamatování vašich preferencí. Kliknutím na \"Přijmout vše\" souhlasíte s používáním cookies.",
+    "learnMore": "Více informací",
+    "customize": "Přizpůsobit",
+    "rejectAll": "Odmítnout vše",
+    "acceptAll": "Přijmout vše",
+    "preferences": {
+      "title": "Nastavení Cookies",
+      "necessary": {
+        "title": "Nezbytně Nutné",
+        "alwaysActive": "Vždy Aktivní",
+        "description": "Tyto cookies jsou nezbytné pro fungování webu. Umožňují základní funkce jako autentizaci a bezpečný přístup. Nelze je deaktivovat."
+      },
+      "functional": {
+        "title": "Funkční Cookies",
+        "description": "Tyto cookies umožňují rozšířenou funkcionalitu jako zapamatování vašich preferencí (jazyk, téma) a poskytování personalizovaných funkcí."
+      },
+      "analytics": {
+        "title": "Analytické Cookies",
+        "description": "Tyto cookies nám pomáhají porozumět, jak návštěvníci interagují s naším webem, sběrem anonymních informací. To nám pomáhá zlepšovat naše služby."
+      }
+    },
+    "savePreferences": "Uložit Nastavení",
+    "changeAnytime": "Své preference můžete kdykoliv změnit. Podívejte se na naše",
+    "cookiePolicy": "Zásady Cookies",
+    "forDetails": "pro více informací."
+  },
+  "languages": {
+    "auto": "Auto (detekce ze vstupu)",
+    "cs": "Čeština",
+    "sk": "Slovenčina",
+    "en": "Angličtina",
+    "es": "Španělština",
+    "de": "Němčina"
+  },
+  "languageSwitcher": {
+    "label": "Jazyk",
+    "changeLanguage": "Změnit jazyk"
+  }
+}

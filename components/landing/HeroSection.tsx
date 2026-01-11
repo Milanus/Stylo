@@ -1,9 +1,10 @@
 'use client'
 
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { ANONYMOUS_LIMIT, FREE_LIMIT } from '@/lib/constants/rate-limits'
 
 const transformExamples = [
@@ -13,6 +14,9 @@ const transformExamples = [
 ]
 
 export default function HeroSection() {
+  const t = useTranslations('landing.hero')
+  const tStats = useTranslations('landing.stats')
+  const tCommon = useTranslations('common')
   const [currentExample, setCurrentExample] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -44,7 +48,7 @@ export default function HeroSection() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-800">
               <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span className="text-sm font-medium text-indigo-900 dark:text-indigo-100">
-                AI-Powered Text Transformation
+                {t('badge')}
               </span>
             </div>
 
@@ -52,15 +56,15 @@ export default function HeroSection() {
             <div className="space-y-6">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="block text-slate-900 dark:text-white">
-                  Transform
+                  {t('title1')}
                 </span>
                 <span className="block text-indigo-600 dark:text-indigo-400">
-                  Your Text
+                  {t('title2')}
                 </span>
               </h1>
 
               <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl">
-                Try instantly with {ANONYMOUS_LIMIT} transformations per hour, or sign up for {FREE_LIMIT}/hour with history and more features
+                {t('description', { anonymousLimit: ANONYMOUS_LIMIT, freeLimit: FREE_LIMIT })}
               </p>
             </div>
 
@@ -74,11 +78,11 @@ export default function HeroSection() {
                 >
                   <div className="flex flex-col items-start gap-1">
                     <span className="flex items-center gap-2">
-                      Try for Free
+                      {t('tryForFree')}
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <span className="text-xs text-indigo-100 dark:text-indigo-200 font-normal">
-                      {ANONYMOUS_LIMIT} transformations/hour
+                      {t('transformationsPerHour', { count: ANONYMOUS_LIMIT })}
                     </span>
                   </div>
                 </Button>
@@ -93,11 +97,11 @@ export default function HeroSection() {
                 >
                   <div className="flex flex-col items-start gap-1">
                     <span className="flex items-center gap-2">
-                      Sign Up
+                      {tCommon('signUp')}
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <span className="text-xs text-indigo-600 dark:text-indigo-400 font-normal">
-                      {FREE_LIMIT} transformations/hour
+                      {t('transformationsPerHour', { count: FREE_LIMIT })}
                     </span>
                   </div>
                 </Button>
@@ -108,15 +112,15 @@ export default function HeroSection() {
             <div className="hidden sm:flex gap-8 lg:gap-12 justify-center lg:justify-start pt-4">
               <div>
                 <div className="text-3xl font-bold text-slate-900 dark:text-white">10</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Transformations</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">{tStats('transformations')}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-slate-900 dark:text-white">{ANONYMOUS_LIMIT}-{FREE_LIMIT}/hr</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Rate Limits</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">{tStats('rateLimits')}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">AI</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Powered</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">{tStats('powered')}</div>
               </div>
             </div>
           </div>
@@ -132,7 +136,7 @@ export default function HeroSection() {
                     <div className="w-3 h-3 rounded-full bg-white/20" />
                     <div className="w-3 h-3 rounded-full bg-white/20" />
                   </div>
-                  <span className="text-sm font-medium text-white/90">Live Demo</span>
+                  <span className="text-sm font-medium text-white/90">{t('liveDemo')}</span>
                 </div>
               </div>
 
@@ -143,7 +147,7 @@ export default function HeroSection() {
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-red-500" />
                     <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">
-                      Before
+                      {t('before')}
                     </span>
                   </div>
                   <div className={`p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
@@ -165,7 +169,7 @@ export default function HeroSection() {
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-green-500" />
                     <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">
-                      After
+                      {t('after')}
                     </span>
                   </div>
                   <div className={`p-4 bg-indigo-50 dark:bg-indigo-950/50 rounded-lg border border-indigo-200 dark:border-indigo-800 transition-all duration-300 ${isAnimating ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>

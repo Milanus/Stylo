@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "title": "Stylo - KI-Texttransformation",
+    "description": "Transformieren Sie Ihren Text mit KI - Grammatikkorrektur, Stilanpassungen und mehr"
+  },
+  "common": {
+    "stylo": "Stylo",
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "clear": "Löschen",
+    "ok": "OK",
+    "wait": "Warten",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "signUp": "Registrieren",
+    "signIn": "Anmelden"
+  },
+  "landing": {
+    "hero": {
+      "badge": "KI-gestützte Texttransformation",
+      "title1": "Transformieren Sie",
+      "title2": "Ihren Text",
+      "description": "Sofort testen mit {anonymousLimit} Transformationen pro Stunde, oder registrieren für {freeLimit}/Std mit Verlauf und mehr Funktionen",
+      "tryForFree": "Kostenlos Testen",
+      "transformationsPerHour": "{count} Transformationen/Stunde",
+      "liveDemo": "Live-Demo",
+      "before": "Vorher",
+      "after": "Nachher"
+    },
+    "stats": {
+      "transformations": "Transformationen",
+      "rateLimits": "Limits",
+      "powered": "Angetrieben"
+    },
+    "features": {
+      "title": "Sechs Leistungsstarke",
+      "titleHighlight": "Transformationen",
+      "subtitle": "Wählen Sie die Transformation, die Ihren Bedürfnissen entspricht"
+    },
+    "pricing": {
+      "title": "Wählen Sie Ihr",
+      "titleHighlight": "Erlebnis",
+      "subtitle": "Starten Sie sofort oder erstellen Sie ein kostenloses Konto für erweiterte Funktionen",
+      "freeTrial": {
+        "name": "Kostenlose Testversion",
+        "description": "Testen ohne Anmeldung",
+        "priceLabel": "Kein Konto nötig",
+        "ctaText": "Jetzt Testen"
+      },
+      "registered": {
+        "name": "Registriert",
+        "description": "Registrieren für mehr Funktionen",
+        "priceLabel": "Für Immer Kostenlos",
+        "ctaText": "Kostenlos Registrieren"
+      },
+      "features": {
+        "transformationsPerHour": "{count} Transformationen/Stunde",
+        "noHistory": "Kein Verlauf gespeichert",
+        "fullHistory": "Vollständiger Transformationsverlauf",
+        "englishOnly": "Nur Englisch",
+        "multiLanguage": "Mehrsprachige Ausgabe",
+        "cannotSave": "Arbeit kann nicht gespeichert werden",
+        "saveWork": "Speichern Sie Ihre Arbeit"
+      },
+      "recommended": "Empfohlen",
+      "footer": "Keine Kreditkarte erforderlich | DSGVO-konform | Jederzeit upgraden"
+    },
+    "cta": {
+      "title1": "Bereit, Ihren Text",
+      "title2": "zu Transformieren?",
+      "subtitle": "Beginnen Sie noch heute kostenlos mit Stylo",
+      "signUpRate": "Registrieren ({rate}/Std)",
+      "trustNoCreditCard": "Keine Kreditkarte erforderlich",
+      "trustRateLimits": "Kostenlos: {anonymous}/Std | Registriert: {free}/Std"
+    }
+  },
+  "footer": {
+    "description": "KI-gestützte Texttransformation. Transformieren Sie Ihr Schreiben mit Grammatikkorrektur, Stilanpassungen und intelligenter Textverarbeitung.",
+    "legal": "Rechtliches",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "cookiePolicy": "Cookie-Richtlinie",
+    "termsOfService": "Nutzungsbedingungen",
+    "product": "Produkt",
+    "dashboard": "Dashboard",
+    "copyright": "© {year} Stylo. Alle Rechte vorbehalten.",
+    "madeWith": "Mit Liebe für besseres Schreiben gemacht",
+    "gdprCompliant": "DSGVO-konform"
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen Zurück",
+      "subtitle": "Melden Sie sich bei Ihrem Konto an, um fortzufahren",
+      "email": "E-Mail",
+      "emailPlaceholder": "ihre@email.de",
+      "password": "Passwort",
+      "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+      "signingIn": "Anmeldung...",
+      "orContinueWith": "Oder fortfahren mit",
+      "signInWithGoogle": "Mit Google anmelden",
+      "noAccount": "Noch kein Konto?",
+      "failedToLogin": "Anmeldung fehlgeschlagen",
+      "failedGoogleLogin": "Google-Anmeldung fehlgeschlagen"
+    },
+    "signup": {
+      "title": "Konto Erstellen",
+      "subtitle": "Starten Sie mit Ihrem kostenlosen Konto",
+      "email": "E-Mail",
+      "emailPlaceholder": "ihre@email.de",
+      "password": "Passwort",
+      "passwordPlaceholder": "Min. 8 Zeichen",
+      "confirmPassword": "Passwort Bestätigen",
+      "confirmPasswordPlaceholder": "Passwort erneut eingeben",
+      "createAccount": "Konto Erstellen",
+      "creatingAccount": "Konto wird erstellt...",
+      "orContinueWith": "Oder fortfahren mit",
+      "signUpWithGoogle": "Mit Google registrieren",
+      "hasAccount": "Bereits ein Konto?",
+      "checkEmail": "Überprüfen Sie Ihre E-Mail",
+      "emailSent": "Wir haben Ihnen einen Bestätigungslink an {email} gesendet. Klicken Sie auf den Link, um Ihr Konto zu verifizieren.",
+      "backToLogin": "Zurück zur Anmeldung",
+      "failedToCreate": "Kontoerstellung fehlgeschlagen",
+      "failedGoogleSignup": "Google-Registrierung fehlgeschlagen",
+      "errors": {
+        "passwordLength": "Das Passwort muss mindestens 8 Zeichen lang sein",
+        "passwordMismatch": "Passwörter stimmen nicht überein"
+      }
+    }
+  },
+  "dashboard": {
+    "guestMode": "Gastmodus",
+    "guestUsage": "Gastnutzung",
+    "usage": "Nutzung",
+    "usageLeft": "{remaining}/{limit} übrig",
+    "input": "Eingabe",
+    "output": "Ausgabe",
+    "outputLanguage": "Ausgabesprache:",
+    "chars": "Zeichen",
+    "transform": "Transformieren",
+    "transforming": "Transformiere...",
+    "placeholders": {
+      "input": "Fügen Sie Ihren Text hier ein...",
+      "inputResponse": "Fügen Sie die Nachricht ein, auf die Sie antworten möchten...",
+      "output": "Transformierter Text erscheint hier...",
+      "outputResponse": "Generierte Antwort erscheint hier..."
+    },
+    "errors": {
+      "enterText": "Text zum Transformieren eingeben",
+      "rateLimitReached": "Limit erreicht. Bitte auf Reset warten.",
+      "networkError": "Netzwerkfehler",
+      "failed": "Fehlgeschlagen"
+    }
+  },
+  "transformations": {
+    "grammar": {
+      "label": "Grammatik",
+      "description": "Grammatik- und Rechtschreibfehler korrigieren"
+    },
+    "formal": {
+      "label": "Formell",
+      "description": "In professionellen, formellen Stil umwandeln"
+    },
+    "informal": {
+      "label": "Informell",
+      "description": "In lockeren, umgangssprachlichen Stil umwandeln"
+    },
+    "legal": {
+      "label": "Juristisch",
+      "description": "In formelle juristische Sprache transformieren"
+    },
+    "summary": {
+      "label": "Zusammenfassung",
+      "description": "Eine prägnante Zusammenfassung erstellen (30-50% des Originals)"
+    },
+    "expand": {
+      "label": "Erweitern",
+      "description": "Text ausarbeiten und erweitern (150-200%)"
+    },
+    "funny": {
+      "label": "Lustig",
+      "description": "Humor hinzufügen und den Text unterhaltsam machen"
+    },
+    "teen": {
+      "label": "Jugendsprache",
+      "description": "In Teenager-/Gen-Z-Slang transformieren"
+    },
+    "wholesome": {
+      "label": "Herzlich",
+      "description": "In einen warmherzigen, herzlichen Stil transformieren"
+    },
+    "response": {
+      "label": "Antwort",
+      "description": "Eine kontextuelle Antwort auf eine Nachricht generieren"
+    }
+  },
+  "rateLimitModal": {
+    "guestTitle": "Gastlimit Erreicht",
+    "registeredTitle": "Limit Erreicht",
+    "guestUsedAll": "Sie haben alle {limit} kostenlosen Transformationen als Gast verbraucht.",
+    "registeredUsedAll": "Sie haben alle {limit} Transformationen für diese Stunde verbraucht.",
+    "signUpBenefits": "Registrieren Sie sich jetzt und erhalten Sie:",
+    "moreTransformations": "Mehr Transformationen/Stunde",
+    "transformationHistory": "Transformationsverlauf",
+    "multiLanguageOutput": "Mehrsprachige Ausgabe",
+    "saveYourWork": "Speichern Sie Ihre Arbeit",
+    "orWait": "Oder warten Sie {time} bis Ihr Limit zurückgesetzt wird",
+    "resetIn": "Ihr Limit wird in {time} zurückgesetzt",
+    "signUpFree": "Kostenlos Registrieren"
+  },
+  "historyDrawer": {
+    "title": "Verlauf",
+    "transformationsCount": "{count} Transformationen",
+    "noTransformations": "Noch keine Transformationen",
+    "failedToLoad": "Verlauf konnte nicht geladen werden",
+    "timeAgo": {
+      "justNow": "Gerade eben",
+      "minutes": "vor {count}m",
+      "hours": "vor {count}h",
+      "days": "vor {count}T"
+    }
+  },
+  "deleteAccount": {
+    "title": "Konto Löschen",
+    "button": "Konto Löschen",
+    "description": "Dies löscht Ihr Konto dauerhaft einschließlich: Ihres Profils, aller Transformationen, Nutzungsprotokolle und Abonnements. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "deleting": "Wird gelöscht..."
+  },
+  "cookieConsent": {
+    "title": "Wir schätzen Ihre Privatsphäre",
+    "description": "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern, die Website-Nutzung zu analysieren und Ihre Präferenzen zu speichern. Durch Klicken auf \"Alle Akzeptieren\" stimmen Sie unserer Verwendung von Cookies zu.",
+    "learnMore": "Mehr erfahren",
+    "customize": "Anpassen",
+    "rejectAll": "Alle Ablehnen",
+    "acceptAll": "Alle Akzeptieren",
+    "preferences": {
+      "title": "Cookie-Einstellungen",
+      "necessary": {
+        "title": "Unbedingt Erforderlich",
+        "alwaysActive": "Immer Aktiv",
+        "description": "Diese Cookies sind für das Funktionieren der Website unerlässlich. Sie ermöglichen grundlegende Funktionen wie Authentifizierung und sicheren Zugriff. Diese können nicht deaktiviert werden."
+      },
+      "functional": {
+        "title": "Funktionale Cookies",
+        "description": "Diese Cookies ermöglichen erweiterte Funktionalität wie das Speichern Ihrer Präferenzen (Sprache, Theme) und die Bereitstellung personalisierter Funktionen."
+      },
+      "analytics": {
+        "title": "Analytische Cookies",
+        "description": "Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren, indem sie anonyme Informationen sammeln. Dies hilft uns, unseren Service zu verbessern."
+      }
+    },
+    "savePreferences": "Einstellungen Speichern",
+    "changeAnytime": "Sie können Ihre Einstellungen jederzeit ändern. Siehe unsere",
+    "cookiePolicy": "Cookie-Richtlinie",
+    "forDetails": "für weitere Details."
+  },
+  "languages": {
+    "auto": "Auto (aus Eingabe erkennen)",
+    "cs": "Tschechisch",
+    "sk": "Slowakisch",
+    "en": "Englisch",
+    "es": "Spanisch",
+    "de": "Deutsch"
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "changeLanguage": "Sprache ändern"
+  }
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { createClient } from '@/lib/auth/supabase-client'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
@@ -14,20 +14,25 @@ import {
 } from '@/components/ui/select'
 import { Loader2, LogOut, Copy, Check, AlertCircle, Zap, UserPlus } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
-import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
+import { TRANSFORMATION_TYPES, type TransformationType } from '@/lib/constants/transformations'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
 import HistoryDrawer from '@/components/HistoryDrawer'
 import RateLimitModal from '@/components/RateLimitModal'
+import { useTranslations } from 'next-intl'
 
 export default function DashboardPage() {
   const router = useRouter()
   const supabase = createClient()
+  const t = useTranslations('dashboard')
+  const tCommon = useTranslations('common')
+  const tTransformations = useTranslations('transformations')
+  const tLanguages = useTranslations('languages')
 
   const [user, setUser] = useState<User | null>(null)
   const [inputText, setInputText] = useState('')
   const [outputText, setOutputText] = useState('')
-  const [selectedType, setSelectedType] = useState('grammar')
+  const [selectedType, setSelectedType] = useState<TransformationType>('grammar')
   const [selectedLanguage, setSelectedLanguage] = useState<string>('auto')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -56,7 +61,7 @@ export default function DashboardPage() {
         if (data.resetAt) {
           setRateLimitResetTime(data.resetAt)
         }
-        
+
         // Show modal if user has no remaining usage
         if (data.remaining === 0 && !showRateLimitModal) {
           setShowRateLimitModal(true)
@@ -95,14 +100,14 @@ export default function DashboardPage() {
 
   const handleTransform = async () => {
     if (!inputText.trim()) {
-      setError('Enter text to transform')
+      setError(t('errors.enterText'))
       return
     }
 
     // Check rate limit BEFORE making API call
     if (usageRemaining <= 0) {
       setShowRateLimitModal(true)
-      setError('Rate limit reached. Please wait for reset.')
+      setError(t('errors.rateLimitReached'))
       return
     }
 
@@ -131,9 +136,9 @@ export default function DashboardPage() {
           // Rate limit exceeded - show modal
           setRateLimitResetTime(data.resetAt)
           setShowRateLimitModal(true)
-          setError(`Rate limit reached. ${data.remaining || 0} left.`)
+          setError(t('errors.rateLimitReached'))
         } else {
-          setError(data.error || 'Failed')
+          setError(data.error || t('errors.failed'))
         }
         return
       }
@@ -142,7 +147,7 @@ export default function DashboardPage() {
       setUsageRemaining(data.data.rateLimit.remaining)
       setUsageLimit(data.data.rateLimit.limit)
     } catch (err: any) {
-      setError('Network error')
+      setError(t('errors.networkError'))
     } finally {
       setIsLoading(false)
     }
@@ -169,7 +174,17 @@ export default function DashboardPage() {
   const handleLoadTransformation = (input: string, output: string, type: string) => {
     setInputText(input)
     setOutputText(output)
-    setSelectedType(type)
+    setSelectedType(type as TransformationType)
+  }
+
+  // Get localized transformation label
+  const getTransformationLabel = (typeId: string) => {
+    return tTransformations(`${typeId}.label`)
+  }
+
+  // Get localized language label
+  const getLanguageLabel = (code: string) => {
+    return tLanguages(code)
   }
 
   return (
@@ -178,7 +193,7 @@ export default function DashboardPage() {
       <header className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
         <div className="px-3 sm:px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <h1 
+            <h1
               className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               onClick={() => router.push('/')}
             >
@@ -187,7 +202,7 @@ export default function DashboardPage() {
             {/* Anonymous badge */}
             {isAnonymous && (
               <div className="hidden sm:flex items-center gap-2 px-2 py-1 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-md">
-                <span className="text-xs text-amber-700 dark:text-amber-300">Guest Mode</span>
+                <span className="text-xs text-amber-700 dark:text-amber-300">{t('guestMode')}</span>
               </div>
             )}
             <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
@@ -209,7 +224,7 @@ export default function DashboardPage() {
                   onClick={() => router.push('/login')}
                   className="gap-1 text-xs"
                 >
-                  <span>Login</span>
+                  <span>{tCommon('login')}</span>
                 </Button>
                 <Button
                   size="sm"
@@ -217,7 +232,7 @@ export default function DashboardPage() {
                   className="gap-1 text-xs bg-indigo-600 hover:bg-indigo-700"
                 >
                   <UserPlus className="h-3 w-3" />
-                  <span className="hidden sm:inline">Sign Up</span>
+                  <span className="hidden sm:inline">{tCommon('signUp')}</span>
                 </Button>
               </>
             ) : (
@@ -230,7 +245,7 @@ export default function DashboardPage() {
                   className="gap-1 text-xs"
                 >
                   <LogOut className="h-3 w-3" />
-                  <span className="hidden sm:inline">Logout</span>
+                  <span className="hidden sm:inline">{tCommon('logout')}</span>
                 </Button>
               </>
             )}
@@ -241,10 +256,10 @@ export default function DashboardPage() {
         <div className="sm:hidden px-3 pb-2">
           <div className="flex items-center justify-between text-xs mb-1">
             <span className="text-slate-600 dark:text-slate-400">
-              {isAnonymous ? 'Guest Usage' : 'Usage'}
+              {isAnonymous ? t('guestUsage') : t('usage')}
             </span>
             <span className="font-medium text-slate-900 dark:text-white">
-              {usageRemaining}/{usageLimit} left
+              {t('usageLeft', { remaining: usageRemaining, limit: usageLimit })}
             </span>
           </div>
           <div className="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -277,7 +292,7 @@ export default function DashboardPage() {
                   }`}
                 >
                   <span className="mr-1">{type.icon}</span>
-                  {type.label}
+                  {getTransformationLabel(type.id)}
                 </button>
               ))}
             </div>
@@ -291,16 +306,16 @@ export default function DashboardPage() {
           <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
             <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                Output language:
+                {t('outputLanguage')}
               </span>
               <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
                 <SelectTrigger className="w-[200px] h-8 text-xs">
-                  <SelectValue placeholder="Auto" />
+                  <SelectValue placeholder={getLanguageLabel('auto')} />
                 </SelectTrigger>
                 <SelectContent>
                   {SUPPORTED_LANGUAGES.map((lang) => (
                     <SelectItem key={lang.code} value={lang.code} className="text-xs">
-                      {lang.label}
+                      {getLanguageLabel(lang.code)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -314,14 +329,14 @@ export default function DashboardPage() {
           {/* Input */}
           <div className="flex flex-col flex-1 md:h-full md:border-r border-slate-200 dark:border-slate-800">
             <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
-              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Input</span>
-              <span className="text-xs text-slate-500 dark:text-slate-500">{inputText.length} chars</span>
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{t('input')}</span>
+              <span className="text-xs text-slate-500 dark:text-slate-500">{inputText.length} {t('chars')}</span>
             </div>
             <div className="flex-1 min-h-0 overflow-auto">
               <Textarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder={selectedType === 'response' ? 'Paste the message you want to reply to...' : 'Paste your text here...'}
+                placeholder={selectedType === 'response' ? t('placeholders.inputResponse') : t('placeholders.input')}
                 className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
                 maxLength={10000}
               />
@@ -331,7 +346,7 @@ export default function DashboardPage() {
           {/* Output */}
           <div className="flex flex-col flex-1 md:h-full border-t md:border-t-0 border-slate-200 dark:border-slate-800">
             <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
-              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Output</span>
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{t('output')}</span>
               {outputText && (
                 <Button
                   variant="ghost"
@@ -342,12 +357,12 @@ export default function DashboardPage() {
                   {copied ? (
                     <>
                       <Check className="h-3 w-3" />
-                      Copied
+                      {tCommon('copied')}
                     </>
                   ) : (
                     <>
                       <Copy className="h-3 w-3" />
-                      Copy
+                      {tCommon('copy')}
                     </>
                   )}
                 </Button>
@@ -357,7 +372,7 @@ export default function DashboardPage() {
               <Textarea
                 value={outputText}
                 onChange={(e) => setOutputText(e.target.value)}
-                placeholder={selectedType === 'response' ? 'Generated response appears here...' : 'Transformed text appears here...'}
+                placeholder={selectedType === 'response' ? t('placeholders.outputResponse') : t('placeholders.output')}
                 className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
               />
             </div>
@@ -384,10 +399,10 @@ export default function DashboardPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Transforming...
+                  {t('transforming')}
                 </>
               ) : (
-                'Transform'
+                t('transform')
               )}
             </Button>
             <Button
@@ -401,7 +416,7 @@ export default function DashboardPage() {
               disabled={isLoading}
               className="px-6"
             >
-              Clear
+              {tCommon('clear')}
             </Button>
           </div>
         </div>

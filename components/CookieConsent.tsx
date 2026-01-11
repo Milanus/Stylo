@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { X, Cookie, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useTranslations } from 'next-intl'
 
 const COOKIE_CONSENT_KEY = 'stylo-cookie-consent'
 
@@ -21,6 +22,8 @@ export default function CookieConsent() {
     functional: false,
     analytics: false,
   })
+  const t = useTranslations('cookieConsent')
+  const tCommon = useTranslations('common')
 
   useEffect(() => {
     // Check if user has already made a choice
@@ -89,13 +92,12 @@ export default function CookieConsent() {
                 <Cookie className="h-5 w-5 text-indigo-600 dark:text-indigo-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
-                    We value your privacy
+                    {t('title')}
                   </h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    We use cookies to enhance your experience, analyze site usage, and remember your preferences.
-                    By clicking "Accept All", you consent to our use of cookies.{' '}
+                    {t('description')}{' '}
                     <Link href="/cookies" className="text-indigo-600 dark:text-indigo-400 hover:underline">
-                      Learn more
+                      {t('learnMore')}
                     </Link>
                   </p>
                 </div>
@@ -109,7 +111,7 @@ export default function CookieConsent() {
                   className="text-xs flex-1 sm:flex-initial"
                 >
                   <Settings className="h-3 w-3 mr-1" />
-                  Customize
+                  {t('customize')}
                 </Button>
                 <Button
                   variant="outline"
@@ -117,14 +119,14 @@ export default function CookieConsent() {
                   onClick={handleRejectAll}
                   className="text-xs flex-1 sm:flex-initial"
                 >
-                  Reject All
+                  {t('rejectAll')}
                 </Button>
                 <Button
                   size="sm"
                   onClick={handleAcceptAll}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs flex-1 sm:flex-initial"
                 >
-                  Accept All
+                  {t('acceptAll')}
                 </Button>
               </div>
             </div>
@@ -133,7 +135,7 @@ export default function CookieConsent() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Cookie Preferences
+                  {t('preferences.title')}
                 </h3>
                 <button
                   onClick={() => setShowSettings(false)}
@@ -155,15 +157,14 @@ export default function CookieConsent() {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
-                        Strictly Necessary
+                        {t('preferences.necessary.title')}
                       </h4>
                       <span className="px-2 py-0.5 text-xs font-medium bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full">
-                        Always Active
+                        {t('preferences.necessary.alwaysActive')}
                       </span>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                      These cookies are essential for the website to function. They enable basic features like
-                      authentication and secure access. These cannot be disabled.
+                      {t('preferences.necessary.description')}
                     </p>
                   </div>
                 </div>
@@ -178,11 +179,10 @@ export default function CookieConsent() {
                   />
                   <div className="flex-1">
                     <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
-                      Functional Cookies
+                      {t('preferences.functional.title')}
                     </h4>
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                      These cookies enable enhanced functionality such as remembering your preferences
-                      (language, theme) and providing personalized features.
+                      {t('preferences.functional.description')}
                     </p>
                   </div>
                 </div>
@@ -197,11 +197,10 @@ export default function CookieConsent() {
                   />
                   <div className="flex-1">
                     <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
-                      Analytics Cookies
+                      {t('preferences.analytics.title')}
                     </h4>
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                      These cookies help us understand how visitors interact with our website by collecting
-                      anonymous information. This helps us improve our service.
+                      {t('preferences.analytics.description')}
                     </p>
                   </div>
                 </div>
@@ -214,23 +213,23 @@ export default function CookieConsent() {
                   onClick={() => setShowSettings(false)}
                   className="text-xs flex-1"
                 >
-                  Cancel
+                  {tCommon('cancel')}
                 </Button>
                 <Button
                   size="sm"
                   onClick={handleSaveSettings}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs flex-1"
                 >
-                  Save Preferences
+                  {t('savePreferences')}
                 </Button>
               </div>
 
               <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
-                You can change your preferences anytime. See our{' '}
+                {t('changeAnytime')}{' '}
                 <Link href="/cookies" className="text-indigo-600 dark:text-indigo-400 hover:underline">
-                  Cookie Policy
+                  {t('cookiePolicy')}
                 </Link>{' '}
-                for more details.
+                {t('forDetails')}
               </p>
             </div>
           )}
