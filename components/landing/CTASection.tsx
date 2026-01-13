@@ -1,24 +1,29 @@
 'use client'
 
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { ANONYMOUS_LIMIT, FREE_LIMIT } from '@/lib/constants/rate-limits'
 
 export default function CTASection() {
+  const t = useTranslations('landing.cta')
+  const tCommon = useTranslations('common')
+
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden bg-indigo-600">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center space-y-8">
           {/* Heading */}
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
-            Ready to Transform
+            {t('title1')}
             <br />
-            Your Text?
+            {t('title2')}
           </h2>
 
           {/* Description */}
           <p className="text-xl lg:text-2xl text-white/90">
-            Start using Stylo for free today
+            {t('subtitle')}
           </p>
 
           {/* Dual CTA Buttons */}
@@ -28,7 +33,7 @@ export default function CTASection() {
                 size="lg"
                 className="group bg-white text-indigo-600 hover:bg-white/90 text-lg px-12 py-8 shadow-2xl hover:shadow-white/25 transition-all w-full sm:w-auto"
               >
-                Try for Free
+                {tCommon('tryForFree') || 'Try for Free'}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -39,7 +44,7 @@ export default function CTASection() {
                 variant="outline"
                 className="group bg-transparent text-white border-2 border-white hover:bg-white/10 text-lg px-12 py-8 shadow-2xl transition-all w-full sm:w-auto"
               >
-                Sign Up (10/hr)
+                {t('signUpRate', { rate: FREE_LIMIT })}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -55,7 +60,7 @@ export default function CTASection() {
                   clipRule="evenodd"
                 />
               </svg>
-              <span>No credit card required</span>
+              <span>{t('trustNoCreditCard')}</span>
             </div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -65,7 +70,7 @@ export default function CTASection() {
                   clipRule="evenodd"
                 />
               </svg>
-              <span>Try free: 3/hr • Sign up: 10/hr</span>
+              <span>{t('trustRateLimits', { anonymous: ANONYMOUS_LIMIT, free: FREE_LIMIT })}</span>
             </div>
           </div>
         </div>
