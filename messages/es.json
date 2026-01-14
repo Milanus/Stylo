@@ -203,6 +203,10 @@
     "keywords": {
       "label": "Palabras clave",
       "description": "Transformar palabras clave en texto natural"
+    },
+    "sales-ad": {
+      "label": "Anuncio de venta",
+      "description": "Crear anuncios de venta convincentes"
     }
   },
   "rateLimitModal": {

@@ -203,6 +203,10 @@
     "keywords": {
       "label": "Klíčová slova",
       "description": "Transformovat klíčová slova na přirozený text"
+    },
+    "sales-ad": {
+      "label": "Prodejní inzerát",
+      "description": "Vytvořit přesvědčivý prodejní inzerát"
     }
   },
   "rateLimitModal": {

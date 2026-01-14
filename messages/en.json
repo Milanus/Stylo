@@ -203,6 +203,10 @@
     "keywords": {
       "label": "Keywords",
       "description": "Transform keywords into natural flowing text"
+    },
+    "sales-ad": {
+      "label": "Sales Ad",
+      "description": "Create compelling sales advertisements"
     }
   },
   "rateLimitModal": {

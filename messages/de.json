@@ -203,6 +203,10 @@
     "keywords": {
       "label": "Schlüsselwörter",
       "description": "Schlüsselwörter in natürlichen Text umwandeln"
+    },
+    "sales-ad": {
+      "label": "Verkaufsanzeige",
+      "description": "Überzeugende Verkaufsanzeigen erstellen"
     }
   },
   "rateLimitModal": {
