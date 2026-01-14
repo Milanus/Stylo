@@ -155,7 +155,8 @@
       "enterText": "Enter text to transform",
       "rateLimitReached": "Rate limit reached. Please wait for reset.",
       "networkError": "Network error",
-      "failed": "Failed"
+      "failed": "Failed",
+      "loadingTypes": "Failed to load transformation types"
     }
   },
   "transformations": {
@@ -198,6 +199,10 @@
     "response": {
       "label": "Response",
       "description": "Generate a contextual reply to a message or email"
+    },
+    "keywords": {
+      "label": "Keywords",
+      "description": "Transform keywords into natural flowing text"
     }
   },
   "rateLimitModal": {

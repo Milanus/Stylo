@@ -34,6 +34,7 @@ model Transformation {
   originalText      String    @map("original_text") @db.Text
   transformedText   String?   @map("transformed_text") @db.Text
   transformationType String   @map("transformation_type")
+  transformationTypeRef TransformationType? @relation(fields: [transformationType], references: [slug])
   modelUsed         String    @map("model_used")
   tokensUsed        Int?      @map("tokens_used")
   costUsd           Decimal?  @map("cost_usd") @db.Decimal(10, 6)
@@ -75,4 +76,22 @@ model Subscription {
   updatedAt             DateTime  @updatedAt @map("updated_at")
 
   @@map("subscriptions")
+}
+
+// Transformation types (API-driven)
+model TransformationType {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  label       String
+  description String
+  icon        String
+  prompt      String   @db.Text
+  isActive    Boolean  @default(true) @map("is_active")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  transformations Transformation[]
+
+  @@map("transformation_types")
 }

@@ -155,7 +155,8 @@
       "enterText": "Text zum Transformieren eingeben",
       "rateLimitReached": "Limit erreicht. Bitte auf Reset warten.",
       "networkError": "Netzwerkfehler",
-      "failed": "Fehlgeschlagen"
+      "failed": "Fehlgeschlagen",
+      "loadingTypes": "Fehler beim Laden der Transformationstypen"
     }
   },
   "transformations": {
@@ -198,6 +199,10 @@
     "response": {
       "label": "Antwort",
       "description": "Eine kontextuelle Antwort auf eine Nachricht generieren"
+    },
+    "keywords": {
+      "label": "Schlüsselwörter",
+      "description": "Schlüsselwörter in natürlichen Text umwandeln"
     }
   },
   "rateLimitModal": {

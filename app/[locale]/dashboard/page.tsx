@@ -14,12 +14,12 @@ import {
 } from '@/components/ui/select'
 import { Loader2, LogOut, Copy, Check, AlertCircle, Zap, UserPlus } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
-import { TRANSFORMATION_TYPES, type TransformationType } from '@/lib/constants/transformations'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
 import HistoryDrawer from '@/components/HistoryDrawer'
 import RateLimitModal from '@/components/RateLimitModal'
 import { useTranslations } from 'next-intl'
+import { useTransformationTypes } from '@/hooks/useTransformationTypes'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -29,10 +29,13 @@ export default function DashboardPage() {
   const tTransformations = useTranslations('transformations')
   const tLanguages = useTranslations('languages')
 
+  // Fetch transformation types from API
+  const { types: transformationTypes, isLoading: isLoadingTypes, error: typesError } = useTransformationTypes()
+
   const [user, setUser] = useState<User | null>(null)
   const [inputText, setInputText] = useState('')
   const [outputText, setOutputText] = useState('')
-  const [selectedType, setSelectedType] = useState<TransformationType>('grammar')
+  const [selectedType, setSelectedType] = useState<string>('grammar')
   const [selectedLanguage, setSelectedLanguage] = useState<string>('auto')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -174,7 +177,7 @@ export default function DashboardPage() {
   const handleLoadTransformation = (input: string, output: string, type: string) => {
     setInputText(input)
     setOutputText(output)
-    setSelectedType(type as TransformationType)
+    setSelectedType(type)
   }
 
   // Get localized transformation label
@@ -280,22 +283,32 @@ export default function DashboardPage() {
         {/* Type Selector - Horizontal Pills */}
         <div className="relative border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
           <div className="overflow-x-auto px-3 py-2 scrollbar-hide">
-            <div className="flex gap-1.5 min-w-max pb-0.5">
-              {TRANSFORMATION_TYPES.map((type) => (
-                <button
-                  key={type.id}
-                  onClick={() => setSelectedType(type.id)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
-                    selectedType === type.id
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'
-                  }`}
-                >
-                  <span className="mr-1">{type.icon}</span>
-                  {getTransformationLabel(type.id)}
-                </button>
-              ))}
-            </div>
+            {isLoadingTypes ? (
+              <div className="flex items-center justify-center py-2">
+                <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
+              </div>
+            ) : typesError ? (
+              <div className="flex items-center justify-center py-2">
+                <span className="text-xs text-red-600 dark:text-red-400">{t('errors.loadingTypes')}</span>
+              </div>
+            ) : (
+              <div className="flex gap-1.5 min-w-max pb-0.5">
+                {transformationTypes.map((type) => (
+                  <button
+                    key={type.slug}
+                    onClick={() => setSelectedType(type.slug)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
+                      selectedType === type.slug
+                        ? 'bg-indigo-600 text-white'
+                        : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'
+                    }`}
+                  >
+                    <span className="mr-1">{type.icon}</span>
+                    {getTransformationLabel(type.slug)}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           {/* Scroll indicator gradient on mobile */}
           <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 dark:from-slate-900/50 to-transparent pointer-events-none md:hidden"></div>

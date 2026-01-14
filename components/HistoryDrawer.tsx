@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { History, FileText, Loader2 } from 'lucide-react'
-import { TRANSFORMATION_TYPES } from '@/lib/constants/transformations'
 import { useTranslations } from 'next-intl'
+import { useTransformationTypes } from '@/hooks/useTransformationTypes'
 
 interface HistoryItem {
   id: string
@@ -33,6 +33,7 @@ export default function HistoryDrawer({ onLoadTransformation }: HistoryDrawerPro
   const [error, setError] = useState<string | null>(null)
   const t = useTranslations('historyDrawer')
   const tTransformations = useTranslations('transformations')
+  const { types: transformationTypes } = useTransformationTypes()
 
   useEffect(() => {
     if (isOpen) {
@@ -73,7 +74,7 @@ export default function HistoryDrawer({ onLoadTransformation }: HistoryDrawerPro
   }
 
   const getTransformationLabel = (type: string) => {
-    const transformation = TRANSFORMATION_TYPES.find(t => t.id === type)
+    const transformation = transformationTypes.find(t => t.slug === type)
     if (transformation) {
       return `${transformation.icon} ${tTransformations(`${type}.label`)}`
     }

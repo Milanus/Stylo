@@ -155,7 +155,8 @@
       "enterText": "Zadejte text k transformaci",
       "rateLimitReached": "Dosažen limit. Počkejte na reset.",
       "networkError": "Chyba sítě",
-      "failed": "Selhalo"
+      "failed": "Selhalo",
+      "loadingTypes": "Nepodařilo se načíst typy transformací"
     }
   },
   "transformations": {
@@ -198,6 +199,10 @@
     "response": {
       "label": "Odpověď",
       "description": "Vygenerovat kontextovou odpověď na zprávu"
+    },
+    "keywords": {
+      "label": "Klíčová slova",
+      "description": "Transformovat klíčová slova na přirozený text"
     }
   },
   "rateLimitModal": {

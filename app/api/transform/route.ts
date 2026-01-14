@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { openai, DEFAULT_MODEL, MODEL_PRICING } from '@/lib/llm/openai'
-import { getSystemPrompt, getUserPrompt } from '@/lib/llm/prompts'
+import { getUserPrompt } from '@/lib/llm/prompts'
 import { transformTextSchema, sanitizeText, detectPromptInjection } from '@/lib/utils/validation'
 import { checkRateLimit } from '@/lib/utils/rate-limit'
 import { prisma } from '@/lib/db/prisma'
 import { createClient } from '@/lib/auth/supabase-server'
-import { getAllTransformationTypes } from '@/lib/constants/transformations'
+import { getCachedTransformationPrompt } from '@/lib/cache/transformation-types'
 import { getUserRateLimit } from '@/lib/constants/rate-limits'
 import { getUserSubscriptionTier } from '@/lib/utils/user-profile'
 
@@ -151,8 +151,34 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 6. Call OpenAI API
-    const systemPrompt = getSystemPrompt(transformationType, targetLanguage)
+    // 6. Get prompt from DB (server-side only, never exposed to client)
+    const basePrompt = await getCachedTransformationPrompt(transformationType)
+
+    if (!basePrompt) {
+      return NextResponse.json(
+        { error: 'Invalid transformation type' },
+        { status: 400 }
+      )
+    }
+
+    // Apply language modifications if targetLanguage is specified
+    let systemPrompt = basePrompt
+    if (targetLanguage && targetLanguage !== 'auto') {
+      const languageNames: Record<string, string> = {
+        'cs': 'Czech',
+        'sk': 'Slovak',
+        'en': 'English',
+        'es': 'Spanish',
+        'de': 'German',
+      }
+      const langName = languageNames[targetLanguage] || targetLanguage
+      systemPrompt = systemPrompt.replace(
+        /Keep(ing)? the same language as the input/g,
+        `Respond in ${langName} language`
+      )
+      systemPrompt = `IMPORTANT: The output must be in ${langName} language.\n\n${systemPrompt}`
+    }
+
     const userPrompt = getUserPrompt(sanitizedText)
 
     const completion = await openai.chat.completions.create({
@@ -261,9 +287,4 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET endpoint to retrieve transformation types
-export async function GET() {
-  return NextResponse.json({
-    transformationTypes: getAllTransformationTypes(),
-  })
-}
+// GET endpoint removed - use /api/transformation-types instead

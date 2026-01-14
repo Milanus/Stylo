@@ -155,7 +155,8 @@
       "enterText": "Ingresa texto para transformar",
       "rateLimitReached": "Límite alcanzado. Espera el reinicio.",
       "networkError": "Error de red",
-      "failed": "Falló"
+      "failed": "Falló",
+      "loadingTypes": "Error al cargar tipos de transformación"
     }
   },
   "transformations": {
@@ -198,6 +199,10 @@
     "response": {
       "label": "Respuesta",
       "description": "Generar una respuesta contextual a un mensaje"
+    },
+    "keywords": {
+      "label": "Palabras clave",
+      "description": "Transformar palabras clave en texto natural"
     }
   },
   "rateLimitModal": {
