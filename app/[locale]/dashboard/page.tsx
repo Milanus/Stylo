@@ -18,8 +18,10 @@ import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
 import HistoryDrawer from '@/components/HistoryDrawer'
 import RateLimitModal from '@/components/RateLimitModal'
+import CustomPromptsSheet from '@/components/CustomPromptsSheet'
 import { useTranslations } from 'next-intl'
 import { useTransformationTypes } from '@/hooks/useTransformationTypes'
+import { useUserPrompts } from '@/hooks/useUserPrompts'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -32,10 +34,14 @@ export default function DashboardPage() {
   // Fetch transformation types from API
   const { types: transformationTypes, isLoading: isLoadingTypes, error: typesError } = useTransformationTypes()
 
+  // Fetch user prompts (only for authenticated users)
+  const { prompts: userPrompts } = useUserPrompts()
+
   const [user, setUser] = useState<User | null>(null)
+  const [hasInitializedType, setHasInitializedType] = useState(false)
   const [inputText, setInputText] = useState('')
   const [outputText, setOutputText] = useState('')
-  const [selectedType, setSelectedType] = useState<string>('grammar')
+  const [selectedType, setSelectedType] = useState<string>('')
   const [selectedLanguage, setSelectedLanguage] = useState<string>('auto')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -46,6 +52,7 @@ export default function DashboardPage() {
   const [showRateLimitModal, setShowRateLimitModal] = useState(false)
   const [rateLimitResetTime, setRateLimitResetTime] = useState<number | null>(null)
   const [isLoadingRateLimit, setIsLoadingRateLimit] = useState(true)
+  const [selectedCustomPromptId, setSelectedCustomPromptId] = useState<string | null>(null)
 
   // Derived state
   const isAnonymous = !user
@@ -76,6 +83,14 @@ export default function DashboardPage() {
       setIsLoadingRateLimit(false)
     }
   }
+
+  // Initialize default transformation type
+  useEffect(() => {
+    if (!hasInitializedType && !isLoadingTypes && transformationTypes.length > 0) {
+      setSelectedType('grammar')
+      setHasInitializedType(true)
+    }
+  }, [hasInitializedType, isLoadingTypes, transformationTypes])
 
   useEffect(() => {
     setIsMounted(true)
@@ -119,17 +134,27 @@ export default function DashboardPage() {
     setOutputText('')
 
     try {
+      const requestBody = {
+        text: inputText,
+        ...(selectedCustomPromptId
+          ? { customPromptId: selectedCustomPromptId }
+          : { transformationType: selectedType }),
+        targetLanguage: selectedLanguage !== 'auto' ? selectedLanguage : undefined,
+      }
+
+      console.log('🚀 Transform request:', {
+        selectedType,
+        selectedCustomPromptId,
+        requestBody
+      })
+
       const response = await fetch('/api/transform', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-API-Key': process.env.NEXT_PUBLIC_STYLO_API_KEY || ''
         },
-        body: JSON.stringify({
-          text: inputText,
-          transformationType: selectedType,
-          targetLanguage: selectedLanguage !== 'auto' ? selectedLanguage : undefined,
-        }),
+        body: JSON.stringify(requestBody),
       })
 
       const data = await response.json()
@@ -296,9 +321,12 @@ export default function DashboardPage() {
                 {transformationTypes.map((type) => (
                   <button
                     key={type.slug}
-                    onClick={() => setSelectedType(type.slug)}
+                    onClick={() => {
+                      setSelectedType(type.slug)
+                      setSelectedCustomPromptId(null)
+                    }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
-                      selectedType === type.slug
+                      selectedType === type.slug && !selectedCustomPromptId
                         ? 'bg-indigo-600 text-white'
                         : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'
                     }`}
@@ -307,6 +335,43 @@ export default function DashboardPage() {
                     {getTransformationLabel(type.slug)}
                   </button>
                 ))}
+
+                {/* Custom user prompts - only for authenticated users */}
+                {!isAnonymous && userPrompts.length > 0 && (
+                  <>
+                    {/* Divider */}
+                    <div className="w-px h-6 bg-slate-300 dark:bg-slate-600 self-center mx-1" />
+
+                    {userPrompts.map((prompt) => (
+                      <button
+                        key={prompt.id}
+                        onClick={() => {
+                          setSelectedCustomPromptId(prompt.id)
+                          setSelectedType('')
+                        }}
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
+                          selectedCustomPromptId === prompt.id
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-indigo-200 dark:border-indigo-700 hover:border-indigo-400 dark:hover:border-indigo-600'
+                        }`}
+                      >
+                        <span className="mr-1">✨</span>
+                        {prompt.name}
+                      </button>
+                    ))}
+                  </>
+                )}
+
+                {/* Button to manage custom prompts */}
+                {!isAnonymous && (
+                  <CustomPromptsSheet
+                    onSelectPrompt={(id) => {
+                      setSelectedCustomPromptId(id)
+                      if (id) setSelectedType('')
+                    }}
+                    selectedPromptId={selectedCustomPromptId}
+                  />
+                )}
               </div>
             )}
           </div>

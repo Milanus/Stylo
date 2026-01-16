@@ -1,13 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { openai, DEFAULT_MODEL, MODEL_PRICING } from '@/lib/llm/openai'
 import { getUserPrompt } from '@/lib/llm/prompts'
-import { transformTextSchema, sanitizeText, detectPromptInjection } from '@/lib/utils/validation'
+import {
+  transformTextSchema,
+  sanitizeText,
+  detectPromptInjection,
+} from '@/lib/utils/validation'
 import { checkRateLimit } from '@/lib/utils/rate-limit'
 import { prisma } from '@/lib/db/prisma'
 import { createClient } from '@/lib/auth/supabase-server'
 import { getCachedTransformationPrompt } from '@/lib/cache/transformation-types'
 import { getUserRateLimit } from '@/lib/constants/rate-limits'
 import { getUserSubscriptionTier } from '@/lib/utils/user-profile'
+import { getUserPromptForTransform } from '@/lib/llm/user-prompt-builder'
 
 // API Key validation
 const API_KEY = process.env.STYLO_API_KEY
@@ -68,7 +73,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { text, transformationType, targetLanguage } = validationResult.data
+    const { text, transformationType, customPromptId, targetLanguage } =
+      validationResult.data
+
+    console.log('📥 Transform API received:', {
+      hasCustomPromptId: !!customPromptId,
+      customPromptId,
+      transformationType,
+      userId,
+      isAuthenticated,
+    })
 
     // 3. Sanitize input text
     const sanitizedText = sanitizeText(text)
@@ -152,11 +166,47 @@ export async function POST(request: NextRequest) {
     }
 
     // 6. Get prompt from DB (server-side only, never exposed to client)
-    const basePrompt = await getCachedTransformationPrompt(transformationType)
+    let basePrompt: string | null = null
+    let effectiveTransformationType = transformationType || 'custom'
 
-    if (!basePrompt) {
+    if (customPromptId) {
+      // Custom prompt requires authentication
+      console.log('🔑 Using custom prompt:', customPromptId)
+
+      if (!isAuthenticated || !userId) {
+        console.log('❌ Auth failed for custom prompt')
+        return NextResponse.json(
+          { error: 'Authentication required for custom prompts' },
+          { status: 401 }
+        )
+      }
+
+      basePrompt = await getUserPromptForTransform(customPromptId, userId)
+      console.log('✅ Custom prompt retrieved:', !!basePrompt)
+
+      if (!basePrompt) {
+        console.log('❌ Custom prompt not found')
+        return NextResponse.json(
+          { error: 'Custom prompt not found or not accessible' },
+          { status: 404 }
+        )
+      }
+
+      effectiveTransformationType = 'custom'
+    } else if (transformationType) {
+      console.log('📝 Using standard transformation type:', transformationType)
+      basePrompt = await getCachedTransformationPrompt(transformationType)
+
+      if (!basePrompt) {
+        return NextResponse.json(
+          { error: 'Invalid transformation type' },
+          { status: 400 }
+        )
+      }
+    } else {
+      console.log('❌ No transformation type or custom prompt provided')
       return NextResponse.json(
-        { error: 'Invalid transformation type' },
+        { error: 'Either transformationType or customPromptId is required' },
         { status: 400 }
       )
     }
@@ -180,6 +230,16 @@ export async function POST(request: NextRequest) {
     }
 
     const userPrompt = getUserPrompt(sanitizedText)
+
+    console.log('🤖 Sending to OpenAI:', {
+      model: DEFAULT_MODEL,
+      isCustomPrompt: !!customPromptId,
+    })
+    console.log('📋 FULL SYSTEM PROMPT:')
+    console.log('━'.repeat(80))
+    console.log(systemPrompt)
+    console.log('━'.repeat(80))
+    console.log(`📏 Lengths: system=${systemPrompt.length} chars, user=${userPrompt.length} chars`)
 
     const completion = await openai.chat.completions.create({
       model: DEFAULT_MODEL,
@@ -213,7 +273,7 @@ export async function POST(request: NextRequest) {
           userId,
           originalText: sanitizedText,
           transformedText,
-          transformationType,
+          transformationType: effectiveTransformationType,
           modelUsed: DEFAULT_MODEL,
           tokensUsed,
           costUsd,

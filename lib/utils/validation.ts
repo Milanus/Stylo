@@ -1,14 +1,37 @@
 import { z } from 'zod'
+import {
+  KEYWORD_LIMITS,
+  KEYWORD_MAX_LENGTH,
+} from '@/lib/constants/user-prompt-limits'
+import { isKeywordBlacklisted } from '@/lib/constants/keyword-blacklist'
 
 // Text transformation validation schema
-export const transformTextSchema = z.object({
-  text: z
-    .string()
-    .min(1, 'Text cannot be empty')
-    .max(10000, 'Text is too long (max 10,000 characters)'),
-  transformationType: z.enum(['grammar', 'formal', 'informal', 'legal', 'summary', 'expand', 'funny', 'teen', 'wholesome', 'response']),
-  targetLanguage: z.string().optional(),
-})
+export const transformTextSchema = z
+  .object({
+    text: z
+      .string()
+      .min(1, 'Text cannot be empty')
+      .max(10000, 'Text is too long (max 10,000 characters)'),
+    transformationType: z
+      .enum([
+        'grammar',
+        'formal',
+        'informal',
+        'legal',
+        'summary',
+        'expand',
+        'funny',
+        'teen',
+        'wholesome',
+        'response',
+      ])
+      .optional(),
+    customPromptId: z.string().uuid().optional(),
+    targetLanguage: z.string().optional(),
+  })
+  .refine((data) => data.transformationType || data.customPromptId, {
+    message: 'Either transformationType or customPromptId is required',
+  })
 
 export type TransformTextInput = z.infer<typeof transformTextSchema>
 
@@ -129,3 +152,53 @@ export function detectPromptInjection(text: string): boolean {
 
   return false
 }
+
+// Custom refinement for keyword blacklist
+const safeKeyword = z
+  .string()
+  .min(1, 'Keyword cannot be empty')
+  .max(KEYWORD_MAX_LENGTH, `Keyword must be ${KEYWORD_MAX_LENGTH} characters or less`)
+  .refine((keyword) => !isKeywordBlacklisted(keyword), {
+    message: 'This keyword is not allowed for security reasons',
+  })
+
+// Create user prompt schema (no templateId - prompt is generated from keywords)
+export const createUserPromptSchema = z.object({
+  name: z
+    .string()
+    .min(1, 'Name is required')
+    .max(50, 'Name must be 50 characters or less')
+    .regex(
+      /^[\p{L}\p{N}\s\-_]+$/u,
+      'Name can only contain letters, numbers, spaces, hyphens, and underscores'
+    ),
+  keywords: z
+    .array(safeKeyword)
+    .min(KEYWORD_LIMITS.min, `At least ${KEYWORD_LIMITS.min} keywords required`)
+    .max(KEYWORD_LIMITS.max, `Maximum ${KEYWORD_LIMITS.max} keywords allowed`),
+})
+
+// Update user prompt schema (can edit prompt directly or regenerate from keywords)
+export const updateUserPromptSchema = z.object({
+  name: z
+    .string()
+    .min(1)
+    .max(50)
+    .regex(/^[\p{L}\p{N}\s\-_]+$/u)
+    .optional(),
+  prompt: z
+    .string()
+    .min(50, 'Prompt must be at least 50 characters')
+    .max(3000, 'Prompt must be at most 3000 characters')
+    .optional(),
+  keywords: z
+    .array(safeKeyword)
+    .min(KEYWORD_LIMITS.min)
+    .max(KEYWORD_LIMITS.max)
+    .optional(),
+  regenerate: z.boolean().optional(), // If true, regenerate prompt from keywords
+  isActive: z.boolean().optional(),
+})
+
+export type CreateUserPromptInput = z.infer<typeof createUserPromptSchema>
+export type UpdateUserPromptInput = z.infer<typeof updateUserPromptSchema>

@@ -21,6 +21,7 @@ model UserProfile {
   transformations   Transformation[]
   usageLogs         UsageLog[]
   subscription      Subscription?
+  userPrompts       UserPrompt[]
 
   @@map("user_profiles")
 }
@@ -94,4 +95,21 @@ model TransformationType {
   transformations Transformation[]
 
   @@map("transformation_types")
+}
+
+// Custom user prompts for personalized transformations
+model UserPrompt {
+  id          String      @id @default(uuid())
+  userId      String      @map("user_id")
+  user        UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String      @db.VarChar(50)
+  prompt      String      @db.Text
+  keywords    String[]
+  isActive    Boolean     @default(true) @map("is_active")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@unique([userId, name])
+  @@map("user_prompts")
 }

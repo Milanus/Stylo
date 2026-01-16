@@ -280,5 +280,41 @@
   "languageSwitcher": {
     "label": "Sprache",
     "changeLanguage": "Sprache ändern"
+  },
+  "customPrompts": {
+    "title": "Eigene Befehle",
+    "myPrompts": "Meine Befehle",
+    "description": "Erstellen Sie personalisierte Texttransformationsstile",
+    "usage": "{used}/{limit} Befehle verwendet",
+    "noPrompts": "Noch keine eigenen Befehle. Erstellen Sie Ihren ersten!",
+    "createNew": "Neuen Befehl Erstellen",
+    "limitReached": "Befehlslimit erreicht. Upgraden Sie für mehr.",
+    "confirmDelete": "Sind Sie sicher, dass Sie diesen Befehl löschen möchten?",
+    "form": {
+      "name": "Befehlsname",
+      "namePlaceholder": "z.B. Professionelle E-Mail",
+      "template": "Basisvorlage",
+      "selectTemplate": "Vorlage auswählen...",
+      "keywords": "Stil-Schlüsselwörter",
+      "keywordPlaceholder": "Schlüsselwort hinzufügen...",
+      "keywordsHint": "Fügen Sie {min}-{max} Schlüsselwörter hinzu, um Ihren Stil zu definieren",
+      "cancel": "Abbrechen",
+      "create": "Befehl Erstellen"
+    },
+    "templates": {
+      "formal": "Formell",
+      "casual": "Informell",
+      "concise": "Prägnant",
+      "detailed": "Detailliert",
+      "creative": "Kreativ",
+      "technical": "Technisch"
+    },
+    "errors": {
+      "nameRequired": "Name ist erforderlich",
+      "templateRequired": "Bitte wählen Sie eine Vorlage",
+      "minKeywords": "Mindestens 3 Schlüsselwörter erforderlich",
+      "createFailed": "Befehl konnte nicht erstellt werden",
+      "keywordBlocked": "Dieses Schlüsselwort ist nicht erlaubt"
+    }
   }
 }

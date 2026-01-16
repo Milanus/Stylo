@@ -280,5 +280,41 @@
   "languageSwitcher": {
     "label": "Idioma",
     "changeLanguage": "Cambiar idioma"
+  },
+  "customPrompts": {
+    "title": "Comandos Personalizados",
+    "myPrompts": "Mis Comandos",
+    "description": "Crea estilos de transformación de texto personalizados",
+    "usage": "{used}/{limit} comandos usados",
+    "noPrompts": "Aún no hay comandos personalizados. ¡Crea el primero!",
+    "createNew": "Crear Nuevo Comando",
+    "limitReached": "Límite de comandos alcanzado. Actualiza para más.",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar este comando?",
+    "form": {
+      "name": "Nombre del Comando",
+      "namePlaceholder": "ej. Email Profesional",
+      "template": "Plantilla Base",
+      "selectTemplate": "Selecciona una plantilla...",
+      "keywords": "Palabras Clave de Estilo",
+      "keywordPlaceholder": "Añadir palabra clave...",
+      "keywordsHint": "Añade {min}-{max} palabras clave para definir tu estilo",
+      "cancel": "Cancelar",
+      "create": "Crear Comando"
+    },
+    "templates": {
+      "formal": "Formal",
+      "casual": "Informal",
+      "concise": "Conciso",
+      "detailed": "Detallado",
+      "creative": "Creativo",
+      "technical": "Técnico"
+    },
+    "errors": {
+      "nameRequired": "El nombre es obligatorio",
+      "templateRequired": "Por favor selecciona una plantilla",
+      "minKeywords": "Se requieren al menos 3 palabras clave",
+      "createFailed": "Error al crear el comando",
+      "keywordBlocked": "Esta palabra clave no está permitida"
+    }
   }
 }

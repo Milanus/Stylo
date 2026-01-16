@@ -280,5 +280,41 @@
   "languageSwitcher": {
     "label": "Jazyk",
     "changeLanguage": "Zmeniť jazyk"
+  },
+  "customPrompts": {
+    "title": "Vlastné Príkazy",
+    "myPrompts": "Moje Príkazy",
+    "description": "Vytvorte si personalizované štýly transformácie textu",
+    "usage": "{used}/{limit} príkazov použitých",
+    "noPrompts": "Zatiaľ žiadne vlastné príkazy. Vytvorte si prvý!",
+    "createNew": "Vytvoriť Nový Príkaz",
+    "limitReached": "Dosiahnutý limit príkazov. Upgradujte pre viac.",
+    "confirmDelete": "Naozaj chcete zmazať tento príkaz?",
+    "form": {
+      "name": "Názov Príkazu",
+      "namePlaceholder": "napr. Profesionálny Email",
+      "template": "Základná Šablóna",
+      "selectTemplate": "Vyberte šablónu...",
+      "keywords": "Kľúčové Slová Štýlu",
+      "keywordPlaceholder": "Pridať kľúčové slovo...",
+      "keywordsHint": "Pridajte {min}-{max} kľúčových slov pre definovanie štýlu",
+      "cancel": "Zrušiť",
+      "create": "Vytvoriť Príkaz"
+    },
+    "templates": {
+      "formal": "Formálny",
+      "casual": "Neformálny",
+      "concise": "Stručný",
+      "detailed": "Podrobný",
+      "creative": "Kreatívny",
+      "technical": "Technický"
+    },
+    "errors": {
+      "nameRequired": "Názov je povinný",
+      "templateRequired": "Vyberte prosím šablónu",
+      "minKeywords": "Vyžaduje sa minimálne 3 kľúčové slová",
+      "createFailed": "Nepodarilo sa vytvoriť príkaz",
+      "keywordBlocked": "Toto kľúčové slovo nie je povolené"
+    }
   }
 }
