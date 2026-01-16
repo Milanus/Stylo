@@ -166,6 +166,7 @@ export default function DashboardPage() {
           setShowRateLimitModal(true)
           setError(t('errors.rateLimitReached'))
         } else {
+          console.error('❌ Transform API error:', data)
           setError(data.error || t('errors.failed'))
         }
         return

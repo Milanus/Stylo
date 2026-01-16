@@ -12,20 +12,20 @@ export const transformTextSchema = z
       .string()
       .min(1, 'Text cannot be empty')
       .max(10000, 'Text is too long (max 10,000 characters)'),
-    transformationType: z
-      .enum([
-        'grammar',
-        'formal',
-        'informal',
-        'legal',
-        'summary',
-        'expand',
-        'funny',
-        'teen',
-        'wholesome',
-        'response',
-      ])
-      .optional(),
+    transformationType: z.enum([
+      'grammar',
+      'formal',
+      'informal',
+      'legal',
+      'summary',
+      'expand',
+      'funny',
+      'teen',
+      'wholesome',
+      'response',
+      'keywords',
+      'sales-ad',
+    ]).optional(),
     customPromptId: z.string().uuid().optional(),
     targetLanguage: z.string().optional(),
   })
@@ -158,6 +158,10 @@ const safeKeyword = z
   .string()
   .min(1, 'Keyword cannot be empty')
   .max(KEYWORD_MAX_LENGTH, `Keyword must be ${KEYWORD_MAX_LENGTH} characters or less`)
+  .transform((val) => val.trim()) // Remove leading/trailing whitespace
+  .transform((val) => val.replace(/,/g, ' ')) // Replace commas with spaces
+  .transform((val) => val.replace(/\s+/g, ' ')) // Replace multiple spaces with single space
+  .transform((val) => val.trim()) // Trim again after space normalization
   .refine((keyword) => !isKeywordBlacklisted(keyword), {
     message: 'This keyword is not allowed for security reasons',
   })

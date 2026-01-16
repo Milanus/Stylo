@@ -41,10 +41,18 @@ export default function CustomPromptsSheet({
 
   const handleAddKeyword = () => {
     const trimmed = keywordInput.trim()
-    if (trimmed && !newKeywords.includes(trimmed) && newKeywords.length < 10) {
-      setNewKeywords([...newKeywords, trimmed])
-      setKeywordInput('')
-    }
+    if (!trimmed) return
+
+    // Split by comma and process each part
+    const parts = trimmed.split(',').map(p => p.trim()).filter(p => p)
+
+    parts.forEach(part => {
+      if (!newKeywords.includes(part) && newKeywords.length < 10) {
+        setNewKeywords(prev => [...prev, part])
+      }
+    })
+
+    setKeywordInput('')
   }
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
@@ -232,7 +240,7 @@ export default function CustomPromptsSheet({
                   <Input
                     value={keywordInput}
                     onChange={(e) => setKeywordInput(e.target.value)}
-                    onKeyPress={handleKeywordKeyPress}
+                    onKeyDown={handleKeywordKeyPress}
                     placeholder={t('form.keywordPlaceholder')}
                     maxLength={30}
                   />

@@ -64,9 +64,12 @@ export async function POST(request: NextRequest) {
 
     // 2. Parse and validate request body
     const body = await request.json()
+    console.log('📥 Raw request body:', JSON.stringify(body, null, 2))
+
     const validationResult = transformTextSchema.safeParse(body)
 
     if (!validationResult.success) {
+      console.error('❌ Validation error:', validationResult.error.issues)
       return NextResponse.json(
         { error: 'Invalid input', details: validationResult.error.issues },
         { status: 400 }
