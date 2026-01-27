@@ -21,7 +21,8 @@
     "login": "Iniciar Sesión",
     "logout": "Cerrar Sesión",
     "signUp": "Registrarse",
-    "signIn": "Iniciar Sesión"
+    "signIn": "Iniciar Sesión",
+    "tryForFree": "Probar Gratis"
   },
   "landing": {
     "hero": {
@@ -290,6 +291,10 @@
     "createNew": "Crear Nuevo Comando",
     "limitReached": "Límite de comandos alcanzado. Actualiza para más.",
     "confirmDelete": "¿Estás seguro de que quieres eliminar este comando?",
+    "generating": "Generando comando...",
+    "viewPrompt": "Ver/Editar Comando",
+    "regenerate": "Regenerar",
+    "regenerating": "Regenerando...",
     "form": {
       "name": "Nombre del Comando",
       "namePlaceholder": "ej. Email Profesional",
@@ -299,7 +304,8 @@
       "keywordPlaceholder": "Añadir palabra clave...",
       "keywordsHint": "Añade {min}-{max} palabras clave para definir tu estilo",
       "cancel": "Cancelar",
-      "create": "Crear Comando"
+      "create": "Crear Comando",
+      "promptPlaceholder": "La IA generará un comando personalizado basado en tus palabras clave..."
     },
     "templates": {
       "formal": "Formal",

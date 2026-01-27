@@ -21,7 +21,8 @@
     "login": "Přihlásit",
     "logout": "Odhlásit",
     "signUp": "Registrace",
-    "signIn": "Přihlášení"
+    "signIn": "Přihlášení",
+    "tryForFree": "Vyzkoušet Zdarma"
   },
   "landing": {
     "hero": {
@@ -290,6 +291,10 @@
     "createNew": "Vytvořit Nový Příkaz",
     "limitReached": "Dosažen limit příkazů. Upgradujte pro více.",
     "confirmDelete": "Opravdu chcete smazat tento příkaz?",
+    "generating": "Generování příkazu...",
+    "viewPrompt": "Zobrazit/Upravit Příkaz",
+    "regenerate": "Vygenerovat znovu",
+    "regenerating": "Generuji znovu...",
     "form": {
       "name": "Název Příkazu",
       "namePlaceholder": "např. Profesionální Email",
@@ -299,7 +304,8 @@
       "keywordPlaceholder": "Přidat klíčové slovo...",
       "keywordsHint": "Přidejte {min}-{max} klíčových slov pro definování stylu",
       "cancel": "Zrušit",
-      "create": "Vytvořit Příkaz"
+      "create": "Vytvořit Příkaz",
+      "promptPlaceholder": "AI vygeneruje vlastní příkaz na základě vašich klíčových slov..."
     },
     "templates": {
       "formal": "Formální",

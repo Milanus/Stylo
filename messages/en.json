@@ -21,7 +21,8 @@
     "login": "Login",
     "logout": "Logout",
     "signUp": "Sign Up",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "tryForFree": "Try for Free"
   },
   "landing": {
     "hero": {
@@ -297,6 +298,8 @@
     "form": {
       "name": "Prompt Name",
       "namePlaceholder": "e.g., Professional Email",
+      "template": "Base Template",
+      "selectTemplate": "Select a template...",
       "keywords": "Style Keywords",
       "keywordPlaceholder": "Add keyword...",
       "keywordsHint": "Add {min}-{max} keywords to define your style",
@@ -304,8 +307,17 @@
       "create": "Create Prompt",
       "promptPlaceholder": "AI will generate a custom prompt based on your keywords..."
     },
+    "templates": {
+      "formal": "Formal",
+      "casual": "Casual",
+      "concise": "Concise",
+      "detailed": "Detailed",
+      "creative": "Creative",
+      "technical": "Technical"
+    },
     "errors": {
       "nameRequired": "Name is required",
+      "templateRequired": "Please select a template",
       "minKeywords": "At least 3 keywords are required",
       "createFailed": "Failed to create prompt",
       "keywordBlocked": "This keyword is not allowed"

@@ -1,4 +1,4 @@
-import Mistral from '@mistralai/mistralai'
+import { Mistral } from '@mistralai/mistralai'
 
 // Mistral client - lazy initialization to avoid errors when API key is not set
 let mistralClient: Mistral | null = null

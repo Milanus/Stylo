@@ -21,7 +21,8 @@
     "login": "Prihlásiť",
     "logout": "Odhlásiť",
     "signUp": "Registrácia",
-    "signIn": "Prihlásenie"
+    "signIn": "Prihlásenie",
+    "tryForFree": "Vyskúšať Zadarmo"
   },
   "landing": {
     "hero": {
@@ -290,6 +291,10 @@
     "createNew": "Vytvoriť Nový Príkaz",
     "limitReached": "Dosiahnutý limit príkazov. Upgradujte pre viac.",
     "confirmDelete": "Naozaj chcete zmazať tento príkaz?",
+    "generating": "Generovanie príkazu...",
+    "viewPrompt": "Zobraziť/Upraviť Príkaz",
+    "regenerate": "Vygenerovať znova",
+    "regenerating": "Generujem znova...",
     "form": {
       "name": "Názov Príkazu",
       "namePlaceholder": "napr. Profesionálny Email",
@@ -299,7 +304,8 @@
       "keywordPlaceholder": "Pridať kľúčové slovo...",
       "keywordsHint": "Pridajte {min}-{max} kľúčových slov pre definovanie štýlu",
       "cancel": "Zrušiť",
-      "create": "Vytvoriť Príkaz"
+      "create": "Vytvoriť Príkaz",
+      "promptPlaceholder": "AI vygeneruje vlastný príkaz na základe vašich kľúčových slov..."
     },
     "templates": {
       "formal": "Formálny",

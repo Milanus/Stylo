@@ -21,7 +21,8 @@
     "login": "Anmelden",
     "logout": "Abmelden",
     "signUp": "Registrieren",
-    "signIn": "Anmelden"
+    "signIn": "Anmelden",
+    "tryForFree": "Kostenlos Testen"
   },
   "landing": {
     "hero": {
@@ -290,6 +291,10 @@
     "createNew": "Neuen Befehl Erstellen",
     "limitReached": "Befehlslimit erreicht. Upgraden Sie für mehr.",
     "confirmDelete": "Sind Sie sicher, dass Sie diesen Befehl löschen möchten?",
+    "generating": "Befehl wird generiert...",
+    "viewPrompt": "Befehl Anzeigen/Bearbeiten",
+    "regenerate": "Neu Generieren",
+    "regenerating": "Wird neu generiert...",
     "form": {
       "name": "Befehlsname",
       "namePlaceholder": "z.B. Professionelle E-Mail",
@@ -299,7 +304,8 @@
       "keywordPlaceholder": "Schlüsselwort hinzufügen...",
       "keywordsHint": "Fügen Sie {min}-{max} Schlüsselwörter hinzu, um Ihren Stil zu definieren",
       "cancel": "Abbrechen",
-      "create": "Befehl Erstellen"
+      "create": "Befehl Erstellen",
+      "promptPlaceholder": "KI generiert einen benutzerdefinierten Befehl basierend auf Ihren Schlüsselwörtern..."
     },
     "templates": {
       "formal": "Formell",
