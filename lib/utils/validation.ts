@@ -72,14 +72,6 @@ export function detectPromptInjection(text: string): boolean {
     return true
   }
 
-  // Check for Unicode normalization attacks
-  const nfc = text.normalize('NFC')
-  const nfd = text.normalize('NFD')
-  // If they differ significantly, might be homoglyph attack
-  if (Math.abs(nfc.length - nfd.length) > nfc.length * 0.1) {
-    return true
-  }
-
   // Check for null bytes (can break parsers)
   if (text.includes('\x00') || text.includes('\u0000')) {
     return true
