@@ -11,7 +11,7 @@ import { prisma } from '@/lib/db/prisma'
 import { createClient } from '@/lib/auth/supabase-server'
 import { getCachedTransformationPrompt } from '@/lib/cache/transformation-types'
 import { getUserRateLimit } from '@/lib/constants/rate-limits'
-import { getUserSubscriptionTier } from '@/lib/utils/user-profile'
+import { getUserSubscriptionTier, getOrCreateUserProfile } from '@/lib/utils/user-profile'
 import { getUserPromptForTransform } from '@/lib/llm/user-prompt-builder'
 
 // API Key validation
@@ -130,9 +130,11 @@ export async function POST(request: NextRequest) {
     const clientIp = getClientIp(request)
 
     // 7. Check rate limiting - Subscription-tier based: 6/hour anonymous, 20/hour free, 100/hour paid
-    // Fetch user's subscription tier if authenticated
+    // Fetch user's subscription tier if authenticated (also ensures profile exists)
     let subscriptionTier: string | null = null
-    if (isAuthenticated && userId) {
+    if (isAuthenticated && userId && user?.email) {
+      subscriptionTier = await getOrCreateUserProfile(userId, user.email)
+    } else if (isAuthenticated && userId) {
       subscriptionTier = await getUserSubscriptionTier(userId)
     }
 

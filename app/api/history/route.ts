@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/auth/supabase-server'
 import { prisma } from '@/lib/db/prisma'
+import { getOrCreateUserProfile } from '@/lib/utils/user-profile'
 
 // API Key validation
 const API_KEY = process.env.STYLO_API_KEY
@@ -50,9 +51,14 @@ export async function GET(request: NextRequest) {
 
     if (!user || authError) {
       return NextResponse.json(
-        { error: 'Authentication required' },
+        { success: false, error: 'Authentication required' },
         { status: 401 }
       )
+    }
+
+    // Ensure user profile exists in database
+    if (user.email) {
+      await getOrCreateUserProfile(user.id, user.email)
     }
 
     // Get transformations ordered by most recent
@@ -74,6 +80,7 @@ export async function GET(request: NextRequest) {
     })
 
     return NextResponse.json({
+      success: true,
       data: transformations,
     })
   } catch (error: any) {
