@@ -53,6 +53,7 @@ export default function DashboardPage() {
   const [rateLimitResetTime, setRateLimitResetTime] = useState<number | null>(null)
   const [isLoadingRateLimit, setIsLoadingRateLimit] = useState(true)
   const [selectedCustomPromptId, setSelectedCustomPromptId] = useState<string | null>(null)
+  const [humanize, setHumanize] = useState(true)
 
   // Derived state
   const isAnonymous = !user
@@ -140,6 +141,7 @@ export default function DashboardPage() {
           ? { customPromptId: selectedCustomPromptId }
           : { transformationType: selectedType }),
         targetLanguage: selectedLanguage !== 'auto' ? selectedLanguage : undefined,
+        humanize,
       }
 
       console.log('🚀 Transform request:', {
@@ -380,28 +382,53 @@ export default function DashboardPage() {
           <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 dark:from-slate-900/50 to-transparent pointer-events-none md:hidden"></div>
         </div>
 
-        {/* Language Selector - ONLY for authenticated users */}
-        {!isAnonymous && (
-          <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                {t('outputLanguage')}
-              </span>
-              <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-                <SelectTrigger className="w-[200px] h-8 text-xs">
-                  <SelectValue placeholder={getLanguageLabel('auto')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {SUPPORTED_LANGUAGES.map((lang) => (
-                    <SelectItem key={lang.code} value={lang.code} className="text-xs">
-                      {getLanguageLabel(lang.code)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+        {/* Options Bar - Language + Humanize */}
+        <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
+          <div className="flex items-center gap-4">
+            {!isAnonymous && (
+              <>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                    {t('outputLanguage')}
+                  </span>
+                  <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                    <SelectTrigger className="w-[200px] h-8 text-xs">
+                      <SelectValue placeholder={getLanguageLabel('auto')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SUPPORTED_LANGUAGES.map((lang) => (
+                        <SelectItem key={lang.code} value={lang.code} className="text-xs">
+                          {getLanguageLabel(lang.code)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="w-px h-5 bg-slate-200 dark:bg-slate-700" />
+              </>
+            )}
+            <button
+              onClick={() => {
+                if (isAnonymous) {
+                  router.push('/signup')
+                } else {
+                  setHumanize(!humanize)
+                }
+              }}
+              title={isAnonymous ? t('humanizeLoginRequired') : undefined}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                isAnonymous
+                  ? 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'
+                  : humanize
+                    ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700'
+                    : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
+              }`}
+            >
+              <span>{isAnonymous ? '🔒' : humanize ? '🧑' : '🤖'}</span>
+              {t('humanize')}
+            </button>
           </div>
-        )}
+        </div>
 
         {/* Text Areas - Split View */}
         <div className="flex-1 flex flex-col md:grid md:grid-cols-2 overflow-hidden">

@@ -44,6 +44,7 @@ model Transformation {
   createdAt         DateTime  @default(now()) @map("created_at")
 
   @@index([userId, createdAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
   @@map("transformations")
 }
 

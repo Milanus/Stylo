@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { openai, DEFAULT_MODEL, MODEL_PRICING } from '@/lib/llm/openai'
 import { getUserPrompt } from '@/lib/llm/prompts'
+import { HUMANIZE_INSTRUCTIONS, HUMANIZE_SUFFIX } from '@/lib/constants/humanize-rules'
 import {
   transformTextSchema,
   sanitizeText,
@@ -13,6 +14,7 @@ import { getCachedTransformationPrompt } from '@/lib/cache/transformation-types'
 import { getUserRateLimit } from '@/lib/constants/rate-limits'
 import { getUserSubscriptionTier, getOrCreateUserProfile } from '@/lib/utils/user-profile'
 import { getUserPromptForTransform } from '@/lib/llm/user-prompt-builder'
+import { getUserHistoryLimit } from '@/lib/constants/history-limits'
 
 // API Key validation
 const API_KEY = process.env.STYLO_API_KEY
@@ -76,7 +78,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { text, transformationType, customPromptId, targetLanguage } =
+    const { text, transformationType, customPromptId, targetLanguage, humanize } =
       validationResult.data
 
     console.log('📥 Transform API received:', {
@@ -234,6 +236,11 @@ export async function POST(request: NextRequest) {
       systemPrompt = `IMPORTANT: The output must be in ${langName} language.\n\n${systemPrompt}`
     }
 
+    // Apply humanization rules if enabled
+    if (humanize) {
+      systemPrompt = HUMANIZE_INSTRUCTIONS + '\n\n' + systemPrompt + HUMANIZE_SUFFIX
+    }
+
     const userPrompt = getUserPrompt(sanitizedText)
 
     console.log('🤖 Sending to OpenAI:', {
@@ -285,6 +292,27 @@ export async function POST(request: NextRequest) {
           processingTimeMs: processingTime,
         },
       })
+
+      // Enforce history limit per user - delete oldest records beyond the limit
+      if (userId) {
+        const historyLimit = getUserHistoryLimit(subscriptionTier)
+        const count = await prisma.transformation.count({
+          where: { userId },
+        })
+
+        if (count > historyLimit) {
+          const toDelete = await prisma.transformation.findMany({
+            where: { userId },
+            orderBy: { createdAt: 'asc' },
+            take: count - historyLimit,
+            select: { id: true },
+          })
+
+          await prisma.transformation.deleteMany({
+            where: { id: { in: toDelete.map(t => t.id) } },
+          })
+        }
+      }
 
       // Save usage log with enhanced tracking for anonymous users
       await prisma.usageLog.create({

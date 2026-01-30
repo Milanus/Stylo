@@ -99,9 +99,15 @@ export async function middleware(request: NextRequest) {
   );
 
   // Refresh session if expired
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch {
+    // Invalid refresh token — clear the session cookies so the user
+    // is treated as unauthenticated instead of seeing repeated errors.
+    await supabase.auth.signOut();
+  }
 
   // Get path without locale prefix
   const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/';

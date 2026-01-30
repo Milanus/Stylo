@@ -143,6 +143,8 @@
     "input": "Input",
     "output": "Output",
     "outputLanguage": "Output language:",
+    "humanize": "Humanize",
+    "humanizeLoginRequired": "Sign up to use Humanize",
     "chars": "chars",
     "transform": "Transform",
     "transforming": "Transforming...",

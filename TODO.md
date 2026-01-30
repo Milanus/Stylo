@@ -102,23 +102,23 @@ Implementácia limitov pre históriu transformácií na používateľa a automat
 ## Úlohy
 
 ### 1. Limity histórie na používateľa
-- [ ] Definovať limity podľa subscription tier v `lib/constants/history-limits.ts`
-- [ ] Implementovať kontrolu limitu pri vytváraní novej transformácie
-- [ ] Automaticky zmazať najstaršie záznamy keď sa dosiahne limit
+- [x] Definovať limity podľa subscription tier v `lib/constants/history-limits.ts`
+- [x] Implementovať kontrolu limitu pri vytváraní novej transformácie
+- [x] Automaticky zmazať najstaršie záznamy keď sa dosiahne limit
 
 ### 2. Automatické čistenie starých dát
-- [ ] Vytvoriť `lib/jobs/cleanup-history.ts` - cleanup job
-- [ ] Nastaviť Vercel Cron Job pre pravidelné spúšťanie
-- [ ] Definovať retenčnú politiku (napr. 30/90/365 dní podľa tier)
+- [x] Vytvoriť `lib/jobs/cleanup-history.ts` - cleanup job
+- [x] Nastaviť Vercel Cron Job pre pravidelné spúšťanie
+- [x] Definovať retenčnú politiku (napr. 30/90/365 dní podľa tier)
 
 ### 3. API endpoint pre správu histórie
-- [ ] Pridať DELETE endpoint do `app/api/history/route.ts`
-- [ ] Umožniť používateľovi manuálne zmazať svoju históriu
-- [ ] Pridať bulk delete pre staré záznamy
+- [x] Pridať DELETE endpoint do `app/api/history/route.ts`
+- [x] Umožniť používateľovi manuálne zmazať svoju históriu
+- [x] Pridať bulk delete pre staré záznamy
 
 ### 4. Databázové optimalizácie
-- [ ] Pridať index na `createdAt` v tabuľke `Transformation`
-- [ ] Pridať index na kombináciu `userId` + `createdAt`
+- [x] Pridať index na `createdAt` v tabuľke `Transformation`
+- [x] Pridať index na kombináciu `userId` + `createdAt`
 
 ---
 
@@ -271,18 +271,18 @@ Upraviť systémové prompty tak, aby výstup pôsobil prirodzene a ľudsky, nie
 ## Úlohy
 
 ### 1. Audit existujúcich promptov
-- [ ] Prejsť všetky prompty v `lib/constants/transformations.ts`
-- [ ] Identifikovať "AI-like" vzory vo výstupoch
-- [ ] Otestovať výstupy na AI detektoroch (GPTZero, Originality.ai)
+- [x] Prejsť všetky prompty v `lib/constants/transformations.ts`
+- [x] Identifikovať "AI-like" vzory vo výstupoch
+- [x] Otestovať výstupy na AI detektoroch (GPTZero, Originality.ai)
 
 ### 2. Úprava systémových promptov
-- [ ] Pridať inštrukcie pre prirodzený štýl písania
-- [ ] Odstrániť typické AI vzory (nadmerné používanie "however", "furthermore", atď.)
-- [ ] Pridať variabilitu do výstupov
+- [x] Pridať inštrukcie pre prirodzený štýl písania
+- [x] Odstrániť typické AI vzory (nadmerné používanie "however", "furthermore", atď.)
+- [x] Pridať variabilitu do výstupov
 
 ### 3. Konfigurovateľná "human-likeness"
-- [ ] Pridať parameter `humanize: boolean` do API
-- [ ] Vytvoriť humanizačné pravidlá v `lib/constants/humanize-rules.ts`
+- [x] Pridať parameter `humanize: boolean` do API
+- [x] Vytvoriť humanizačné pravidlá v `lib/constants/humanize-rules.ts`
 
 ---
 

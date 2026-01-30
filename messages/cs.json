@@ -143,6 +143,8 @@
     "input": "Vstup",
     "output": "Výstup",
     "outputLanguage": "Výstupní jazyk:",
+    "humanize": "Humanizovat",
+    "humanizeLoginRequired": "Zaregistrujte se pro použití Humanizace",
     "chars": "znaků",
     "transform": "Transformovat",
     "transforming": "Transformuji...",
