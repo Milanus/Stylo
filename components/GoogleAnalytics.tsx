@@ -1,64 +1,38 @@
 'use client'
 
-import Script from 'next/script'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-const GA_ID = 'G-5KTEHJPS9M'
 const COOKIE_CONSENT_KEY = 'stylo-cookie-consent'
 
 export default function GoogleAnalytics() {
-  const [consentGiven, setConsentGiven] = useState(false)
-
   useEffect(() => {
-    const checkConsent = () => {
+    const updateConsent = () => {
       const consent = localStorage.getItem(COOKIE_CONSENT_KEY)
       if (consent) {
         try {
           const prefs = JSON.parse(consent)
-          setConsentGiven(prefs.analytics === true)
+          const w = window as unknown as { gtag?: (...args: unknown[]) => void }
+          if (typeof w.gtag === 'function') {
+            w.gtag('consent', 'update', {
+              analytics_storage: prefs.analytics ? 'granted' : 'denied',
+              functionality_storage: prefs.functional ? 'granted' : 'denied',
+            })
+          }
         } catch {
-          setConsentGiven(false)
+          // ignore parse errors
         }
       }
     }
 
-    checkConsent()
+    updateConsent()
 
-    // Listen for consent changes from CookieConsent component
-    const handleStorage = (e: StorageEvent) => {
-      if (e.key === COOKIE_CONSENT_KEY) {
-        checkConsent()
-      }
-    }
-
-    // Also listen for custom event for same-tab updates
-    const handleConsentUpdate = () => checkConsent()
-
-    window.addEventListener('storage', handleStorage)
+    const handleConsentUpdate = () => updateConsent()
     window.addEventListener('cookie-consent-update', handleConsentUpdate)
 
     return () => {
-      window.removeEventListener('storage', handleStorage)
       window.removeEventListener('cookie-consent-update', handleConsentUpdate)
     }
   }, [])
 
-  if (!consentGiven) return null
-
-  return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_ID}');
-        `}
-      </Script>
-    </>
-  )
+  return null
 }
