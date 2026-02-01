@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Script from 'next/script';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -8,6 +7,7 @@ import { locales, type Locale } from '@/i18n/config';
 import '../globals.css';
 import InstallPrompt from '@/components/pwa/InstallPrompt';
 import CookieConsent from '@/components/CookieConsent';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -87,18 +87,6 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-5KTEHJPS9M"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-5KTEHJPS9M');
-          `}
-        </Script>
         {locales.map((loc) => (
           <link key={loc} rel="alternate" hrefLang={loc} href={`/${loc}`} />
         ))}
@@ -111,6 +99,7 @@ export default async function LocaleLayout({
           {children}
           <InstallPrompt />
           <CookieConsent />
+          <GoogleAnalytics />
         </NextIntlClientProvider>
       </body>
     </html>

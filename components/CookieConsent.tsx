@@ -46,15 +46,8 @@ export default function CookieConsent() {
     localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(prefs))
     setIsVisible(false)
 
-    // Apply preferences (in a real app, this would enable/disable tracking)
-    if (prefs.analytics) {
-      // Enable analytics
-      console.log('Analytics enabled')
-    }
-    if (prefs.functional) {
-      // Enable functional cookies
-      console.log('Functional cookies enabled')
-    }
+    // Notify other components (e.g. GoogleAnalytics) about consent change
+    window.dispatchEvent(new Event('cookie-consent-update'))
   }
 
   const handleAcceptAll = () => {
