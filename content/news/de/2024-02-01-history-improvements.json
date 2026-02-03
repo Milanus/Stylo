@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-01-history-improvements",
+  "type": "improvement",
+  "title": "Verbesserte Verlaufsverwaltung",
+  "description": "Wir haben den Transformationsverlauf mit besserer Filterung, Suche und der Möglichkeit verbessert, vergangene Transformationen schnell erneut zu laden.",
+  "date": "2024-02-01",
+  "version": "1.1.5"
+}

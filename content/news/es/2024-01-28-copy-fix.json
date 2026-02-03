@@ -1,0 +1,8 @@
+{
+  "id": "2024-01-28-copy-fix",
+  "type": "fix",
+  "title": "Corrección del Botón Copiar",
+  "description": "Solucionamos un problema donde el botón de copiar no funcionaba correctamente en algunos navegadores móviles. ¡Gracias a todos los que lo reportaron!",
+  "date": "2024-01-28",
+  "version": "1.1.4"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-03-humanize-toggle",
+  "type": "feature",
+  "title": "Nuevo Interruptor Humanizar",
+  "description": "Hemos agregado un nuevo interruptor Humanizar que hace que el texto generado por IA suene más natural y humano. Esta función está disponible para usuarios registrados.",
+  "date": "2024-02-03",
+  "version": "1.2.0"
+}

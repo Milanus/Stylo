@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-03-humanize-toggle",
+  "type": "feature",
+  "title": "New Humanize Toggle",
+  "description": "We've added a new Humanize toggle that makes AI-generated text sound more natural and human-like. This feature is available for registered users.",
+  "date": "2024-02-03",
+  "version": "1.2.0"
+}

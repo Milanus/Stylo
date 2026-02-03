@@ -1,0 +1,8 @@
+{
+  "id": "2024-01-28-copy-fix",
+  "type": "fix",
+  "title": "Copy Button Fix",
+  "description": "Fixed an issue where the copy button wasn't working correctly on some mobile browsers. Thanks to everyone who reported this!",
+  "date": "2024-01-28",
+  "version": "1.1.4"
+}

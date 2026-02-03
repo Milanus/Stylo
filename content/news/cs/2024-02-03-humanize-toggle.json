@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-03-humanize-toggle",
+  "type": "feature",
+  "title": "Nový Humanize přepínač",
+  "description": "Přidali jsme nový Humanize přepínač, který dělá AI-generovaný text přirozenějším a lidštějším. Tato funkce je dostupná pro registrované uživatele.",
+  "date": "2024-02-03",
+  "version": "1.2.0"
+}

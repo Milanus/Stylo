@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-01-history-improvements",
+  "type": "improvement",
+  "title": "Gestión Mejorada del Historial",
+  "description": "Hemos mejorado el historial de transformaciones con mejor filtrado, búsqueda y la capacidad de recargar rápidamente transformaciones pasadas.",
+  "date": "2024-02-01",
+  "version": "1.1.5"
+}

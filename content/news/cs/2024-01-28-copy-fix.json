@@ -1,0 +1,8 @@
+{
+  "id": "2024-01-28-copy-fix",
+  "type": "fix",
+  "title": "Oprava Tlačítka Kopírovat",
+  "description": "Opravili jsme problém, kdy tlačítko kopírování nefungovalo správně na některých mobilních prohlížečích. Děkujeme všem, kteří to nahlásili!",
+  "date": "2024-01-28",
+  "version": "1.1.4"
+}
