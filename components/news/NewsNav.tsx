@@ -2,8 +2,8 @@
 
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-// Direct imports to avoid barrel file (Vercel Best Practice 2.1 - CRITICAL)
-import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
+// Optimized by Next.js optimizePackageImports (Vercel Best Practice 2.1)
+import { ArrowRight } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export function NewsNav() {

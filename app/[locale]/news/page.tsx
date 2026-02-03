@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
-// Direct import to avoid barrel file (Vercel Best Practice 2.1 - CRITICAL)
-import Megaphone from 'lucide-react/dist/esm/icons/megaphone';
-import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
+// Optimized by Next.js optimizePackageImports (Vercel Best Practice 2.1)
+import { Megaphone, Sparkles } from 'lucide-react';
 import { getAllNews } from '@/lib/news/loader';
 import { groupNewsByMonth } from '@/lib/news/utils';
 import { Locale } from '@/lib/news/types';
