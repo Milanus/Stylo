@@ -5,6 +5,7 @@
   },
   "common": {
     "stylo": "Stylo",
+    "blog": "Blog",
     "loading": "Načítání...",
     "error": "Chyba",
     "success": "Úspěch",
@@ -324,5 +325,24 @@
       "createFailed": "Nepodařilo se vytvořit příkaz",
       "keywordBlocked": "Toto klíčové slovo není povoleno"
     }
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Číst více",
+    "readingTime": "{minutes} min čtení",
+    "publishedOn": "Publikováno {date}",
+    "updatedOn": "Aktualizováno {date}",
+    "categories": {
+      "ai-writing": "AI Psaní",
+      "grammar-tips": "Gramatické Tipy",
+      "productivity": "Produktivita",
+      "tutorials": "Návody",
+      "product-updates": "Produktové Novinky"
+    },
+    "noPostsFound": "Žádné příspěvky nebyly nalezeny.",
+    "backToBlog": "Zpět na blog",
+    "shareArticle": "Sdílet tento článek",
+    "relatedPosts": "Související články",
+    "tryStyleFree": "Vyzkoušejte Stylo zdarma"
   }
 }

@@ -5,6 +5,7 @@
   },
   "common": {
     "stylo": "Stylo",
+    "blog": "Blog",
     "loading": "Wird geladen...",
     "error": "Fehler",
     "success": "Erfolg",
@@ -324,5 +325,24 @@
       "createFailed": "Befehl konnte nicht erstellt werden",
       "keywordBlocked": "Dieses Schlüsselwort ist nicht erlaubt"
     }
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Mehr lesen",
+    "readingTime": "{minutes} Min. Lesezeit",
+    "publishedOn": "Veröffentlicht am {date}",
+    "updatedOn": "Aktualisiert am {date}",
+    "categories": {
+      "ai-writing": "KI-Schreiben",
+      "grammar-tips": "Grammatik-Tipps",
+      "productivity": "Produktivität",
+      "tutorials": "Anleitungen",
+      "product-updates": "Produktaktualisierungen"
+    },
+    "noPostsFound": "Keine Beiträge gefunden.",
+    "backToBlog": "Zurück zum Blog",
+    "shareArticle": "Diesen Artikel teilen",
+    "relatedPosts": "Ähnliche Beiträge",
+    "tryStyleFree": "Probieren Sie Stylo kostenlos aus"
   }
 }

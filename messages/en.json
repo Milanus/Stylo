@@ -5,6 +5,7 @@
   },
   "common": {
     "stylo": "Stylo",
+    "blog": "Blog",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
@@ -324,5 +325,24 @@
       "createFailed": "Failed to create prompt",
       "keywordBlocked": "This keyword is not allowed"
     }
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Read more",
+    "readingTime": "{minutes} min read",
+    "publishedOn": "Published on {date}",
+    "updatedOn": "Updated on {date}",
+    "categories": {
+      "ai-writing": "AI Writing",
+      "grammar-tips": "Grammar Tips",
+      "productivity": "Productivity",
+      "tutorials": "Tutorials",
+      "product-updates": "Product Updates"
+    },
+    "noPostsFound": "No posts found.",
+    "backToBlog": "Back to blog",
+    "shareArticle": "Share this article",
+    "relatedPosts": "Related posts",
+    "tryStyleFree": "Try Stylo for free"
   }
 }

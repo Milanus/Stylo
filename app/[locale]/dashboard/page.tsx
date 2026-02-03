@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Loader2, LogOut, Copy, Check, AlertCircle, Zap, UserPlus } from 'lucide-react'
+import { Loader2, LogOut, Copy, Check, AlertCircle, Zap, UserPlus, BookOpen } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
@@ -230,6 +230,16 @@ export default function DashboardPage() {
             >
               Stylo
             </h1>
+            {/* Blog link */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push('/blog')}
+              className="hidden sm:flex items-center gap-1.5 text-xs h-7 px-2 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              {tCommon('blog')}
+            </Button>
             {/* Anonymous badge */}
             {isAnonymous && (
               <div className="hidden sm:flex items-center gap-2 px-2 py-1 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-md">

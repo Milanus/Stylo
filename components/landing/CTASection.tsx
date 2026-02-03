@@ -50,6 +50,14 @@ export default function CTASection() {
             </Link>
           </div>
 
+          {/* Blog link */}
+          <p className="text-white/70 text-sm">
+            Or explore our{' '}
+            <Link href="/blog" className="text-white underline underline-offset-4 hover:text-white/90 transition-colors">
+              writing tips & guides
+            </Link>
+          </p>
+
           {/* Trust indicators */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-white/80 text-sm pt-4">
             <div className="flex items-center gap-2">
