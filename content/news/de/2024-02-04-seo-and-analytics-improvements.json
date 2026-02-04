@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-04-seo-and-analytics-improvements",
+  "type": "improvement",
+  "title": "SEO- und Analyse-Verbesserungen",
+  "description": "Wichtige Verbesserungen für SEO und Analytik: Behobene Google Analytics-Integration mit DSGVO-konformem Einwilligungsmodus v2, umfassende Breadcrumbs und strukturierte Daten auf allen Inhaltsseiten hinzugefügt, verbesserte News-Sektion mit vollständiger SEO-Optimierung und implementierte Kreuzverknüpfung zwischen Blog- und News-Bereichen für bessere Navigation und Suchmaschinen-Rankings.",
+  "date": "2024-02-04",
+  "version": "1.3.0"
+}

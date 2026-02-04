@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-04-humanize-response-fix",
+  "type": "fix",
+  "title": "Oprava Humanize pro režim Odpověď",
+  "description": "Opravena chyba, při které funkce Humanize nesprávně upravovala vstupní text místo generování odpovědi při použití transformačního typu Odpověď.",
+  "date": "2024-02-04",
+  "version": "1.2.1"
+}

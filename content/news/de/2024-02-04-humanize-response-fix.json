@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-04-humanize-response-fix",
+  "type": "fix",
+  "title": "Humanize-Fix für Antwortmodus",
+  "description": "Ein Fehler wurde behoben, bei dem die Humanize-Funktion den Eingabetext fälschlicherweise bearbeitete, anstatt eine Antwort zu generieren, wenn der Transformationstyp Antwort verwendet wurde.",
+  "date": "2024-02-04",
+  "version": "1.2.1"
+}

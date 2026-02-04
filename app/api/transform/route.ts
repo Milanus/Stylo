@@ -237,7 +237,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Apply humanization rules if enabled
-    if (humanize) {
+    // Skip humanize for 'response' type - it generates replies, not edits text
+    // The humanize rules would confuse the model into editing instead of responding
+    if (humanize && transformationType !== 'response') {
       systemPrompt = HUMANIZE_INSTRUCTIONS + '\n\n' + systemPrompt + HUMANIZE_SUFFIX
     }
 

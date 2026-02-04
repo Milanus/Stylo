@@ -28,6 +28,12 @@ export function BlogNav() {
                 Blog
               </Link>
               <Link
+                href="/news"
+                className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
+                News
+              </Link>
+              <Link
                 href="/dashboard"
                 className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
               >

@@ -239,6 +239,20 @@
       "days": "vor {count}T"
     }
   },
+  "newsDrawer": {
+    "title": "Neuigkeiten & Updates",
+    "description": "Neueste Funktionen und Verbesserungen",
+    "noNews": "Keine Neuigkeiten verfügbar",
+    "failedToLoad": "Neuigkeiten konnten nicht geladen werden",
+    "viewAll": "Alle Updates Anzeigen",
+    "tryAgain": "Erneut Versuchen",
+    "types": {
+      "feature": "Funktion",
+      "fix": "Fehlerbehebung",
+      "improvement": "Verbesserung",
+      "announcement": "Ankündigung"
+    }
+  },
   "deleteAccount": {
     "title": "Konto Löschen",
     "button": "Konto Löschen",

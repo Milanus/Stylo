@@ -239,6 +239,20 @@
       "days": "před {count}d"
     }
   },
+  "newsDrawer": {
+    "title": "Novinky a Aktualizace",
+    "description": "Nejnovější funkce a vylepšení",
+    "noNews": "Žádné novinky",
+    "failedToLoad": "Nepodařilo se načíst novinky",
+    "viewAll": "Zobrazit Všechny Aktualizace",
+    "tryAgain": "Zkusit Znovu",
+    "types": {
+      "feature": "Funkce",
+      "fix": "Oprava",
+      "improvement": "Vylepšení",
+      "announcement": "Oznámení"
+    }
+  },
   "deleteAccount": {
     "title": "Smazat Účet",
     "button": "Smazat Účet",

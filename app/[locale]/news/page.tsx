@@ -7,6 +7,8 @@ import { groupNewsByMonth } from '@/lib/news/utils';
 import { Locale } from '@/lib/news/types';
 import { NewsTimeline } from '@/components/news/NewsTimeline';
 import { NewsNav } from '@/components/news/NewsNav';
+import { NewsJsonLd } from '@/components/news/NewsJsonLd';
+import { Breadcrumbs } from '@/components/blog/Breadcrumbs';
 import Footer from '@/components/landing/Footer';
 
 interface Props {
@@ -16,15 +18,34 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const baseUrl = 'https://stylo.app';
+  const ogImage = `${baseUrl}/og-news.png`;
 
   return {
     title: 'News & Updates | Stylo',
     description: 'Latest news, updates, and improvements to Stylo - your AI text transformation tool.',
+    keywords: ['stylo news', 'updates', 'changelog', 'product updates', 'new features', 'improvements', 'AI writing', 'text transformation'],
     openGraph: {
       title: 'News & Updates | Stylo',
       description: 'Latest news, updates, and improvements to Stylo.',
       type: 'website',
       locale,
+      url: `${baseUrl}/${locale}/news`,
+      siteName: 'Stylo',
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: 'Stylo News & Updates',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'News & Updates | Stylo',
+      description: 'Latest news, updates, and improvements to Stylo.',
+      images: [ogImage],
+      creator: '@stylo_app',
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/news`,
@@ -48,11 +69,21 @@ export default async function NewsPage({ params }: Props) {
   const groupedNews = groupNewsByMonth(news, locale);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <NewsNav />
+    <>
+      <NewsJsonLd news={news} locale={locale} />
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <NewsNav />
 
       {/* Enhanced Hero Section */}
       <section className="relative overflow-hidden border-b border-slate-200 dark:border-slate-800">
+        {/* Breadcrumbs */}
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <Breadcrumbs
+            items={[
+              { label: 'News', href: '/news' },
+            ]}
+          />
+        </div>
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
           {/* Main gradient orb */}
@@ -70,7 +101,7 @@ export default async function NewsPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20 pt-8">
           <div className="text-center">
             {/* Badge with icon */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-800 mb-6 shadow-sm hover:shadow-md transition-shadow duration-300" style={{ transitionProperty: 'box-shadow' }}>
@@ -126,6 +157,7 @@ export default async function NewsPage({ params }: Props) {
       </section>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

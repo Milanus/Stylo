@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-04-humanize-response-fix",
+  "type": "fix",
+  "title": "Humanize Fix for Response Mode",
+  "description": "Fixed an issue where the Humanize feature would incorrectly edit the input text instead of generating a reply when using the Response transformation type.",
+  "date": "2024-02-04",
+  "version": "1.2.1"
+}

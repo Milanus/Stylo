@@ -17,6 +17,7 @@ import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
 import HistoryDrawer from '@/components/HistoryDrawer'
+import NewsDrawer from '@/components/NewsDrawer'
 import RateLimitModal from '@/components/RateLimitModal'
 import CustomPromptsSheet from '@/components/CustomPromptsSheet'
 import { useTranslations } from 'next-intl'
@@ -252,6 +253,9 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {/* News drawer - available for everyone */}
+            <NewsDrawer />
+
             {/* Show history only for authenticated users */}
             {!isAnonymous && (
               <HistoryDrawer onLoadTransformation={handleLoadTransformation} />
@@ -444,7 +448,7 @@ export default function DashboardPage() {
         <div className="flex-1 flex flex-col md:grid md:grid-cols-2 overflow-hidden">
           {/* Input */}
           <div className="flex flex-col flex-1 md:h-full md:border-r border-slate-200 dark:border-slate-800">
-            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
+            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0 h-10">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{t('input')}</span>
               <span className="text-xs text-slate-500 dark:text-slate-500">{inputText.length} {t('chars')}</span>
             </div>
@@ -461,7 +465,7 @@ export default function DashboardPage() {
 
           {/* Output */}
           <div className="flex flex-col flex-1 md:h-full border-t md:border-t-0 border-slate-200 dark:border-slate-800">
-            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
+            <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 flex-shrink-0 h-10">
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{t('output')}</span>
               {outputText && (
                 <Button

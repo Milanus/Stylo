@@ -76,6 +76,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/news"
+                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
+                  News
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/login"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 >

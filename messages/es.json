@@ -239,6 +239,20 @@
       "days": "hace {count}d"
     }
   },
+  "newsDrawer": {
+    "title": "Noticias y Actualizaciones",
+    "description": "Últimas funciones y mejoras",
+    "noNews": "No hay noticias disponibles",
+    "failedToLoad": "Error al cargar noticias",
+    "viewAll": "Ver Todas las Actualizaciones",
+    "tryAgain": "Intentar de Nuevo",
+    "types": {
+      "feature": "Función",
+      "fix": "Corrección",
+      "improvement": "Mejora",
+      "announcement": "Anuncio"
+    }
+  },
   "deleteAccount": {
     "title": "Eliminar Cuenta",
     "button": "Eliminar Cuenta",

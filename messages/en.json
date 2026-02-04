@@ -239,6 +239,20 @@
       "days": "{count}d ago"
     }
   },
+  "newsDrawer": {
+    "title": "News & Updates",
+    "description": "Latest features and improvements",
+    "noNews": "No news available",
+    "failedToLoad": "Failed to load news",
+    "viewAll": "View All Updates",
+    "tryAgain": "Try Again",
+    "types": {
+      "feature": "Feature",
+      "fix": "Fix",
+      "improvement": "Improvement",
+      "announcement": "Announcement"
+    }
+  },
   "deleteAccount": {
     "title": "Delete Account",
     "button": "Delete Account",

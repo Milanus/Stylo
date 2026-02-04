@@ -11,6 +11,7 @@ import { BlogJsonLd } from "@/components/blog/BlogJsonLd";
 import { Link } from "@/i18n/navigation";
 import { BlogNav } from "@/components/blog/BlogNav";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
+import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
 import Footer from "@/components/landing/Footer";
 
 interface Props {
@@ -98,6 +99,14 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="min-h-screen bg-white dark:bg-slate-950">
         <BlogNav />
         <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          {/* Breadcrumbs for SEO */}
+          <Breadcrumbs
+            items={[
+              { label: 'Blog', href: '/blog' },
+              { label: post.title, href: `/blog/${post.slug}` },
+            ]}
+          />
+
           {/* Back link */}
           <Link
             href="/blog"
