@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-security-and-model-validation",
+  "type": "improvement",
+  "title": "Bezpecnost a validace modelu",
+  "description": "Vylepsena bezpecnost API s validaci povoleneho seznamu modelu, omezenimi pristupu k modelum podle typu predplatneho a zlepsena autentifikace endpointu. Free uzivatele jsou nyni omezeni na cenove vyhodne modely, premium uzivatele maji plny pristup ke vsem poskytovelum a modelum.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

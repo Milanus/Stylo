@@ -144,8 +144,11 @@
     "input": "Eingabe",
     "output": "Ausgabe",
     "outputLanguage": "Ausgabesprache:",
+    "model": "Modell:",
+    "selectModel": "Modell wählen",
     "humanize": "Humanisieren",
     "humanizeLoginRequired": "Registrieren Sie sich für Humanisierung",
+    "modelLoginRequired": "Registrieren Sie sich für die KI-Modellauswahl",
     "chars": "Zeichen",
     "transform": "Transformieren",
     "transforming": "Transformiere...",
@@ -226,6 +229,19 @@
     "orWait": "Oder warten Sie {time} bis Ihr Limit zurückgesetzt wird",
     "resetIn": "Ihr Limit wird in {time} zurückgesetzt",
     "signUpFree": "Kostenlos Registrieren"
+  },
+  "modelLoginModal": {
+    "title": "Wählen Sie Ihr KI-Modell",
+    "description": "Erstellen Sie ein kostenloses Konto für die Modellauswahl:",
+    "benefit1": "Auswahl aus mehreren KI-Modellen",
+    "benefit2": "GPT-5, Claude, Gemini",
+    "benefit3": "Anbieter & Preise vergleichen",
+    "signUpFree": "Kostenlos Registrieren"
+  },
+  "modelLabels": {
+    "fast": "Schnell",
+    "medium": "Mittel",
+    "accurate": "Genau"
   },
   "historyDrawer": {
     "title": "Verlauf",

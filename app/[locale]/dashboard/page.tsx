@@ -12,17 +12,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Loader2, LogOut, Copy, Check, AlertCircle, Zap, UserPlus, BookOpen } from 'lucide-react'
+import { Loader2, LogOut, Copy, Check, AlertCircle, Zap, UserPlus, BookOpen, Lock } from 'lucide-react'
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js'
 import { SUPPORTED_LANGUAGES } from '@/lib/constants/languages'
 import DeleteAccountButton from '@/components/DeleteAccountButton'
 import HistoryDrawer from '@/components/HistoryDrawer'
 import NewsDrawer from '@/components/NewsDrawer'
 import RateLimitModal from '@/components/RateLimitModal'
+import ModelLoginModal from '@/components/ModelLoginModal'
 import CustomPromptsSheet from '@/components/CustomPromptsSheet'
 import { useTranslations } from 'next-intl'
 import { useTransformationTypes } from '@/hooks/useTransformationTypes'
 import { useUserPrompts } from '@/hooks/useUserPrompts'
+import { useAvailableModels } from '@/hooks/useAvailableModels'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -31,12 +33,16 @@ export default function DashboardPage() {
   const tCommon = useTranslations('common')
   const tTransformations = useTranslations('transformations')
   const tLanguages = useTranslations('languages')
+  const tModelLabels = useTranslations('modelLabels')
 
   // Fetch transformation types from API
   const { types: transformationTypes, isLoading: isLoadingTypes, error: typesError } = useTransformationTypes()
 
   // Fetch user prompts (only for authenticated users)
   const { prompts: userPrompts } = useUserPrompts()
+
+  // Fetch available models
+  const { data: modelsData } = useAvailableModels()
 
   const [user, setUser] = useState<User | null>(null)
   const [hasInitializedType, setHasInitializedType] = useState(false)
@@ -55,6 +61,9 @@ export default function DashboardPage() {
   const [isLoadingRateLimit, setIsLoadingRateLimit] = useState(true)
   const [selectedCustomPromptId, setSelectedCustomPromptId] = useState<string | null>(null)
   const [humanize, setHumanize] = useState(true)
+  const [selectedProvider, setSelectedProvider] = useState<string>('')
+  const [selectedModel, setSelectedModel] = useState<string>('')
+  const [showModelLoginModal, setShowModelLoginModal] = useState(false)
 
   // Derived state
   const isAnonymous = !user
@@ -93,6 +102,14 @@ export default function DashboardPage() {
       setHasInitializedType(true)
     }
   }, [hasInitializedType, isLoadingTypes, transformationTypes])
+
+  // Initialize default model from available models
+  useEffect(() => {
+    if (modelsData && !selectedProvider) {
+      setSelectedProvider(modelsData.defaultProvider || 'openai')
+      setSelectedModel(modelsData.defaultModel || 'gpt-5-nano')
+    }
+  }, [modelsData, selectedProvider])
 
   useEffect(() => {
     setIsMounted(true)
@@ -143,6 +160,8 @@ export default function DashboardPage() {
           : { transformationType: selectedType }),
         targetLanguage: selectedLanguage !== 'auto' ? selectedLanguage : undefined,
         humanize,
+        provider: selectedProvider || undefined,
+        model: selectedModel || undefined,
       }
 
       console.log('🚀 Transform request:', {
@@ -396,9 +415,60 @@ export default function DashboardPage() {
           <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 dark:from-slate-900/50 to-transparent pointer-events-none md:hidden"></div>
         </div>
 
-        {/* Options Bar - Language + Humanize */}
+        {/* Options Bar - Model + Language + Humanize */}
         <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 overflow-x-auto scrollbar-hide">
+            {/* Model Selector */}
+            {modelsData && modelsData.providers.length > 0 && (
+              <>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                    {t('model')}
+                  </span>
+                  {isAnonymous ? (
+                    <button
+                      onClick={() => setShowModelLoginModal(true)}
+                      title={t('modelLoginRequired')}
+                      className="flex items-center gap-2 w-[220px] h-8 px-3 text-xs rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+                    >
+                      <Lock className="h-3 w-3 flex-shrink-0" />
+                      <span className="truncate">{t('selectModel')}</span>
+                    </button>
+                  ) : (
+                    <Select
+                      value={selectedProvider && selectedModel ? `${selectedProvider}:${selectedModel}` : ''}
+                      onValueChange={(value) => {
+                        const [prov, ...modelParts] = value.split(':')
+                        const mod = modelParts.join(':')
+                        setSelectedProvider(prov)
+                        setSelectedModel(mod)
+                      }}
+                    >
+                      <SelectTrigger className="w-[220px] h-8 text-xs">
+                        <SelectValue placeholder={t('selectModel')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {modelsData.providers.flatMap((provider) =>
+                          provider.models.map((model) => (
+                            <SelectItem
+                              key={`${provider.provider}:${model.id}`}
+                              value={`${provider.provider}:${model.id}`}
+                              className="text-xs"
+                            >
+                              {model.name && ['fast', 'medium', 'accurate'].includes(model.name)
+                                ? tModelLabels(model.name as 'fast' | 'medium' | 'accurate')
+                                : model.name || model.id}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
+                  )}
+                </div>
+                <div className="w-px h-5 bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
+              </>
+            )}
+
             {!isAnonymous && (
               <>
                 <div className="flex items-center gap-2">
@@ -438,8 +508,12 @@ export default function DashboardPage() {
                     : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
               }`}
             >
-              <span>{isAnonymous ? '🔒' : humanize ? '🧑' : '🤖'}</span>
-              {t('humanize')}
+              {isAnonymous ? (
+                <Lock className="h-3 w-3 flex-shrink-0" />
+              ) : (
+                <span>{humanize ? '🧑' : '🤖'}</span>
+              )}
+              {isAnonymous ? t('humanizeLoginRequired') : t('humanize')}
             </button>
           </div>
         </div>
@@ -550,6 +624,12 @@ export default function DashboardPage() {
           resetTime={rateLimitResetTime}
           isAnonymous={isAnonymous}
           currentLimit={usageLimit}
+        />
+      )}
+      {showModelLoginModal && (
+        <ModelLoginModal
+          isOpen={showModelLoginModal}
+          onClose={() => setShowModelLoginModal(false)}
         />
       )}
     </div>

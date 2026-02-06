@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-security-and-model-validation",
+  "type": "improvement",
+  "title": "Sicherheit und Modellvalidierung",
+  "description": "Verbesserte API-Sicherheit mit Modell-Allowlist-Validierung, stufenbasierten Modellzugangsbeschrankungen und verbesserter Endpoint-Authentifizierung. Free-Nutzer sind jetzt auf kostengunstige Modelle beschrankt, wahrend Premium-Nutzer vollen Zugang zu allen Anbietern und Modellen haben.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

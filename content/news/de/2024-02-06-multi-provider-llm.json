@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-multi-provider-llm",
+  "type": "feature",
+  "title": "Multi-Provider KI-Modelle",
+  "description": "Stylo unterstutzt jetzt 4 KI-Anbieter: OpenAI (GPT-5 Nano, GPT-5 Mini, GPT-4o), Mistral AI, Google Gemini und Anthropic Claude. Wahlen Sie das beste Modell fur Ihre Aufgabe — vom schnellsten und gunstigsten GPT-5 Nano bis zum leistungsfahigsten Claude Sonnet.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

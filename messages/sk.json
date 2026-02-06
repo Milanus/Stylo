@@ -144,8 +144,11 @@
     "input": "Vstup",
     "output": "Výstup",
     "outputLanguage": "Výstupný jazyk:",
+    "model": "Model:",
+    "selectModel": "Vybrať model",
     "humanize": "Humanizovať",
     "humanizeLoginRequired": "Zaregistrujte sa pre použitie Humanizácie",
+    "modelLoginRequired": "Zaregistrujte sa pre výber AI modelov",
     "chars": "znakov",
     "transform": "Transformovať",
     "transforming": "Transformujem...",
@@ -226,6 +229,19 @@
     "orWait": "Alebo počkajte {time} na reset limitu",
     "resetIn": "Váš limit sa resetuje za {time}",
     "signUpFree": "Registrovať Zadarmo"
+  },
+  "modelLoginModal": {
+    "title": "Vyberte si AI model",
+    "description": "Vytvorte si bezplatný účet pre výber modelov:",
+    "benefit1": "Výber z niekoľkých AI modelov",
+    "benefit2": "GPT-5, Claude, Gemini",
+    "benefit3": "Porovnanie poskytovateľov a cien",
+    "signUpFree": "Registrovať Zadarmo"
+  },
+  "modelLabels": {
+    "fast": "Rýchly",
+    "medium": "Stredný",
+    "accurate": "Presný"
   },
   "historyDrawer": {
     "title": "História",

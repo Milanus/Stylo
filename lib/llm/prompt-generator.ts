@@ -1,4 +1,4 @@
-import { openai, DEFAULT_MODEL } from '@/lib/llm/openai'
+import { callLLM } from '@/lib/llm/provider'
 
 /**
  * Meta-prompt for generating custom user prompts
@@ -51,23 +51,15 @@ export async function generateUserPrompt(keywords: string[]): Promise<string> {
   const userMessage = META_PROMPT.replace('{keywords}', keywordList)
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: DEFAULT_MODEL,
-      messages: [
-        {
-          role: 'system',
-          content: 'You are a prompt engineering expert. Generate exact prompts as requested without any additional commentary.',
-        },
-        {
-          role: 'user',
-          content: userMessage,
-        },
-      ],
-      temperature: 0.7, // Balanced creativity
-      max_tokens: 600,
-    })
+    const result = await callLLM(
+      'You are a prompt engineering expert. Generate exact prompts as requested without any additional commentary.',
+      userMessage,
+      'openai',
+      undefined,
+      { temperature: 0.7, maxTokens: 600 }
+    )
 
-    const generatedPrompt = completion.choices[0]?.message?.content?.trim() || ''
+    const generatedPrompt = result.content.trim()
 
     if (!generatedPrompt) {
       throw new Error('Failed to generate prompt - empty response from LLM')

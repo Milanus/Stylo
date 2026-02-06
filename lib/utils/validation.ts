@@ -29,6 +29,8 @@ export const transformTextSchema = z
     customPromptId: z.string().uuid().optional(),
     targetLanguage: z.string().optional(),
     humanize: z.boolean().optional().default(true),
+    provider: z.enum(['openai', 'mistral', 'gemini', 'anthropic']).optional(),
+    model: z.string().max(100).optional(),
   })
   .refine((data) => data.transformationType || data.customPromptId, {
     message: 'Either transformationType or customPromptId is required',

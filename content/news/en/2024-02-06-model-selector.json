@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-model-selector",
+  "type": "feature",
+  "title": "Model Selector in Dashboard",
+  "description": "You can now choose which AI model to use directly from the dashboard. Models are grouped by provider with pricing info. Free users have access to cost-effective models like GPT-5 Nano and Gemini Flash, while premium users can use all available models.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

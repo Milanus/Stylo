@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-model-selector",
+  "type": "feature",
+  "title": "Modellauswahl im Dashboard",
+  "description": "Sie konnen jetzt direkt im Dashboard wahlen, welches KI-Modell Sie verwenden mochten. Modelle sind nach Anbieter gruppiert mit Preisinformationen. Free-Nutzer haben Zugang zu kostengunstigen Modellen wie GPT-5 Nano und Gemini Flash, Premium-Nutzer konnen alle verfugbaren Modelle nutzen.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

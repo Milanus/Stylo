@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-multi-provider-llm",
+  "type": "feature",
+  "title": "Multi-Provider AI Models",
+  "description": "Stylo now supports 4 AI providers: OpenAI (GPT-5 Nano, GPT-5 Mini, GPT-4o), Mistral AI, Google Gemini, and Anthropic Claude. Choose the best model for your task — from the fastest and cheapest GPT-5 Nano to the most capable Claude Sonnet.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

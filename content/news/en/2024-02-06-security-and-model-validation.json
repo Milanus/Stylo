@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-security-and-model-validation",
+  "type": "improvement",
+  "title": "Security & Model Validation",
+  "description": "Enhanced API security with model allowlist validation, tier-based model access restrictions, and improved endpoint authentication. Free users are now limited to cost-effective models, while premium users have full access to all providers and models.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

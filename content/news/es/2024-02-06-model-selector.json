@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-model-selector",
+  "type": "feature",
+  "title": "Selector de modelo en el panel",
+  "description": "Ahora puedes elegir que modelo de IA usar directamente desde el panel. Los modelos estan agrupados por proveedor con informacion de precios. Los usuarios gratuitos tienen acceso a modelos economicos como GPT-5 Nano y Gemini Flash, mientras que los usuarios premium pueden usar todos los modelos disponibles.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

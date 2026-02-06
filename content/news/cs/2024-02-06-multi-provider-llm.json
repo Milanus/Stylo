@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-multi-provider-llm",
+  "type": "feature",
+  "title": "Podpora vice AI modelu",
+  "description": "Stylo nyni podporuje 4 poskytovatele AI: OpenAI (GPT-5 Nano, GPT-5 Mini, GPT-4o), Mistral AI, Google Gemini a Anthropic Claude. Vyberte si nejlepsi model pro vas ukol — od nejrychlejsiho a nejlevnejsiho GPT-5 Nano az po nejschopnejsi Claude Sonnet.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

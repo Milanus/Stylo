@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { openai, DEFAULT_MODEL, MODEL_PRICING } from '@/lib/llm/openai'
+import { callLLM, DEFAULT_PROVIDER, getDefaultModel, isValidModel, isModelAllowedForTier, LLMProvider } from '@/lib/llm/provider'
 import { getUserPrompt } from '@/lib/llm/prompts'
 import { HUMANIZE_INSTRUCTIONS, HUMANIZE_SUFFIX } from '@/lib/constants/humanize-rules'
 import {
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { text, transformationType, customPromptId, targetLanguage, humanize } =
+    const { text, transformationType, customPromptId, targetLanguage, humanize, provider, model } =
       validationResult.data
 
     console.log('📥 Transform API received:', {
@@ -245,8 +245,28 @@ export async function POST(request: NextRequest) {
 
     const userPrompt = getUserPrompt(sanitizedText)
 
-    console.log('🤖 Sending to OpenAI:', {
-      model: DEFAULT_MODEL,
+    const selectedProvider: LLMProvider = provider || DEFAULT_PROVIDER
+    const selectedModel = model || getDefaultModel(selectedProvider)
+
+    // Validate model against provider's allowlist
+    if (model && !isValidModel(selectedProvider, selectedModel)) {
+      return NextResponse.json(
+        { error: `Invalid model "${model}" for provider "${selectedProvider}". Please choose a valid model.` },
+        { status: 400 }
+      )
+    }
+
+    // Enforce tier-based model restrictions
+    if (!isModelAllowedForTier(selectedProvider, selectedModel, tier)) {
+      return NextResponse.json(
+        { error: 'This model requires a paid subscription. Please upgrade or choose a different model.' },
+        { status: 403 }
+      )
+    }
+
+    console.log('🤖 Sending to LLM:', {
+      provider: selectedProvider,
+      model: selectedModel,
       isCustomPrompt: !!customPromptId,
     })
     console.log('📋 FULL SYSTEM PROMPT:')
@@ -255,27 +275,17 @@ export async function POST(request: NextRequest) {
     console.log('━'.repeat(80))
     console.log(`📏 Lengths: system=${systemPrompt.length} chars, user=${userPrompt.length} chars`)
 
-    const completion = await openai.chat.completions.create({
-      model: DEFAULT_MODEL,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: 0.3, // Lower temperature for more consistent results
-      max_tokens: 2000,
-    })
-
-    const transformedText = completion.choices[0]?.message?.content || ''
-    const tokensUsed = completion.usage?.total_tokens || 0
-
-    // 7. Calculate cost
-    const inputTokens = completion.usage?.prompt_tokens || 0
-    const outputTokens = completion.usage?.completion_tokens || 0
-    const pricing = MODEL_PRICING[DEFAULT_MODEL]
-    const costUsd = (
-      (inputTokens / 1_000_000) * pricing.input +
-      (outputTokens / 1_000_000) * pricing.output
+    const llmResponse = await callLLM(
+      systemPrompt,
+      userPrompt,
+      selectedProvider,
+      selectedModel,
+      { temperature: 0.3, maxTokens: 2000 }
     )
+
+    const transformedText = llmResponse.content
+    const tokensUsed = llmResponse.usage.totalTokens
+    const costUsd = llmResponse.costUsd
 
     const processingTime = Date.now() - startTime
 
@@ -288,7 +298,7 @@ export async function POST(request: NextRequest) {
           originalText: sanitizedText,
           transformedText,
           transformationType: effectiveTransformationType,
-          modelUsed: DEFAULT_MODEL,
+          modelUsed: llmResponse.model,
           tokensUsed,
           costUsd,
           processingTimeMs: processingTime,
@@ -341,7 +351,8 @@ export async function POST(request: NextRequest) {
           tokensUsed,
           costUsd: parseFloat(costUsd.toFixed(6)),
           processingTimeMs: processingTime,
-          model: DEFAULT_MODEL,
+          model: llmResponse.model,
+          provider: llmResponse.provider,
         },
         rateLimit: {
           remaining: rateLimitResult.remaining,
@@ -356,18 +367,26 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Transform API error:', error)
 
-    // Handle OpenAI specific errors
+    // Handle LLM API errors
     if (error.status === 401) {
       return NextResponse.json(
-        { error: 'OpenAI API authentication failed' },
+        { error: 'LLM API authentication failed' },
         { status: 500 }
       )
     }
 
     if (error.status === 429) {
       return NextResponse.json(
-        { error: 'OpenAI rate limit exceeded. Please try again later.' },
+        { error: 'LLM rate limit exceeded. Please try again later.' },
         { status: 429 }
+      )
+    }
+
+    // Handle missing API key errors
+    if (error.message?.includes('Missing') && error.message?.includes('environment variable')) {
+      return NextResponse.json(
+        { error: 'Selected provider is not available. Please choose a different model.' },
+        { status: 400 }
       )
     }
 

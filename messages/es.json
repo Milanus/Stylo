@@ -144,8 +144,11 @@
     "input": "Entrada",
     "output": "Salida",
     "outputLanguage": "Idioma de salida:",
+    "model": "Modelo:",
+    "selectModel": "Seleccionar modelo",
     "humanize": "Humanizar",
     "humanizeLoginRequired": "Regístrate para usar Humanizar",
+    "modelLoginRequired": "Regístrate para elegir modelos de IA",
     "chars": "caracteres",
     "transform": "Transformar",
     "transforming": "Transformando...",
@@ -226,6 +229,19 @@
     "orWait": "O espera {time} para que se reinicie tu límite",
     "resetIn": "Tu límite se reiniciará en {time}",
     "signUpFree": "Registrarse Gratis"
+  },
+  "modelLoginModal": {
+    "title": "Elige tu modelo de IA",
+    "description": "Crea una cuenta gratuita para desbloquear la selección de modelos:",
+    "benefit1": "Elige entre varios modelos de IA",
+    "benefit2": "GPT-5, Claude, Gemini",
+    "benefit3": "Compara proveedores y precios",
+    "signUpFree": "Registrarse Gratis"
+  },
+  "modelLabels": {
+    "fast": "Rápido",
+    "medium": "Medio",
+    "accurate": "Preciso"
   },
   "historyDrawer": {
     "title": "Historial",

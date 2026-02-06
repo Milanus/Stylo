@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-06-model-selector",
+  "type": "feature",
+  "title": "Vyber modelu v dashboarde",
+  "description": "Teraz si mozete vybrat ktory AI model chcete pouzit priamo z dashboardu. Modely su zoskupene podla providera s informaciou o cene. Free pouzivatelia maju pristup k cenovo vyhodnym modelom ako GPT-5 Nano a Gemini Flash, premium pouzivatelia mozu pouzivat vsetky dostupne modely.",
+  "date": "2024-02-06",
+  "version": "1.4.0"
+}

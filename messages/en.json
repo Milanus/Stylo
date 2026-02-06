@@ -144,8 +144,11 @@
     "input": "Input",
     "output": "Output",
     "outputLanguage": "Output language:",
+    "model": "Model:",
+    "selectModel": "Select model",
     "humanize": "Humanize",
     "humanizeLoginRequired": "Sign up to use Humanize",
+    "modelLoginRequired": "Sign up to choose AI models",
     "chars": "chars",
     "transform": "Transform",
     "transforming": "Transforming...",
@@ -226,6 +229,19 @@
     "orWait": "Or wait {time} for your limit to reset",
     "resetIn": "Your limit will reset in {time}",
     "signUpFree": "Sign Up Free"
+  },
+  "modelLoginModal": {
+    "title": "Choose Your AI Model",
+    "description": "Create a free account to unlock model selection:",
+    "benefit1": "Choose from several AI models",
+    "benefit2": "GPT-5, Claude, Gemini",
+    "benefit3": "Compare providers & pricing",
+    "signUpFree": "Sign Up Free"
+  },
+  "modelLabels": {
+    "fast": "Fast",
+    "medium": "Medium",
+    "accurate": "Accurate"
   },
   "historyDrawer": {
     "title": "History",
