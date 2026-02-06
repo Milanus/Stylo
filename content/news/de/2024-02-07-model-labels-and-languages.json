@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-07-model-labels-and-languages",
+  "type": "improvement",
+  "title": "Vereinfachte Modellauswahl und neue Sprachen",
+  "description": "Die Modellauswahl zeigt jetzt klare Bezeichnungen — Schnell, Mittel und Genau — anstelle technischer Modellnamen. Wir haben auch Deutsch und Französisch als Ausgabesprachen hinzugefügt.",
+  "date": "2024-02-07",
+  "version": "1.5.0"
+}

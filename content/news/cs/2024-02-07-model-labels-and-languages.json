@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-07-model-labels-and-languages",
+  "type": "improvement",
+  "title": "Zjednoduseny vyber modelu a nove jazyky",
+  "description": "Vyber modelu nyni zobrazuje srozumitelne nazvy — Rychly, Stredni a Presny — namisto technickych nazvu modelu. Pridali jsme take nemcinu a francouzstinu jako moznosti vystupniho jazyka.",
+  "date": "2024-02-07",
+  "version": "1.5.0"
+}

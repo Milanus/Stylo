@@ -1,0 +1,8 @@
+{
+  "id": "2024-02-07-model-labels-and-languages",
+  "type": "improvement",
+  "title": "Simplified Model Selector & New Languages",
+  "description": "The model selector now shows clear labels — Fast, Medium, and Accurate — instead of technical model names. We also added German and French as output language options.",
+  "date": "2024-02-07",
+  "version": "1.5.0"
+}

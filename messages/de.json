@@ -214,6 +214,10 @@
     "sales-ad": {
       "label": "Verkaufsanzeige",
       "description": "Überzeugende Verkaufsanzeigen erstellen"
+    },
+    "business-email": {
+      "label": "Geschäfts-E-Mail",
+      "description": "Text in eine professionelle Geschäfts-E-Mail umwandeln"
     }
   },
   "rateLimitModal": {
@@ -309,7 +313,8 @@
     "sk": "Slowakisch",
     "en": "Englisch",
     "es": "Spanisch",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "fr": "Französisch"
   },
   "languageSwitcher": {
     "label": "Sprache",

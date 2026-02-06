@@ -227,6 +227,7 @@ export async function POST(request: NextRequest) {
         'en': 'English',
         'es': 'Spanish',
         'de': 'German',
+        'fr': 'French',
       }
       const langName = languageNames[targetLanguage] || targetLanguage
       systemPrompt = systemPrompt.replace(

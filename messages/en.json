@@ -214,6 +214,10 @@
     "sales-ad": {
       "label": "Sales Ad",
       "description": "Create compelling sales advertisements"
+    },
+    "business-email": {
+      "label": "Business Email",
+      "description": "Transform text into a professional business email"
     }
   },
   "rateLimitModal": {
@@ -309,7 +313,8 @@
     "sk": "Slovak",
     "en": "English",
     "es": "Spanish",
-    "de": "German"
+    "de": "German",
+    "fr": "French"
   },
   "languageSwitcher": {
     "label": "Language",

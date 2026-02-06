@@ -214,6 +214,10 @@
     "sales-ad": {
       "label": "Prodejní inzerát",
       "description": "Vytvořit přesvědčivý prodejní inzerát"
+    },
+    "business-email": {
+      "label": "Firemní email",
+      "description": "Transformovat text na profesionální firemní email"
     }
   },
   "rateLimitModal": {
@@ -309,7 +313,8 @@
     "sk": "Slovenčina",
     "en": "Angličtina",
     "es": "Španělština",
-    "de": "Němčina"
+    "de": "Němčina",
+    "fr": "Francouzština"
   },
   "languageSwitcher": {
     "label": "Jazyk",

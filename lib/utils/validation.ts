@@ -25,6 +25,7 @@ export const transformTextSchema = z
       'response',
       'keywords',
       'sales-ad',
+      'business-email',
     ]).optional(),
     customPromptId: z.string().uuid().optional(),
     targetLanguage: z.string().optional(),

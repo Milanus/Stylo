@@ -214,6 +214,10 @@
     "sales-ad": {
       "label": "Anuncio de venta",
       "description": "Crear anuncios de venta convincentes"
+    },
+    "business-email": {
+      "label": "Email empresarial",
+      "description": "Transformar texto en un email empresarial profesional"
     }
   },
   "rateLimitModal": {
@@ -309,7 +313,8 @@
     "sk": "Eslovaco",
     "en": "Inglés",
     "es": "Español",
-    "de": "Alemán"
+    "de": "Alemán",
+    "fr": "Francés"
   },
   "languageSwitcher": {
     "label": "Idioma",

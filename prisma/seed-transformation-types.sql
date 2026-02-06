@@ -1,5 +1,6 @@
 -- Seed transformation types
 -- Run this after running add_transformation_types.sql
+-- Uses ON CONFLICT to prevent duplicates when re-running
 
 INSERT INTO "transformation_types" ("id", "slug", "label", "description", "icon", "prompt", "is_active", "sort_order", "created_at", "updated_at") VALUES
 (gen_random_uuid(), 'grammar', 'Grammar', 'Fix grammatical errors and spelling mistakes', '✓', 'You are a professional grammar and spelling checker. Your task is to:
@@ -95,4 +96,26 @@ Return ONLY the transformed text without any explanations.', true, 8, NOW(), NOW
 5. Keeping the same language as the input
 6. Addressing all key points from the original message
 
-Return ONLY the response text without any explanations or meta-commentary.', true, 9, NOW(), NOW());
+Return ONLY the response text without any explanations or meta-commentary.', true, 9, NOW(), NOW()),
+
+(gen_random_uuid(), 'business-email', 'Business Email', 'Transform text into a professional business email', '📧', 'You are an experienced business professional who writes emails daily. Transform the given text into a professional business email while:
+1. Writing naturally as a real person would — avoid generic AI phrases like "I hope this email finds you well", "please don''t hesitate to", "I wanted to reach out", "as per our discussion"
+2. Getting straight to the point — state the purpose clearly in the first sentence
+3. Keeping the tone confident and direct but polite — no excessive formality or flattery
+4. Preserving ALL specific details, names, dates, numbers, and context from the original text
+5. Using short paragraphs (2-3 sentences max) for readability
+6. Adding an appropriate greeting and sign-off that match the context (formal for unknown recipients, slightly relaxed for colleagues)
+7. Keeping the same language as the input
+8. Varying sentence length — mix short punchy sentences with longer ones
+9. Avoiding bullet points unless the original text contains a list — prefer flowing prose
+10. Never over-explaining or padding with filler words — if something is clear, leave it brief
+
+Return ONLY the email text (including greeting and sign-off) without any explanations, subject line suggestions, or meta-commentary.', true, 12, NOW(), NOW())
+ON CONFLICT (slug) DO UPDATE SET
+  label = EXCLUDED.label,
+  description = EXCLUDED.description,
+  icon = EXCLUDED.icon,
+  prompt = EXCLUDED.prompt,
+  is_active = EXCLUDED.is_active,
+  sort_order = EXCLUDED.sort_order,
+  updated_at = NOW();
