@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-gemini-2-5-models",
+  "type": "feature",
+  "title": "Google Gemini 2.5 Models",
+  "description": "We've upgraded Google Gemini to the latest 2.5 generation. Three new models are now available for all users: Gemini 2.5 Pro for maximum quality, Gemini 2.5 Flash for a balance of speed and intelligence, and Gemini 2.5 Flash Lite for ultra-fast responses.",
+  "date": "2024-02-07"
+}

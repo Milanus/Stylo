@@ -68,6 +68,6 @@ logs/
 
 /lib/generated/prisma
 
-# Documentation with sensitive information
-docs/QUICK_START.md
-docs/GOOGLE_OAUTH_SETUP.md
+# Documentation
+*.md
+!README.md

@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-rate-limits-fix",
+  "type": "fix",
+  "title": "Oprava chyby rate limitov",
+  "description": "Opraveny problem, pri ktorom sa rate limity neuplatnovali spravne, co mohlo sposobovat neocakavane chyby pre niektorych pouzivatelov. Rate limiting teraz funguje spolahlivo pre vsetky urovne.",
+  "date": "2024-02-07"
+}

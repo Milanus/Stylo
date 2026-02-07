@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-dashboard-scroll-fix",
+  "type": "improvement",
+  "title": "Vylepsene scrollovanie v dashboarde",
+  "description": "Textove pole v dashboarde teraz podporuje plynule scrollovanie pre dlhsie texty. Pisanie a uprava rozsiahlych dokumentov je teraz pohodlnejsia a responzivnejsia.",
+  "date": "2024-02-07"
+}

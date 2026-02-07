@@ -7,7 +7,7 @@ import {
   sanitizeText,
   detectPromptInjection,
 } from '@/lib/utils/validation'
-import { checkRateLimit } from '@/lib/utils/rate-limit'
+import { checkRateLimit, refundRateLimitUse } from '@/lib/utils/rate-limit'
 import { prisma } from '@/lib/db/prisma'
 import { createClient } from '@/lib/auth/supabase-server'
 import { getCachedTransformationPrompt } from '@/lib/cache/transformation-types'
@@ -26,6 +26,7 @@ function validateApiKey(request: NextRequest): boolean {
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
+  let rateLimitIdentifier: string | null = null
 
   try {
     // 0. Validate API Key
@@ -144,7 +145,7 @@ export async function POST(request: NextRequest) {
     const { limit, window, tier } = getUserRateLimit(isAuthenticated, subscriptionTier)
 
     // Use fingerprint for anonymous to prevent simple IP rotation attacks
-    const rateLimitIdentifier = isAuthenticated
+    rateLimitIdentifier = isAuthenticated
       ? userId!
       : getAnonymousFingerprint(request, clientIp)
     const rateLimitMax = limit
@@ -281,7 +282,7 @@ export async function POST(request: NextRequest) {
       userPrompt,
       selectedProvider,
       selectedModel,
-      { temperature: 0.3, maxTokens: 2000 }
+      { temperature: humanize ? 0.6 : 0.3, maxTokens: 2000 }
     )
 
     const transformedText = llmResponse.content
@@ -367,6 +368,12 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('Transform API error:', error)
+
+    // Refund rate limit use on server-side failures - user shouldn't lose a use
+    // for errors they can't control (LLM failures, missing API keys, etc.)
+    if (rateLimitIdentifier) {
+      await refundRateLimitUse(rateLimitIdentifier)
+    }
 
     // Handle LLM API errors
     if (error.status === 401) {

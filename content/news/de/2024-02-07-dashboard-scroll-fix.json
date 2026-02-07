@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-dashboard-scroll-fix",
+  "type": "improvement",
+  "title": "Verbessertes Scrollen im Dashboard",
+  "description": "Das Texteingabefeld im Dashboard unterstutzt jetzt flussiges Scrollen fur langere Texte. Das Schreiben und Bearbeiten umfangreicher Dokumente ist jetzt komfortabler und reaktionsschneller.",
+  "date": "2024-02-07"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-rate-limits-fix",
+  "type": "fix",
+  "title": "Rate-Limiting-Fehler behoben",
+  "description": "Ein Problem wurde behoben, bei dem Rate-Limits nicht korrekt angewendet wurden, was bei einigen Nutzern zu unerwarteten Fehlern fuhren konnte. Das Rate-Limiting funktioniert jetzt zuverlassig fur alle Stufen.",
+  "date": "2024-02-07"
+}

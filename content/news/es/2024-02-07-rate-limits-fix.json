@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-rate-limits-fix",
+  "type": "fix",
+  "title": "Correccion de error en limites de uso",
+  "description": "Se corrigio un problema donde los limites de uso no se aplicaban correctamente, lo que podia causar errores inesperados para algunos usuarios. Los limites de uso ahora funcionan de manera confiable en todos los niveles.",
+  "date": "2024-02-07"
+}

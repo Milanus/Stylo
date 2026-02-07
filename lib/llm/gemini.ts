@@ -5,9 +5,9 @@ let geminiClient: GoogleGenerativeAI | null = null
 
 export function getGeminiClient(): GoogleGenerativeAI {
   if (!geminiClient) {
-    const apiKey = process.env.GOOGLE_AI_API_KEY
+    const apiKey = process.env.GEMINI_API_KEY
     if (!apiKey) {
-      throw new Error('Missing GOOGLE_AI_API_KEY environment variable')
+      throw new Error('Missing GEMINI_API_KEY environment variable')
     }
     geminiClient = new GoogleGenerativeAI(apiKey)
   }
@@ -15,17 +15,17 @@ export function getGeminiClient(): GoogleGenerativeAI {
 }
 
 // Default model for Gemini
-export const DEFAULT_GEMINI_MODEL = 'gemini-2.0-flash'
+export const DEFAULT_GEMINI_MODEL = 'gemini-2.5-flash'
 
 // Gemini model pricing (per 1M tokens)
 export const GEMINI_MODEL_PRICING = {
-  'gemini-2.0-flash': {
+  'gemini-2.5-flash': {
+    input: 0.30,
+    output: 2.50,
+  },
+  'gemini-2.5-flash-lite': {
     input: 0.10,
     output: 0.40,
-  },
-  'gemini-2.0-flash-lite': {
-    input: 0.075,
-    output: 0.30,
   },
 } as const
 

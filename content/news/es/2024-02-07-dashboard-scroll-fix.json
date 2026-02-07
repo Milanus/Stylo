@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-dashboard-scroll-fix",
+  "type": "improvement",
+  "title": "Desplazamiento mejorado en el dashboard",
+  "description": "El area de texto en el dashboard ahora admite un desplazamiento fluido para textos mas largos. Escribir y editar documentos extensos es ahora mas comodo y responsivo.",
+  "date": "2024-02-07"
+}

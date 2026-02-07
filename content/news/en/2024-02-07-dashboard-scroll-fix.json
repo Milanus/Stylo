@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-dashboard-scroll-fix",
+  "type": "improvement",
+  "title": "Improved Dashboard Input Scrolling",
+  "description": "The text input area in the dashboard now supports smooth scrolling for longer texts. Writing and editing large documents is now more comfortable and responsive.",
+  "date": "2024-02-07"
+}

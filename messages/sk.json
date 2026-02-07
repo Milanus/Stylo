@@ -245,7 +245,12 @@
   "modelLabels": {
     "fast": "Rýchly",
     "medium": "Stredný",
-    "accurate": "Presný"
+    "accurate": "Presný",
+    "lightning": "Bleskový",
+    "balanced": "Vyvážený",
+    "precise": "Precízny",
+    "swift": "Svižný",
+    "smart": "Šikovný"
   },
   "historyDrawer": {
     "title": "História",

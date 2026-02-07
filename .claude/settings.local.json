@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Skill(claude-android-skill-main)",
-      "Skill(claude-android-skill-main:*)"
+      "Skill(claude-android-skill-main:*)",
+      "Bash(ls:*)",
+      "Bash(git -C /Users/milanschon/Desktop/helper_projekt/text-editor-app diff --name-only)",
+      "Bash(find:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

@@ -245,7 +245,12 @@
   "modelLabels": {
     "fast": "Rápido",
     "medium": "Medio",
-    "accurate": "Preciso"
+    "accurate": "Preciso",
+    "lightning": "Relámpago",
+    "balanced": "Equilibrado",
+    "precise": "Preciso",
+    "swift": "Ágil",
+    "smart": "Inteligente"
   },
   "historyDrawer": {
     "title": "Historial",

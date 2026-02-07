@@ -183,7 +183,8 @@ export default function DashboardPage() {
 
       if (!response.ok) {
         if (response.status === 429) {
-          // Rate limit exceeded - show modal
+          // Rate limit exceeded - update remaining from response and show modal
+          setUsageRemaining(data.remaining ?? 0)
           setRateLimitResetTime(data.resetAt)
           setShowRateLimitModal(true)
           setError(t('errors.rateLimitReached'))
@@ -201,6 +202,9 @@ export default function DashboardPage() {
       setError(t('errors.networkError'))
     } finally {
       setIsLoading(false)
+      // Always refresh rate limit status after any attempt (success or failure)
+      // The counter increments on every attempt, so we need to keep the display in sync
+      await fetchRateLimitStatus()
     }
   }
 
@@ -531,7 +535,7 @@ export default function DashboardPage() {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder={selectedType === 'response' ? t('placeholders.inputResponse') : t('placeholders.input')}
-                className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
+                className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono field-sizing-fixed overflow-y-auto"
                 maxLength={10000}
               />
             </div>
@@ -567,7 +571,7 @@ export default function DashboardPage() {
                 value={outputText}
                 onChange={(e) => setOutputText(e.target.value)}
                 placeholder={selectedType === 'response' ? t('placeholders.outputResponse') : t('placeholders.output')}
-                className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono"
+                className="h-full w-full border-0 rounded-none resize-none focus-visible:ring-0 text-sm p-3 font-mono field-sizing-fixed overflow-y-auto"
               />
             </div>
           </div>

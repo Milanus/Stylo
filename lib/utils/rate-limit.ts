@@ -50,6 +50,22 @@ export async function checkRateLimit(
   }
 }
 
+/**
+ * Refund a rate limit use (e.g. when a request fails due to server error).
+ * Decrements the counter so the user doesn't lose a use for a failed attempt.
+ */
+export async function refundRateLimitUse(identifier: string): Promise<void> {
+  const key = `rate_limit:${identifier}`
+  try {
+    const current = await redis.get<number>(key)
+    if (current && current > 0) {
+      await redis.decr(key)
+    }
+  } catch (error) {
+    console.error('Failed to refund rate limit use:', error)
+  }
+}
+
 export async function getRemainingQuota(
   identifier: string,
   limit: number = 10

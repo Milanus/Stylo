@@ -1,0 +1,7 @@
+{
+  "id": "2024-02-07-rate-limits-fix",
+  "type": "fix",
+  "title": "Rate Limiting Bug Fix",
+  "description": "Fixed an issue where rate limits were not being applied correctly, which could cause unexpected errors for some users. Rate limiting now works reliably across all tiers.",
+  "date": "2024-02-07"
+}

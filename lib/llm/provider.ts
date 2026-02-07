@@ -75,7 +75,7 @@ export function isMistralAvailable(): boolean {
 }
 
 export function isGeminiAvailable(): boolean {
-  return !!process.env.GOOGLE_AI_API_KEY
+  return !!process.env.GEMINI_API_KEY
 }
 
 export function isAnthropicAvailable(): boolean {
@@ -107,8 +107,8 @@ export function isValidModel(provider: LLMProvider, model: string): boolean {
 // Paid users have access to all models
 export const FREE_TIER_MODELS: Record<LLMProvider, string[]> = {
   openai: ['gpt-5-nano', 'gpt-5-mini', 'gpt-4o-mini'],
-  mistral: ['mistral-small-latest'],
-  gemini: ['gemini-2.0-flash', 'gemini-2.0-flash-lite'],
+  mistral: ['mistral-small-latest', 'mistral-medium-latest', 'mistral-large-latest'],
+  gemini: ['gemini-2.5-flash', 'gemini-2.5-flash-lite'],
   anthropic: ['claude-haiku-4-5-20251001'],
 }
 
@@ -339,9 +339,17 @@ export function getAvailableProviders(): Array<{
 
   // Model display names - these are translation keys used by the client (modelLabels.fast, etc.)
   const MODEL_DISPLAY_NAMES: Record<string, string> = {
+    // OpenAI
     'gpt-4o-mini': 'fast',
     'gpt-5-nano': 'medium',
     'gpt-5-mini': 'accurate',
+    // Mistral
+    'mistral-small-latest': 'lightning',
+    'mistral-medium-latest': 'balanced',
+    'mistral-large-latest': 'precise',
+    // Gemini
+    'gemini-2.5-flash-lite': 'swift',
+    'gemini-2.5-flash': 'smart',
   }
 
   const buildModels = (
